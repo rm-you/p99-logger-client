@@ -3,7 +3,8 @@
 A native Rust client that logs into Project 1999, enters an existing character,
 keeps the character at its saved position, and writes received communications
 as JSONL. It runs headlessly without Wine, the EverQuest executable, or game
-assets at runtime.
+assets at runtime. The small checksum inventory required by the server is built
+into the executable image.
 
 The client targets the Titanium/P99 V62 protocol. Live tests on P99 Green have
 received auction and OOC messages, including complete item-link data. It never
@@ -23,12 +24,11 @@ The public P99 server-list names are:
 | Green | `Project 1999: Green (Velious, PvE)` |
 | Blue | `Project 1999: Blue (Velious, PvE)` |
 
-For example, a fictional Blue configuration starts with:
+The only required values are the login account, password, server, and
+character. A fictional Blue configuration is:
 
 ```json
 {
-  "host": "login.eqemulator.net",
-  "port": 5998,
   "user": "EXAMPLE_LOGIN_ACCOUNT",
   "pass": "EXAMPLE_PASSWORD",
   "server": "Project 1999: Blue (Velious, PvE)",
@@ -36,15 +36,22 @@ For example, a fictional Blue configuration starts with:
 }
 ```
 
-The remaining paths and reconnect setting are shown in
-[`config.example.json`](config.example.json). The account and character must
-already exist; this client does not create or modify them. The `server` value
-is matched case-insensitively against the name returned by the live server
-list, so retain its punctuation and spacing.
+The account and character must already exist; this client does not create or
+modify them. The `server` value is matched case-insensitively against the name
+returned by the live server list, so retain its punctuation and spacing.
 
-The server's validation exchange requires file checksums from a current P99
-installation. Generate the inventory once after each P99 patch; the game files
-are not needed afterward:
+The optional fields are `host` (default `login.eqemulator.net`), `port`
+(default `5998`), `assets`, `output`, `health`, and `reconnect_seconds` (default
+`30`). With no `output`, JSONL is written only to standard output. When
+`assets` is omitted, the client uses the inventory compiled into the binary;
+set it to a readable path to override that inventory. The example supplies the
+fixed `output` and `health` paths used by Compose, so users still edit only the
+four required values.
+
+The repository and published image include the checksum inventory for the
+current P99 files. To override it after a P99 patch or add files requested by a
+different zone, generate an inventory from a current installation; the game
+files are not needed afterward:
 
 ```sh
 mkdir -p .local/collector/config .local/collector/data
@@ -57,6 +64,9 @@ docker run --rm --network none --user "$(id -u):$(id -g)" \
   ghcr.io/rm-you/p99-logger-client:latest \
   scan-assets /eq /out/assets.json
 ```
+
+Then add `"assets": "/config/assets.json"` to the private configuration. The
+Compose configuration already mounts that directory read-only at `/config`.
 
 The default inventory list covers the world manifest and East Commonlands.
 Other zones may request additional files. Add their filenames to a text file
