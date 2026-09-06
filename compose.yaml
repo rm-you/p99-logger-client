@@ -1,0 +1,25 @@
+services:
+  collector:
+    build: .
+    image: ghcr.io/rm-you/p99-logger-client:latest
+    user: "${P99_UID:-1000}:${P99_GID:-1000}"
+    command: ["/config/config.json"]
+    restart: unless-stopped
+    stop_grace_period: 30s
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - ./.local/collector/config:/config:ro
+      - ./.local/collector/data:/data
+    healthcheck:
+      test: ["CMD", "/p99-logger-client", "health", "/data/health.json"]
+      interval: 30s
+      timeout: 5s
+      start_period: 90s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
