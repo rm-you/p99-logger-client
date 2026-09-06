@@ -41,12 +41,12 @@ modify them. The `server` value is matched case-insensitively against the name
 returned by the live server list, so retain its punctuation and spacing.
 
 The optional fields are `host` (default `login.eqemulator.net`), `port`
-(default `5998`), `assets`, `output`, `health`, and `reconnect_seconds` (default
-`30`). With no `output`, JSONL is written only to standard output. When
-`assets` is omitted, the client uses the inventory compiled into the binary;
-set it to a readable path to override that inventory. The example supplies the
-fixed `output` and `health` paths used by Compose, so users still edit only the
-four required values.
+(default `5998`), `assets`, `output`, `health`, `include_raw` (default `false`),
+and `reconnect_seconds` (default `30`). With no `output`, JSONL is written only
+to standard output. When `assets` is omitted, the client uses the inventory
+compiled into the binary; set it to a readable path to override that inventory.
+The example supplies the fixed `output` and `health` paths used by Compose, so
+users still edit only the four required values.
 
 The repository and published image include the checksum inventory for the
 current P99 files. To override it after a P99 patch or add files requested by a
@@ -100,16 +100,17 @@ and keeps retrying; it does not reuse the rejected session's keys.
 ## JSONL records
 
 Each record includes a UTC timestamp, server, character, zone, local session
-ID, message ID, numeric channel, channel name, sender, target, language, and
-original opcode. It retains both readable text and the complete original
-message/payload bytes as hex.
+ID, message ID, numeric channel, channel name, sender, nonempty target, and
+original opcode. Successfully decoded records contain readable text without
+duplicating the original packet and message bytes. Set `include_raw` to `true`
+when collecting reverse-engineering data to add `payload_hex`, `message`, and
+`message_hex`.
 
-Item links retain their complete 45-character body, label, item ID, hash, and
-byte offsets. The body and packet bytes remain available losslessly without
-surfacing unused augment or evolving-item fields. MOTD, guild MOTD, emotes,
+Item links retain their complete 45-character body, label, item ID, and wire
+byte offsets. Empty item-link arrays are omitted. MOTD, guild MOTD, emotes,
 special messages, and string-table messages are also logged. Unknown channel
 IDs are preserved rather than dropped. Malformed recognized communication
-packets produce `decode_error` records with their original bytes.
+packets always produce `decode_error` records with their original bytes.
 
 Auction and OOC have live native coverage. Guild, group, shout, tell, say,
 raid, broadcast, GM-say, emote, and unknown channel IDs share the tested

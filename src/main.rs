@@ -41,6 +41,8 @@ struct Config {
     output: Option<PathBuf>,
     #[serde(default)]
     health: Option<PathBuf>,
+    #[serde(default)]
+    include_raw: bool,
     #[serde(default = "default_reconnect")]
     reconnect_seconds: u64,
 }
@@ -86,6 +88,7 @@ mod config_tests {
         assert_eq!(config.reconnect_seconds, 30);
         assert_eq!(config.output, None);
         assert_eq!(config.health, None);
+        assert!(!config.include_raw);
     }
 
     #[test]
@@ -105,6 +108,22 @@ mod config_tests {
         )
         .unwrap();
         assert_eq!(config.assets, Some(PathBuf::from("/custom/assets.json")));
+    }
+
+    #[test]
+    fn raw_packet_logging_is_opt_in() {
+        let config: Config = serde_json::from_str(
+            r#"{
+                "user": "EXAMPLE_LOGIN_ACCOUNT",
+                "pass": "EXAMPLE_PASSWORD",
+                "server": "Project 1999: Blue (Velious, PvE)",
+                "character": "ExampleCharacter",
+                "include_raw": true
+            }"#,
+        )
+        .unwrap();
+
+        assert!(config.include_raw);
     }
 }
 
@@ -471,7 +490,7 @@ fn world(
     let mut entered = false;
     loop {
         let mut packet = next(&mut session, deadline, stop)?;
-        if let Some(event) = chat::parse(packet.opcode, &packet.body)? {
+        if let Some(event) = chat::parse(packet.opcode, &packet.body, config.include_raw)? {
             log.emit(config, "", event)?;
         }
         eprintln!(
@@ -701,7 +720,7 @@ fn zone(
             session.send(0x5966, &[])?;
             requested = true;
         }
-        match chat::parse(packet.opcode, &packet.body) {
+        match chat::parse(packet.opcode, &packet.body, config.include_raw) {
             Ok(Some(event)) => log.emit(config, &zone_name, event)?,
             Ok(None) => (),
             Err(error) => log.emit(
@@ -785,7 +804,7 @@ fn main() -> Result<()> {
                     continue;
                 }
                 let body = hex::decode(&record.payload_hex)?;
-                if let Some(event) = chat::parse(record.opcode, &body)? {
+                if let Some(event) = chat::parse(record.opcode, &body, true)? {
                     serde_json::to_writer(
                         &mut output,
                         &TimestampedEvent {
