@@ -195,9 +195,7 @@ pub fn message(bytes: &[u8], include_raw: bool) -> Message {
                         end: end + 1,
                         item_id: hex_number(&body[1..6]),
                     });
-                    readable.push(b'[');
                     readable.extend_from_slice(label);
-                    readable.push(b']');
                     pos = end + 1;
                     continue;
                 }
@@ -319,6 +317,7 @@ mod tests {
         let event = message(&input, false);
         assert_eq!(event.message, None);
         assert_eq!(event.message_hex, None);
+        assert_eq!(event.text, "WTS Item �");
         assert_eq!(event.item_links[0].item_id, 42);
         assert_eq!(event.item_links[0].start, 4);
         assert_eq!(event.item_links[0].end, 55);
