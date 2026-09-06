@@ -1,0 +1,12 @@
+{
+  "host": "login.eqemulator.net",
+  "port": 5998,
+  "user": "YOUR_LOGIN_ACCOUNT",
+  "pass": "YOUR_PASSWORD",
+  "server": "Project 1999: Green (Velious, PvE)",
+  "character": "YOUR_CHARACTER",
+  "assets": "/config/assets.json",
+  "output": "/data/chat.jsonl",
+  "health": "/data/health.json",
+  "reconnect_seconds": 30
+}
