@@ -1,5 +1,5 @@
 use anyhow::{ensure, Result};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 /// Titanium uses mixed polarity: guild/social/group/shout/auction/OOC and
 /// melee-miss filters show messages when set to one. Most spell filters use
@@ -13,13 +13,16 @@ pub fn server_filters() -> [u8; 116] {
     filters
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ChannelName {
+    #[serde(alias = "gu", alias = "/gu")]
     Guild,
     Group,
     Shout,
+    #[serde(alias = "auc", alias = "/auc")]
     Auction,
+    #[serde(alias = "/ooc")]
     Ooc,
     Broadcast,
     Tell,

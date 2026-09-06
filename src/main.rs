@@ -13,6 +13,7 @@ use p99_logger_client::{
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::{
+    collections::HashSet,
     fs,
     io::{self, Write},
     net::{IpAddr, ToSocketAddrs},
@@ -43,9 +44,21 @@ struct Config {
     health: Option<PathBuf>,
     #[serde(default)]
     include_raw: bool,
+    #[serde(default)]
+    channels: Option<HashSet<chat::ChannelName>>,
     #[serde(default = "default_reconnect")]
     reconnect_seconds: u64,
 }
+
+impl Config {
+    /// Return whether a decoded communication belongs in the JSONL output.
+    fn logs(&self, event: &chat::ChatEvent) -> bool {
+        self.channels
+            .as_ref()
+            .is_none_or(|channels| channels.contains(&event.channel_name))
+    }
+}
+
 fn default_host() -> String {
     "login.eqemulator.net".into()
 }
@@ -89,6 +102,7 @@ mod config_tests {
         assert_eq!(config.output, None);
         assert_eq!(config.health, None);
         assert!(!config.include_raw);
+        assert_eq!(config.channels, None);
     }
 
     #[test]
@@ -124,6 +138,35 @@ mod config_tests {
         .unwrap();
 
         assert!(config.include_raw);
+    }
+
+    #[test]
+    fn channel_filter_accepts_canonical_names_and_chat_aliases() {
+        let config: Config = serde_json::from_str(
+            r#"{
+                "user": "EXAMPLE_LOGIN_ACCOUNT",
+                "pass": "EXAMPLE_PASSWORD",
+                "server": "Project 1999: Blue (Velious, PvE)",
+                "character": "ExampleCharacter",
+                "channels": ["auc", "ooc", "gu"]
+            }"#,
+        )
+        .unwrap();
+        let channels = config.channels.as_ref().unwrap();
+
+        assert_eq!(channels.len(), 3);
+        assert!(channels.contains(&chat::ChannelName::Auction));
+        assert!(channels.contains(&chat::ChannelName::Ooc));
+        assert!(channels.contains(&chat::ChannelName::Guild));
+
+        let event = |channel| {
+            let mut body = vec![0; 148];
+            body[132..136].copy_from_slice(&u32::to_le_bytes(channel));
+            body.push(0);
+            chat::parse(0x1004, &body, false).unwrap().unwrap()
+        };
+        assert!(config.logs(&event(4)));
+        assert!(!config.logs(&event(8)));
     }
 }
 
@@ -491,7 +534,9 @@ fn world(
     loop {
         let mut packet = next(&mut session, deadline, stop)?;
         if let Some(event) = chat::parse(packet.opcode, &packet.body, config.include_raw)? {
-            log.emit(config, "", event)?;
+            if config.logs(&event) {
+                log.emit(config, "", event)?;
+            }
         }
         eprintln!(
             "World received 0x{:04x} ({} bytes)",
@@ -721,7 +766,8 @@ fn zone(
             requested = true;
         }
         match chat::parse(packet.opcode, &packet.body, config.include_raw) {
-            Ok(Some(event)) => log.emit(config, &zone_name, event)?,
+            Ok(Some(event)) if config.logs(&event) => log.emit(config, &zone_name, event)?,
+            Ok(Some(_)) => (),
             Ok(None) => (),
             Err(error) => log.emit(
                 config,

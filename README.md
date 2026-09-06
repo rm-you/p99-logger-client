@@ -41,12 +41,30 @@ modify them. The `server` value is matched case-insensitively against the name
 returned by the live server list, so retain its punctuation and spacing.
 
 The optional fields are `host` (default `login.eqemulator.net`), `port`
-(default `5998`), `assets`, `output`, `health`, `include_raw` (default `false`),
-and `reconnect_seconds` (default `30`). With no `output`, JSONL is written only
-to standard output. When `assets` is omitted, the client uses the inventory
-compiled into the binary; set it to a readable path to override that inventory.
-The example supplies the fixed `output` and `health` paths used by Compose, so
-users still edit only the four required values.
+(default `5998`), `assets`, `output`, `health`, `channels`, `include_raw`
+(default `false`), and `reconnect_seconds` (default `30`). With no `output`,
+JSONL is written only to standard output. When `assets` is omitted, the client
+uses the inventory compiled into the binary; set it to a readable path to
+override that inventory. The example supplies the fixed `output` and `health`
+paths used by Compose, so users still edit only the four required values.
+
+Omit `channels` to log every decoded communication category. Set it to a list
+to keep only selected categories. These examples are equivalent; the short
+names match the familiar EverQuest chat commands:
+
+```json
+"channels": ["auction", "ooc"]
+```
+
+```json
+"channels": ["auc", "ooc"]
+```
+
+To collect only guild chat, use `"channels": ["gu"]`. The canonical names are
+`guild`, `group`, `shout`, `auction`, `ooc`, `broadcast`, `tell`, `say`,
+`gm_say`, `raid`, `emote`, `motd`, `system`, `guild_motd`, and `unknown`.
+Filtering applies to decoded chat records; malformed recognized packets remain
+visible as `decode_error` records.
 
 The repository and published image include the checksum inventory for the
 current P99 files. To override it after a P99 patch or add files requested by a
