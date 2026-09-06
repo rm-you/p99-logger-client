@@ -6,6 +6,7 @@ RUN apk add --no-cache git musl-dev && rustup component add clippy rustfmt
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 COPY protocol ./protocol
+COPY assets.json ./
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/local/cargo/git \
     cargo fmt --all --check && \

@@ -27,14 +27,16 @@ use std::{
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Config {
+    #[serde(default = "default_host")]
     host: String,
+    #[serde(default = "default_port")]
     port: u16,
     user: String,
     pass: String,
     server: String,
     character: String,
-    #[serde(default = "default_assets")]
-    assets: PathBuf,
+    #[serde(default)]
+    assets: Option<PathBuf>,
     #[serde(default)]
     output: Option<PathBuf>,
     #[serde(default)]
@@ -42,11 +44,68 @@ struct Config {
     #[serde(default = "default_reconnect")]
     reconnect_seconds: u64,
 }
-fn default_assets() -> PathBuf {
-    PathBuf::from("/config/assets.json")
+fn default_host() -> String {
+    "login.eqemulator.net".into()
+}
+const fn default_port() -> u16 {
+    5998
 }
 const fn default_reconnect() -> u64 {
     30
+}
+
+/// Load a caller-supplied checksum inventory or the one compiled into the client.
+fn load_assets(path: Option<&Path>) -> Result<Assets> {
+    match path {
+        Some(path) => serde_json::from_slice(&fs::read(path).context("read asset inventory")?)
+            .context("parse asset inventory"),
+        None => serde_json::from_slice(include_bytes!("../assets.json"))
+            .context("parse built-in asset inventory"),
+    }
+}
+
+#[cfg(test)]
+mod config_tests {
+    use super::*;
+
+    #[test]
+    fn connection_defaults_require_only_account_server_and_character() {
+        let config: Config = serde_json::from_str(
+            r#"{
+                "user": "EXAMPLE_LOGIN_ACCOUNT",
+                "pass": "EXAMPLE_PASSWORD",
+                "server": "Project 1999: Green (Velious, PvE)",
+                "character": "ExampleCharacter"
+            }"#,
+        )
+        .unwrap();
+
+        assert_eq!(config.host, "login.eqemulator.net");
+        assert_eq!(config.port, 5998);
+        assert_eq!(config.assets, None);
+        assert_eq!(config.reconnect_seconds, 30);
+        assert_eq!(config.output, None);
+        assert_eq!(config.health, None);
+    }
+
+    #[test]
+    fn built_in_inventory_is_complete_and_an_asset_path_overrides_it() {
+        let assets = load_assets(None).unwrap();
+        assert_eq!(assets.files.len(), 68);
+        assert!(assets.spells().is_ok());
+
+        let config: Config = serde_json::from_str(
+            r#"{
+                "user": "EXAMPLE_LOGIN_ACCOUNT",
+                "pass": "EXAMPLE_PASSWORD",
+                "server": "Project 1999: Green (Velious, PvE)",
+                "character": "ExampleCharacter",
+                "assets": "/custom/assets.json"
+            }"#,
+        )
+        .unwrap();
+        assert_eq!(config.assets, Some(PathBuf::from("/custom/assets.json")));
+    }
 }
 
 struct ChatLog {
@@ -747,11 +806,13 @@ fn main() -> Result<()> {
     );
     let config: Config = serde_json::from_slice(&fs::read(&args[1])?)?;
     ensure!(
-        !config.user.is_empty() && !config.pass.is_empty() && !config.character.is_empty(),
+        !config.user.is_empty()
+            && !config.pass.is_empty()
+            && !config.server.is_empty()
+            && !config.character.is_empty(),
         "required config fields are empty"
     );
-    let assets: Assets =
-        serde_json::from_slice(&fs::read(&config.assets).context("read asset inventory")?)?;
+    let assets = load_assets(config.assets.as_deref())?;
     let stop = Arc::new(AtomicBool::new(false));
     signal_hook::flag::register(signal_hook::consts::SIGINT, Arc::clone(&stop))?;
     signal_hook::flag::register(signal_hook::consts::SIGTERM, Arc::clone(&stop))?;

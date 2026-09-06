@@ -1,0 +1,271 @@
+{
+  "client": "Titanium/P99-V62",
+  "files": {
+    "actoremittersnew.edd": {
+      "crc32": 2892491940,
+      "size": 127304
+    },
+    "bas.eqg": {
+      "crc32": 1768314197,
+      "size": 1944364
+    },
+    "cwr.eqg": {
+      "crc32": 2667163223,
+      "size": 749449
+    },
+    "dbstr_us.txt": {
+      "crc32": 3900567698,
+      "size": 568508
+    },
+    "dodequip.eqg": {
+      "crc32": 535373834,
+      "size": 1014660
+    },
+    "donequip.eqg": {
+      "crc32": 4012179513,
+      "size": 1010397
+    },
+    "dre.eqg": {
+      "crc32": 2132507901,
+      "size": 629956
+    },
+    "dsetup.dll": {
+      "crc32": 3379713764,
+      "size": 5123952
+    },
+    "ecommons.s3d": {
+      "crc32": 528669426,
+      "size": 1242130
+    },
+    "ecommons_2_obj.s3d": null,
+    "ecommons_assets.txt": null,
+    "ecommons_chr.s3d": {
+      "crc32": 3354793928,
+      "size": 2561160
+    },
+    "ecommons_chr.txt": {
+      "crc32": 1101392592,
+      "size": 19
+    },
+    "ecommons_obj.s3d": {
+      "crc32": 587835023,
+      "size": 534301
+    },
+    "environmentemittersnew.edd": {
+      "crc32": 2102562467,
+      "size": 31208
+    },
+    "eqgame.exe": {
+      "crc32": 1642742635,
+      "size": 3981312
+    },
+    "eqgraphicsdx9.dll": {
+      "crc32": 1390076166,
+      "size": 2318336
+    },
+    "eqmain.dll": {
+      "crc32": 2199641875,
+      "size": 954368
+    },
+    "eqstr_us.txt": {
+      "crc32": 3761705316,
+      "size": 355674
+    },
+    "eve.eqg": {
+      "crc32": 1784659110,
+      "size": 2931097
+    },
+    "fng.eqg": {
+      "crc32": 2888340599,
+      "size": 2185939
+    },
+    "frogequip.s3d": {
+      "crc32": 1527845442,
+      "size": 221595
+    },
+    "fry.eqg": {
+      "crc32": 2345354485,
+      "size": 1822958
+    },
+    "gatesequip.s3d": {
+      "crc32": 4131436619,
+      "size": 311391
+    },
+    "gbn.eqg": {
+      "crc32": 1353872226,
+      "size": 1508721
+    },
+    "gequip.s3d": {
+      "crc32": 994527711,
+      "size": 2465467
+    },
+    "gequip2.s3d": {
+      "crc32": 3792694454,
+      "size": 2741360
+    },
+    "gequip3.s3d": {
+      "crc32": 2245049590,
+      "size": 873955
+    },
+    "gequip4.s3d": {
+      "crc32": 45974565,
+      "size": 299706
+    },
+    "gequip5.s3d": {
+      "crc32": 3449504038,
+      "size": 2769736
+    },
+    "gequip6.s3d": {
+      "crc32": 2670153173,
+      "size": 46768
+    },
+    "gequip8.s3d": {
+      "crc32": 2156789385,
+      "size": 54118
+    },
+    "ggy.eqg": {
+      "crc32": 1555734029,
+      "size": 2650623
+    },
+    "global17_amr.s3d": {
+      "crc32": 1345930508,
+      "size": 3075596
+    },
+    "global18_amr.s3d": {
+      "crc32": 493274140,
+      "size": 3532352
+    },
+    "global19_amr.s3d": {
+      "crc32": 2250665230,
+      "size": 3064457
+    },
+    "global20_amr.s3d": {
+      "crc32": 1718737606,
+      "size": 3610049
+    },
+    "global21_amr.s3d": {
+      "crc32": 1332812150,
+      "size": 3827281
+    },
+    "global22_amr.s3d": {
+      "crc32": 427503582,
+      "size": 3140812
+    },
+    "global23_amr.s3d": {
+      "crc32": 1696862990,
+      "size": 408047
+    },
+    "global2_chr.s3d": {
+      "crc32": 777821532,
+      "size": 1737358
+    },
+    "global3_chr.s3d": {
+      "crc32": 301610025,
+      "size": 325265
+    },
+    "global4_chr.s3d": {
+      "crc32": 989943136,
+      "size": 2492210
+    },
+    "global7_chr.s3d": {
+      "crc32": 3567394842,
+      "size": 2309873
+    },
+    "global_chr.s3d": {
+      "crc32": 1265741778,
+      "size": 7364740
+    },
+    "global_obj.s3d": {
+      "crc32": 2406610292,
+      "size": 76196
+    },
+    "globalfroglok_chr.s3d": {
+      "crc32": 3267161901,
+      "size": 131181
+    },
+    "globalload.txt": {
+      "crc32": 2328635794,
+      "size": 1855
+    },
+    "globalpcfroglok_chr.s3d": {
+      "crc32": 153265561,
+      "size": 3923760
+    },
+    "globalske_chr2.s3d": {
+      "crc32": 3053528888,
+      "size": 24980
+    },
+    "grass.s3d": {
+      "crc32": 1225198608,
+      "size": 819834
+    },
+    "growthplane_chr.s3d": {
+      "crc32": 1363590139,
+      "size": 3165899
+    },
+    "karnor_chr.s3d": {
+      "crc32": 994370043,
+      "size": 2973242
+    },
+    "kbd.eqg": {
+      "crc32": 4035214271,
+      "size": 2995580
+    },
+    "ldonequip.s3d": {
+      "crc32": 2225748163,
+      "size": 1133942
+    },
+    "loyequip.s3d": {
+      "crc32": 4209174336,
+      "size": 494337
+    },
+    "mnr.eqg": {
+      "crc32": 3651705013,
+      "size": 2288653
+    },
+    "omensequip.eqg": {
+      "crc32": 2937148690,
+      "size": 1891406
+    },
+    "ork.eqg": {
+      "crc32": 2995315081,
+      "size": 4938308
+    },
+    "rap_chr.s3d": {
+      "crc32": 2410671957,
+      "size": 207157
+    },
+    "skt_chr.s3d": {
+      "crc32": 1328493250,
+      "size": 1106324
+    },
+    "spells.eff": {
+      "crc32": 4130124969,
+      "size": 714752
+    },
+    "spells_us.txt": {
+      "crc32": 829789956,
+      "size": 5141063
+    },
+    "spellsnew.edd": {
+      "crc32": 2508897281,
+      "size": 881096
+    },
+    "spellsnew.eff": {
+      "crc32": 1098406920,
+      "size": 112092
+    },
+    "tar.eqg": {
+      "crc32": 626863151,
+      "size": 1440117
+    },
+    "wwf.eqg": {
+      "crc32": 1462563884,
+      "size": 4626513
+    },
+    "zmm.eqg": {
+      "crc32": 521225910,
+      "size": 2079217
+    }
+  }
+}

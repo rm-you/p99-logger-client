@@ -7,7 +7,6 @@ target
 __pycache__
 .env
 config.json
-assets.json
 *.jsonl
 *.log
 *.pcap

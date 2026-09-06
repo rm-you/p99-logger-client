@@ -5,7 +5,6 @@ __pycache__/
 /target/
 .env
 config.json
-assets.json
 *.jsonl
 *.log
 *.pcap
