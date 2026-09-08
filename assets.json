@@ -1,21 +1,777 @@
 {
   "client": "Titanium/P99-V62",
   "files": {
+    "abysmal.s3d": {
+      "crc32": 3888396947,
+      "size": 5260533
+    },
+    "abysmal_chr.txt": {
+      "crc32": 259290248,
+      "size": 143
+    },
+    "abysmal_obj.s3d": {
+      "crc32": 3409074967,
+      "size": 7829424
+    },
+    "acrylia.s3d": {
+      "crc32": 2366555973,
+      "size": 4473157
+    },
+    "acrylia_chr.s3d": {
+      "crc32": 1273503707,
+      "size": 2495747
+    },
+    "acrylia_chr.txt": {
+      "crc32": 1678060956,
+      "size": 42
+    },
+    "acrylia_chr2.s3d": {
+      "crc32": 2018665219,
+      "size": 997937
+    },
+    "acrylia_obj.s3d": {
+      "crc32": 3683687150,
+      "size": 3838785
+    },
     "actoremittersnew.edd": {
       "crc32": 2892491940,
       "size": 127304
+    },
+    "ael_chr.s3d": {
+      "crc32": 2925339535,
+      "size": 344883
+    },
+    "airplane.s3d": {
+      "crc32": 2472941130,
+      "size": 2362836
+    },
+    "airplane_chr.s3d": {
+      "crc32": 2236211994,
+      "size": 2111883
+    },
+    "airplane_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "airplane_obj.s3d": {
+      "crc32": 226093292,
+      "size": 416435
+    },
+    "akanon.s3d": {
+      "crc32": 3531578379,
+      "size": 1720202
+    },
+    "akanon_chr.s3d": {
+      "crc32": 548599161,
+      "size": 2394105
+    },
+    "akanon_chr.txt": {
+      "crc32": 141147881,
+      "size": 21
+    },
+    "akanon_obj.s3d": {
+      "crc32": 2759258722,
+      "size": 464086
+    },
+    "akheva.s3d": {
+      "crc32": 2509786028,
+      "size": 2804155
+    },
+    "akheva_chr.s3d": {
+      "crc32": 1487989246,
+      "size": 3291117
+    },
+    "akheva_obj.s3d": {
+      "crc32": 3566760884,
+      "size": 1744092
+    },
+    "anguish.eqg": {
+      "crc32": 3616186965,
+      "size": 22251612
+    },
+    "anguish_chr.txt": {
+      "crc32": 3812795621,
+      "size": 200
+    },
+    "ans.eqg": {
+      "crc32": 1564060424,
+      "size": 2116949
+    },
+    "arena.eqg": {
+      "crc32": 3640770674,
+      "size": 5351211
+    },
+    "arena.s3d": {
+      "crc32": 324360522,
+      "size": 140541
+    },
+    "arena_chr.s3d": {
+      "crc32": 1728762708,
+      "size": 2456397
+    },
+    "arena_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "arena_obj.s3d": {
+      "crc32": 153790949,
+      "size": 244064
+    },
+    "asm.eqg": {
+      "crc32": 2494987393,
+      "size": 669838
+    },
+    "barindu.s3d": {
+      "crc32": 735080279,
+      "size": 2894001
+    },
+    "barindu_chr.txt": {
+      "crc32": 3045677906,
+      "size": 208
+    },
+    "barindu_obj.s3d": {
+      "crc32": 3480995563,
+      "size": 2926505
+    },
+    "barter.eqg": {
+      "crc32": 126599942,
+      "size": 23056502
+    },
+    "barter_assets.txt": {
+      "crc32": 1019449154,
+      "size": 24
     },
     "bas.eqg": {
       "crc32": 1768314197,
       "size": 1944364
     },
+    "bat.eqg": {
+      "crc32": 2170653449,
+      "size": 2362982
+    },
+    "bazaar.eqg": {
+      "crc32": 2759637760,
+      "size": 20500222
+    },
+    "bazaar_assets.txt": {
+      "crc32": 1019449154,
+      "size": 24
+    },
+    "befallen.s3d": {
+      "crc32": 4108974721,
+      "size": 1153178
+    },
+    "befallen_chr.s3d": {
+      "crc32": 1415160769,
+      "size": 2414070
+    },
+    "befallen_chr.txt": {
+      "crc32": 2215438770,
+      "size": 104
+    },
+    "befallen_obj.s3d": {
+      "crc32": 2561384102,
+      "size": 278167
+    },
+    "beholder.s3d": {
+      "crc32": 3477335156,
+      "size": 595818
+    },
+    "beholder_chr.s3d": {
+      "crc32": 1581309999,
+      "size": 2615760
+    },
+    "beholder_chr.txt": {
+      "crc32": 3483060505,
+      "size": 12
+    },
+    "beholder_obj.s3d": {
+      "crc32": 1475593637,
+      "size": 55743
+    },
+    "bgb_chr.s3d": {
+      "crc32": 613760603,
+      "size": 450866
+    },
+    "blackburrow.s3d": {
+      "crc32": 2399929734,
+      "size": 1236928
+    },
+    "blackburrow_2_obj.s3d": {
+      "crc32": 2180271461,
+      "size": 178030
+    },
+    "blackburrow_chr.s3d": {
+      "crc32": 585762608,
+      "size": 2415064
+    },
+    "blackburrow_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "blackburrow_obj.s3d": {
+      "crc32": 2903961041,
+      "size": 331984
+    },
+    "bloodfields.eqg": {
+      "crc32": 695036636,
+      "size": 18494851
+    },
+    "bloodfields_chr.txt": {
+      "crc32": 2476245935,
+      "size": 164
+    },
+    "bmpwad.s3d": {
+      "crc32": 4194651204,
+      "size": 6093808
+    },
+    "bmpwad2.s3d": {
+      "crc32": 373220707,
+      "size": 139151
+    },
+    "bmpwad3.s3d": {
+      "crc32": 4139698919,
+      "size": 1580654
+    },
+    "bmpwad5.s3d": {
+      "crc32": 452526674,
+      "size": 324145
+    },
+    "bmpwad6.s3d": {
+      "crc32": 986294116,
+      "size": 317239
+    },
+    "bmpwad7.s3d": {
+      "crc32": 1707590967,
+      "size": 379249
+    },
+    "bmpwad8.s3d": {
+      "crc32": 810765497,
+      "size": 372139
+    },
+    "bon_chr.s3d": {
+      "crc32": 2209238563,
+      "size": 210309
+    },
+    "bothunder.s3d": {
+      "crc32": 1724111193,
+      "size": 7127397
+    },
+    "bothunder_chr.s3d": {
+      "crc32": 3305801606,
+      "size": 3090804
+    },
+    "bothunder_chr.txt": {
+      "crc32": 569723503,
+      "size": 34
+    },
+    "bothunder_chr2.s3d": {
+      "crc32": 281262659,
+      "size": 240057
+    },
+    "bothunder_obj.s3d": {
+      "crc32": 1690915652,
+      "size": 3988692
+    },
+    "box_chr.s3d": {
+      "crc32": 1364905373,
+      "size": 341941
+    },
+    "brl_chr.s3d": {
+      "crc32": 1692650344,
+      "size": 369622
+    },
+    "broodlands.eqg": {
+      "crc32": 4065735404,
+      "size": 7666073
+    },
+    "broodlands_chr.txt": {
+      "crc32": 2216855532,
+      "size": 75
+    },
+    "brv_chr.s3d": {
+      "crc32": 80829816,
+      "size": 89255
+    },
+    "btn.eqg": {
+      "crc32": 3765676557,
+      "size": 2370337
+    },
+    "burningwood.s3d": {
+      "crc32": 810051785,
+      "size": 3812191
+    },
+    "burningwood_chr.s3d": {
+      "crc32": 2005968597,
+      "size": 2678192
+    },
+    "burningwood_obj.s3d": {
+      "crc32": 3584441236,
+      "size": 1421256
+    },
+    "butcher.s3d": {
+      "crc32": 4232384773,
+      "size": 1766027
+    },
+    "butcher2_chr.s3d": {
+      "crc32": 3302150876,
+      "size": 26918
+    },
+    "butcher_2_obj.s3d": {
+      "crc32": 1779113988,
+      "size": 113036
+    },
+    "butcher_chr.s3d": {
+      "crc32": 2256586327,
+      "size": 2742583
+    },
+    "butcher_chr.txt": {
+      "crc32": 2539106130,
+      "size": 69
+    },
+    "butcher_obj.s3d": {
+      "crc32": 419498814,
+      "size": 1009735
+    },
+    "bvk_chr.s3d": {
+      "crc32": 1231714663,
+      "size": 298473
+    },
+    "bwd_chr.s3d": {
+      "crc32": 181202723,
+      "size": 515807
+    },
+    "cabeast.s3d": {
+      "crc32": 832458157,
+      "size": 5159745
+    },
+    "cabeast_chr.s3d": {
+      "crc32": 2441880786,
+      "size": 2067269
+    },
+    "cabeast_obj.s3d": {
+      "crc32": 3916535789,
+      "size": 573943
+    },
+    "cabwest.s3d": {
+      "crc32": 2853180483,
+      "size": 5121059
+    },
+    "cabwest_chr.s3d": {
+      "crc32": 3036620494,
+      "size": 2641690
+    },
+    "cabwest_obj.s3d": {
+      "crc32": 1213398120,
+      "size": 574235
+    },
+    "cauldron.s3d": {
+      "crc32": 1437563034,
+      "size": 1053456
+    },
+    "cauldron_chr.s3d": {
+      "crc32": 3268780136,
+      "size": 2617610
+    },
+    "cauldron_chr.txt": {
+      "crc32": 3556496613,
+      "size": 25
+    },
+    "cauldron_obj.s3d": {
+      "crc32": 1002649071,
+      "size": 221454
+    },
+    "causeway.eqg": {
+      "crc32": 1899495311,
+      "size": 13716969
+    },
+    "causeway_chr.txt": {
+      "crc32": 2952746852,
+      "size": 168
+    },
+    "caveswitches.eqg": {
+      "crc32": 2182507306,
+      "size": 830302
+    },
+    "cazicthule.s3d": {
+      "crc32": 3530635831,
+      "size": 1587890
+    },
+    "cazicthule_chr.s3d": {
+      "crc32": 3448654532,
+      "size": 2153560
+    },
+    "cazicthule_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "cazicthule_chr2.s3d": {
+      "crc32": 3728145416,
+      "size": 2417092
+    },
+    "cazicthule_obj.s3d": {
+      "crc32": 863528501,
+      "size": 419999
+    },
+    "cdr.eqg": {
+      "crc32": 1900544130,
+      "size": 2836129
+    },
+    "chambersa.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chambersa_chr.txt": {
+      "crc32": 2829339881,
+      "size": 66
+    },
+    "chambersb.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chambersb_chr.txt": {
+      "crc32": 3023178021,
+      "size": 94
+    },
+    "chambersc.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chambersc_chr.txt": {
+      "crc32": 115920269,
+      "size": 70
+    },
+    "chambersd.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chambersd_chr.txt": {
+      "crc32": 3876041389,
+      "size": 48
+    },
+    "chamberse.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chamberse_chr.txt": {
+      "crc32": 973486778,
+      "size": 94
+    },
+    "chambersf.eqg": {
+      "crc32": 3713355734,
+      "size": 3169053
+    },
+    "chambersf_chr.txt": {
+      "crc32": 1909274342,
+      "size": 84
+    },
+    "charasis.s3d": {
+      "crc32": 247124146,
+      "size": 2159009
+    },
+    "charasis_chr.s3d": {
+      "crc32": 4075591020,
+      "size": 2533382
+    },
+    "charasis_chr.txt": {
+      "crc32": 1117611049,
+      "size": 43
+    },
+    "charasis_obj.s3d": {
+      "crc32": 3733230025,
+      "size": 377847
+    },
+    "chardok.s3d": {
+      "crc32": 1917494767,
+      "size": 3412773
+    },
+    "chardok_2_obj.s3d": {
+      "crc32": 3905473861,
+      "size": 25844
+    },
+    "chardok_chr.s3d": {
+      "crc32": 3663977325,
+      "size": 2387823
+    },
+    "chardok_obj.s3d": {
+      "crc32": 1100143581,
+      "size": 643989
+    },
+    "chardokb.s3d": {
+      "crc32": 1911379864,
+      "size": 3502559
+    },
+    "chardokb_chr.s3d": {
+      "crc32": 983535647,
+      "size": 276837
+    },
+    "chardokb_chr.txt": {
+      "crc32": 2606065410,
+      "size": 387
+    },
+    "chardokb_obj.s3d": {
+      "crc32": 1925354497,
+      "size": 3305294
+    },
+    "chm.eqg": {
+      "crc32": 238287172,
+      "size": 2782681
+    },
+    "citymist.s3d": {
+      "crc32": 133177646,
+      "size": 4589515
+    },
+    "citymist_chr.s3d": {
+      "crc32": 3668961215,
+      "size": 2284565
+    },
+    "citymist_chr.txt": {
+      "crc32": 3716668197,
+      "size": 29
+    },
+    "citymist_obj.s3d": {
+      "crc32": 2300930239,
+      "size": 1116167
+    },
+    "clb_chr.s3d": {
+      "crc32": 2183359432,
+      "size": 331468
+    },
+    "clv.eqg": {
+      "crc32": 2465680895,
+      "size": 4893615
+    },
+    "clz.eqg": {
+      "crc32": 2528705311,
+      "size": 3665802
+    },
+    "cnp.eqg": {
+      "crc32": 833352872,
+      "size": 236252
+    },
+    "cobaltscar.s3d": {
+      "crc32": 2623111055,
+      "size": 3638451
+    },
+    "cobaltscar_2_obj.s3d": {
+      "crc32": 923569199,
+      "size": 304139
+    },
+    "cobaltscar_chr.s3d": {
+      "crc32": 2505042731,
+      "size": 3390728
+    },
+    "cobaltscar_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "cobaltscar_obj.s3d": {
+      "crc32": 4016506984,
+      "size": 763031
+    },
+    "codecay.s3d": {
+      "crc32": 1306005652,
+      "size": 3514811
+    },
+    "codecay_chr.s3d": {
+      "crc32": 2568814156,
+      "size": 3886133
+    },
+    "codecay_obj.s3d": {
+      "crc32": 1181001327,
+      "size": 1393606
+    },
+    "commons.s3d": {
+      "crc32": 2785941021,
+      "size": 1194799
+    },
+    "commons_chr.s3d": {
+      "crc32": 3461822437,
+      "size": 2521829
+    },
+    "commons_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "commons_obj.s3d": {
+      "crc32": 3316543031,
+      "size": 801499
+    },
+    "corathus.eqg": {
+      "crc32": 1131575356,
+      "size": 17321972
+    },
+    "corathus_assets.txt": {
+      "crc32": 2873125302,
+      "size": 18
+    },
+    "corathus_chr.txt": {
+      "crc32": 2332807912,
+      "size": 75
+    },
+    "corathusa.eqg": {
+      "crc32": 187674515,
+      "size": 6949092
+    },
+    "corathusa_chr.txt": {
+      "crc32": 1538971290,
+      "size": 66
+    },
+    "corathusb.eqg": {
+      "crc32": 2984453648,
+      "size": 16284959
+    },
+    "corathusb_chr.txt": {
+      "crc32": 1750617222,
+      "size": 64
+    },
+    "cpt_chr.s3d": {
+      "crc32": 157487219,
+      "size": 267932
+    },
+    "crb_chr.s3d": {
+      "crc32": 3105118533,
+      "size": 214942
+    },
+    "crh.eqg": {
+      "crc32": 990764161,
+      "size": 1552376
+    },
+    "crl.eqg": {
+      "crc32": 925119733,
+      "size": 398510
+    },
+    "crs.eqg": {
+      "crc32": 2122316593,
+      "size": 181442
+    },
+    "crushbone.s3d": {
+      "crc32": 1151614329,
+      "size": 1585075
+    },
+    "crushbone_chr.s3d": {
+      "crc32": 3729166939,
+      "size": 1536009
+    },
+    "crushbone_chr.txt": {
+      "crc32": 3755238235,
+      "size": 40
+    },
+    "crushbone_obj.s3d": {
+      "crc32": 2382224016,
+      "size": 501499
+    },
+    "crystal.s3d": {
+      "crc32": 2502001247,
+      "size": 3070861
+    },
+    "crystal_chr.s3d": {
+      "crc32": 548513905,
+      "size": 3374209
+    },
+    "crystal_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "crystal_obj.s3d": {
+      "crc32": 2771363209,
+      "size": 472326
+    },
+    "cst.eqg": {
+      "crc32": 964510228,
+      "size": 1224693
+    },
+    "cst_chr.s3d": {
+      "crc32": 160532219,
+      "size": 236750
+    },
+    "cwg.eqg": {
+      "crc32": 1526302878,
+      "size": 1610611
+    },
     "cwr.eqg": {
       "crc32": 2667163223,
       "size": 749449
     },
+    "dalnir.s3d": {
+      "crc32": 1820889494,
+      "size": 1377942
+    },
+    "dalnir_chr.s3d": {
+      "crc32": 1756147173,
+      "size": 3044550
+    },
+    "dalnir_obj.s3d": {
+      "crc32": 3102286719,
+      "size": 908317
+    },
+    "dawnshroud.s3d": {
+      "crc32": 1834609893,
+      "size": 5293392
+    },
+    "dawnshroud_chr.s3d": {
+      "crc32": 3876068597,
+      "size": 2041834
+    },
+    "dawnshroud_obj.s3d": {
+      "crc32": 144461509,
+      "size": 2634473
+    },
+    "dbp.eqg": {
+      "crc32": 3300974882,
+      "size": 145461
+    },
     "dbstr_us.txt": {
       "crc32": 3900567698,
       "size": 568508
+    },
+    "dbx.eqg": {
+      "crc32": 4288454147,
+      "size": 87629
+    },
+    "dcf.eqg": {
+      "crc32": 1855850009,
+      "size": 2490178
+    },
+    "dcm.eqg": {
+      "crc32": 3191292044,
+      "size": 2871714
+    },
+    "ddm.eqg": {
+      "crc32": 3044773844,
+      "size": 5740169
+    },
+    "ddv.eqg": {
+      "crc32": 1817152718,
+      "size": 2374012
+    },
+    "delvea.eqg": {
+      "crc32": 3624826338,
+      "size": 13709257
+    },
+    "delvea_chr.txt": {
+      "crc32": 879105269,
+      "size": 94
+    },
+    "delveb.eqg": {
+      "crc32": 4250159818,
+      "size": 18058070
+    },
+    "delveb_chr.txt": {
+      "crc32": 3057513127,
+      "size": 39
+    },
+    "dji_chr.s3d": {
+      "crc32": 3596314842,
+      "size": 85208
+    },
+    "dke.eqg": {
+      "crc32": 2054518816,
+      "size": 3848305
+    },
+    "dma.eqg": {
+      "crc32": 691807392,
+      "size": 1690821
     },
     "dodequip.eqg": {
       "crc32": 535373834,
@@ -25,20 +781,318 @@
       "crc32": 4012179513,
       "size": 1010397
     },
+    "doors.eqg": {
+      "crc32": 3638039749,
+      "size": 1117456
+    },
+    "dpf_chr.s3d": {
+      "crc32": 3315565643,
+      "size": 235426
+    },
+    "dpm_chr.s3d": {
+      "crc32": 873928153,
+      "size": 210048
+    },
+    "dr2_chr.s3d": {
+      "crc32": 1555125377,
+      "size": 612491
+    },
+    "dra_chr.s3d": {
+      "crc32": 2473838203,
+      "size": 1048116
+    },
+    "drachnidhive.eqg": {
+      "crc32": 2356553437,
+      "size": 24653381
+    },
+    "drachnidhive_assets.txt": {
+      "crc32": 2045651800,
+      "size": 29
+    },
+    "drachnidhive_chr.txt": {
+      "crc32": 19225033,
+      "size": 64
+    },
+    "drachnidhivea.eqg": {
+      "crc32": 2637186948,
+      "size": 7710846
+    },
+    "drachnidhivea_chr.txt": {
+      "crc32": 2138713913,
+      "size": 75
+    },
+    "drachnidhiveb.eqg": {
+      "crc32": 1144900050,
+      "size": 5793782
+    },
+    "drachnidhiveb_chr.txt": {
+      "crc32": 3373141586,
+      "size": 77
+    },
+    "drachnidhivec.eqg": {
+      "crc32": 1160293035,
+      "size": 7078420
+    },
+    "drachnidhivec_chr.txt": {
+      "crc32": 1584509455,
+      "size": 55
+    },
+    "dranik.eqg": {
+      "crc32": 2468001018,
+      "size": 21971082
+    },
+    "dranik_chr.txt": {
+      "crc32": 3968031403,
+      "size": 194
+    },
+    "dranikcatacombsa.eqg": {
+      "crc32": 2873346801,
+      "size": 21548128
+    },
+    "dranikcatacombsa_chr.txt": {
+      "crc32": 1484621593,
+      "size": 106
+    },
+    "dranikcatacombsb.eqg": {
+      "crc32": 1451920184,
+      "size": 18123754
+    },
+    "dranikcatacombsb_chr.txt": {
+      "crc32": 3185011211,
+      "size": 96
+    },
+    "dranikcatacombsc.eqg": {
+      "crc32": 545695415,
+      "size": 28134462
+    },
+    "dranikcatacombsc_chr.txt": {
+      "crc32": 256929726,
+      "size": 96
+    },
+    "dranikhollowsa.eqg": {
+      "crc32": 4112003919,
+      "size": 18582033
+    },
+    "dranikhollowsa_chr.txt": {
+      "crc32": 1601121376,
+      "size": 106
+    },
+    "dranikhollowsb.eqg": {
+      "crc32": 619399103,
+      "size": 17135424
+    },
+    "dranikhollowsb_chr.txt": {
+      "crc32": 2980503898,
+      "size": 87
+    },
+    "dranikhollowsc.eqg": {
+      "crc32": 3374799143,
+      "size": 16551912
+    },
+    "dranikhollowsc_chr.txt": {
+      "crc32": 3536906999,
+      "size": 48
+    },
+    "draniksewersa.eqg": {
+      "crc32": 3078574980,
+      "size": 22331040
+    },
+    "draniksewersa_chr.txt": {
+      "crc32": 1105579512,
+      "size": 124
+    },
+    "draniksewersb.eqg": {
+      "crc32": 709399767,
+      "size": 21578617
+    },
+    "draniksewersb_chr.txt": {
+      "crc32": 1105579512,
+      "size": 124
+    },
+    "draniksewersc.eqg": {
+      "crc32": 3049679618,
+      "size": 20275381
+    },
+    "draniksewersc_chr.txt": {
+      "crc32": 3276915306,
+      "size": 137
+    },
+    "draniksscar.eqg": {
+      "crc32": 1607228766,
+      "size": 14478329
+    },
+    "draniksscar_chr.txt": {
+      "crc32": 4236825401,
+      "size": 115
+    },
+    "drc.eqg": {
+      "crc32": 812663103,
+      "size": 207727
+    },
     "dre.eqg": {
       "crc32": 2132507901,
       "size": 629956
+    },
+    "dreadlands.s3d": {
+      "crc32": 2790345467,
+      "size": 4925937
+    },
+    "dreadlands_chr.s3d": {
+      "crc32": 1594551330,
+      "size": 4456892
+    },
+    "dreadlands_chr.txt": {
+      "crc32": 1070569638,
+      "size": 77
+    },
+    "dreadlands_obj.s3d": {
+      "crc32": 3635419888,
+      "size": 1825083
+    },
+    "dreadspire.eqg": {
+      "crc32": 1380992702,
+      "size": 30479580
+    },
+    "dreadspire_chr.txt": {
+      "crc32": 2403218462,
+      "size": 217
+    },
+    "dreadspire_obj1.eqg": {
+      "crc32": 3451499989,
+      "size": 550313
+    },
+    "droga.s3d": {
+      "crc32": 593909115,
+      "size": 2774186
+    },
+    "droga_chr.s3d": {
+      "crc32": 248767021,
+      "size": 2656320
+    },
+    "droga_chr.txt": {
+      "crc32": 1429742456,
+      "size": 35
+    },
+    "droga_obj.s3d": {
+      "crc32": 2975741918,
+      "size": 351945
+    },
+    "drs.eqg": {
+      "crc32": 1204819774,
+      "size": 334695
+    },
+    "drv_chr.s3d": {
+      "crc32": 3568166179,
+      "size": 512067
     },
     "dsetup.dll": {
       "crc32": 3379713764,
       "size": 5123952
     },
+    "dsf.eqg": {
+      "crc32": 2279239387,
+      "size": 2367389
+    },
+    "dsg.eqg": {
+      "crc32": 3639627151,
+      "size": 2243117
+    },
+    "dulak.s3d": {
+      "crc32": 3804669492,
+      "size": 4464123
+    },
+    "dulak_chr.txt": {
+      "crc32": 3824201444,
+      "size": 341
+    },
+    "dulak_obj.s3d": {
+      "crc32": 3111429678,
+      "size": 11113082
+    },
+    "dvs.eqg": {
+      "crc32": 814195512,
+      "size": 896848
+    },
+    "eastkarana.s3d": {
+      "crc32": 2997809692,
+      "size": 1394298
+    },
+    "eastkarana_chr.s3d": {
+      "crc32": 3805125083,
+      "size": 2495256
+    },
+    "eastkarana_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "eastkarana_obj.s3d": {
+      "crc32": 4063451738,
+      "size": 786457
+    },
+    "eastkorlach.eqg": {
+      "crc32": 102863429,
+      "size": 28203644
+    },
+    "eastkorlach_chr.txt": {
+      "crc32": 677503596,
+      "size": 180
+    },
+    "eastkorlacha.eqg": {
+      "crc32": 156014142,
+      "size": 10214174
+    },
+    "eastkorlacha_chr.txt": {
+      "crc32": 2868042856,
+      "size": 98
+    },
+    "eastkorlachb_chr.txt": {
+      "crc32": 3757040408,
+      "size": 157
+    },
+    "eastwastes.s3d": {
+      "crc32": 3428118657,
+      "size": 3953177
+    },
+    "eastwastes_2_obj.s3d": {
+      "crc32": 3546958426,
+      "size": 879621
+    },
+    "eastwastes_chr.s3d": {
+      "crc32": 2830206414,
+      "size": 7864827
+    },
+    "eastwastes_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "eastwastes_chr2.s3d": {
+      "crc32": 1007697266,
+      "size": 1302083
+    },
+    "eastwastes_obj.s3d": {
+      "crc32": 2316171697,
+      "size": 1926419
+    },
+    "echo.s3d": {
+      "crc32": 1411007201,
+      "size": 3135543
+    },
+    "echo_chr.s3d": {
+      "crc32": 4290780535,
+      "size": 3823035
+    },
+    "echo_chr2.s3d": {
+      "crc32": 3330052218,
+      "size": 103472
+    },
+    "echo_obj.s3d": {
+      "crc32": 2173127334,
+      "size": 4345796
+    },
     "ecommons.s3d": {
       "crc32": 528669426,
       "size": 1242130
     },
-    "ecommons_2_obj.s3d": null,
-    "ecommons_assets.txt": null,
     "ecommons_chr.s3d": {
       "crc32": 3354793928,
       "size": 2561160
@@ -51,9 +1105,53 @@
       "crc32": 587835023,
       "size": 534301
     },
+    "eel_chr.s3d": {
+      "crc32": 437459355,
+      "size": 367773
+    },
+    "eey_chr.s3d": {
+      "crc32": 3311491171,
+      "size": 1101368
+    },
+    "efc_chr.s3d": {
+      "crc32": 4127310555,
+      "size": 283055
+    },
+    "efe_chr.s3d": {
+      "crc32": 1983575948,
+      "size": 402472
+    },
+    "efw_chr.s3d": {
+      "crc32": 3152865257,
+      "size": 402473
+    },
+    "emeraldjungle.s3d": {
+      "crc32": 3540085125,
+      "size": 3132826
+    },
+    "emeraldjungle_chr.s3d": {
+      "crc32": 763199233,
+      "size": 4338292
+    },
+    "emeraldjungle_obj.s3d": {
+      "crc32": 3442036513,
+      "size": 1993133
+    },
+    "emp_chr.s3d": {
+      "crc32": 1115414667,
+      "size": 267244
+    },
     "environmentemittersnew.edd": {
       "crc32": 2102562467,
       "size": 31208
+    },
+    "epf_chr.s3d": {
+      "crc32": 117228067,
+      "size": 178242
+    },
+    "epm_chr.s3d": {
+      "crc32": 3266099799,
+      "size": 243917
     },
     "eqgame.exe": {
       "crc32": 1642742635,
@@ -71,29 +1169,365 @@
       "crc32": 3761705316,
       "size": 355674
     },
+    "erudnext.s3d": {
+      "crc32": 2480762829,
+      "size": 2496402
+    },
+    "erudnext_chr.s3d": {
+      "crc32": 2954966614,
+      "size": 2542131
+    },
+    "erudnext_obj.s3d": {
+      "crc32": 3742274041,
+      "size": 332358
+    },
+    "erudnint.s3d": {
+      "crc32": 1843121526,
+      "size": 1372491
+    },
+    "erudnint_chr.s3d": {
+      "crc32": 339354454,
+      "size": 1806668
+    },
+    "erudnint_obj.s3d": {
+      "crc32": 3808882081,
+      "size": 359686
+    },
+    "erudsxing.s3d": {
+      "crc32": 3597489337,
+      "size": 648126
+    },
+    "erudsxing_chr.s3d": {
+      "crc32": 1224500907,
+      "size": 2267096
+    },
+    "erudsxing_chr.txt": {
+      "crc32": 3293145882,
+      "size": 21
+    },
+    "erudsxing_obj.s3d": {
+      "crc32": 552199789,
+      "size": 103954
+    },
     "eve.eqg": {
       "crc32": 1784659110,
       "size": 2931097
+    },
+    "everfrost.s3d": {
+      "crc32": 827342110,
+      "size": 3512631
+    },
+    "everfrost_2_obj.s3d": {
+      "crc32": 3068305394,
+      "size": 484724
+    },
+    "everfrost_chr.s3d": {
+      "crc32": 766874924,
+      "size": 2484312
+    },
+    "everfrost_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "everfrost_obj.s3d": {
+      "crc32": 1109046763,
+      "size": 316434
+    },
+    "fbf_chr.s3d": {
+      "crc32": 1666360221,
+      "size": 228120
+    },
+    "fbm_chr.s3d": {
+      "crc32": 3757911654,
+      "size": 226852
+    },
+    "fdr_chr.s3d": {
+      "crc32": 4037089042,
+      "size": 94448
+    },
+    "fearplane.s3d": {
+      "crc32": 3431732532,
+      "size": 926417
+    },
+    "fearplane_chr.s3d": {
+      "crc32": 2848498060,
+      "size": 2577460
+    },
+    "fearplane_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "fearplane_obj.s3d": {
+      "crc32": 2455276281,
+      "size": 720320
+    },
+    "feerrott.s3d": {
+      "crc32": 2822792254,
+      "size": 1872446
+    },
+    "feerrott_chr.s3d": {
+      "crc32": 1613295238,
+      "size": 2579664
+    },
+    "feerrott_chr.txt": {
+      "crc32": 4237894853,
+      "size": 154
+    },
+    "feerrott_obj.s3d": {
+      "crc32": 3283591195,
+      "size": 398526
+    },
+    "fel_chr.s3d": {
+      "crc32": 801236990,
+      "size": 277219
+    },
+    "felwithea.s3d": {
+      "crc32": 1525927308,
+      "size": 1350088
+    },
+    "felwithea_chr.s3d": {
+      "crc32": 3699285542,
+      "size": 1859228
+    },
+    "felwithea_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "felwithea_obj.s3d": {
+      "crc32": 987079892,
+      "size": 397164
+    },
+    "felwitheb.s3d": {
+      "crc32": 3946390495,
+      "size": 805505
+    },
+    "felwitheb_chr.s3d": {
+      "crc32": 323687682,
+      "size": 1836138
+    },
+    "felwitheb_obj.s3d": {
+      "crc32": 376075250,
+      "size": 286164
+    },
+    "ferubi.s3d": {
+      "crc32": 2629030123,
+      "size": 5741410
+    },
+    "ferubi_chr.txt": {
+      "crc32": 514766078,
+      "size": 220
+    },
+    "ferubi_obj.s3d": {
+      "crc32": 2481558643,
+      "size": 1990446
+    },
+    "fgh_chr.s3d": {
+      "crc32": 2744267626,
+      "size": 520035
+    },
+    "fgp.eqg": {
+      "crc32": 2297890683,
+      "size": 312870
+    },
+    "fgt.eqg": {
+      "crc32": 3334652254,
+      "size": 6354538
+    },
+    "fhalls.eqg": {
+      "crc32": 4128719940,
+      "size": 9757066
+    },
+    "fhalls_chr.txt": {
+      "crc32": 4069628819,
+      "size": 39
+    },
+    "fieldofbone.s3d": {
+      "crc32": 2575677291,
+      "size": 3761533
+    },
+    "fieldofbone_chr.s3d": {
+      "crc32": 1722660908,
+      "size": 4388550
+    },
+    "fieldofbone_chr.txt": {
+      "crc32": 2410541307,
+      "size": 25
+    },
+    "fieldofbone_obj.s3d": {
+      "crc32": 1054374247,
+      "size": 1640443
+    },
+    "firiona.s3d": {
+      "crc32": 2169995902,
+      "size": 4119344
+    },
+    "firiona_chr.s3d": {
+      "crc32": 3905588491,
+      "size": 4861941
+    },
+    "firiona_chr.txt": {
+      "crc32": 688217248,
+      "size": 50
+    },
+    "firiona_lit.s3d": {
+      "crc32": 3101385213,
+      "size": 172459
+    },
+    "firiona_obj.s3d": {
+      "crc32": 3508125228,
+      "size": 2106098
+    },
+    "fmo_chr.s3d": {
+      "crc32": 2828942023,
+      "size": 83816
+    },
+    "fmp_chr.s3d": {
+      "crc32": 2980486570,
+      "size": 240828
+    },
+    "fmt_chr.s3d": {
+      "crc32": 915045425,
+      "size": 430180
     },
     "fng.eqg": {
       "crc32": 2888340599,
       "size": 2185939
     },
+    "fra.eqg": {
+      "crc32": 1102131545,
+      "size": 1896232
+    },
+    "frd.eqg": {
+      "crc32": 357750824,
+      "size": 2511321
+    },
+    "freporte.s3d": {
+      "crc32": 2061560669,
+      "size": 3263764
+    },
+    "freporte_chr.s3d": {
+      "crc32": 1201667926,
+      "size": 2441317
+    },
+    "freporte_chr.txt": {
+      "crc32": 1052166630,
+      "size": 122
+    },
+    "freporte_obj.s3d": {
+      "crc32": 2589699416,
+      "size": 595179
+    },
+    "freportn.s3d": {
+      "crc32": 1258608876,
+      "size": 3159710
+    },
+    "freportn_chr.s3d": {
+      "crc32": 2730199441,
+      "size": 1809356
+    },
+    "freportn_obj.s3d": {
+      "crc32": 3105893791,
+      "size": 595603
+    },
+    "freportw.s3d": {
+      "crc32": 3085827920,
+      "size": 2647364
+    },
+    "freportw_assets.txt": {
+      "crc32": 742645619,
+      "size": 24
+    },
+    "freportw_chr.s3d": {
+      "crc32": 442503720,
+      "size": 2628677
+    },
+    "freportw_chr.txt": {
+      "crc32": 808956218,
+      "size": 21
+    },
+    "freportw_obj.s3d": {
+      "crc32": 1945781590,
+      "size": 604819
+    },
+    "frog_mount_chr.s3d": {
+      "crc32": 352912736,
+      "size": 878894
+    },
     "frogequip.s3d": {
       "crc32": 1527845442,
       "size": 221595
+    },
+    "frontiermtns.s3d": {
+      "crc32": 367785074,
+      "size": 4125688
+    },
+    "frontiermtns_chr.s3d": {
+      "crc32": 924199732,
+      "size": 2746675
+    },
+    "frontiermtns_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "frontiermtns_obj.s3d": {
+      "crc32": 2503745304,
+      "size": 2186258
+    },
+    "frozenshadow.s3d": {
+      "crc32": 2983242651,
+      "size": 7449246
+    },
+    "frozenshadow_chr.s3d": {
+      "crc32": 2080119808,
+      "size": 3144939
+    },
+    "frozenshadow_chr.txt": {
+      "crc32": 3883233417,
+      "size": 21
+    },
+    "frozenshadow_obj.s3d": {
+      "crc32": 1204176888,
+      "size": 1471435
     },
     "fry.eqg": {
       "crc32": 2345354485,
       "size": 1822958
     },
+    "fsk_chr.s3d": {
+      "crc32": 2909308354,
+      "size": 210306
+    },
+    "fud_chr.s3d": {
+      "crc32": 3441915269,
+      "size": 358261
+    },
+    "fungusgrove.s3d": {
+      "crc32": 2848473497,
+      "size": 5518515
+    },
+    "fungusgrove_chr.s3d": {
+      "crc32": 4192225854,
+      "size": 3003307
+    },
+    "fungusgrove_obj.s3d": {
+      "crc32": 901811702,
+      "size": 3370222
+    },
     "gatesequip.s3d": {
       "crc32": 4131436619,
       "size": 311391
     },
+    "gbl_chr.s3d": {
+      "crc32": 1708983584,
+      "size": 482875
+    },
     "gbn.eqg": {
       "crc32": 1353872226,
       "size": 1508721
+    },
+    "gdr_chr.s3d": {
+      "crc32": 1056909145,
+      "size": 277554
     },
     "gequip.s3d": {
       "crc32": 994527711,
@@ -123,9 +1557,37 @@
       "crc32": 2156789385,
       "size": 54118
     },
+    "gfaydark.s3d": {
+      "crc32": 2726991862,
+      "size": 2203576
+    },
+    "gfaydark_chr.s3d": {
+      "crc32": 2014758770,
+      "size": 2261594
+    },
+    "gfaydark_chr.txt": {
+      "crc32": 1263200329,
+      "size": 30
+    },
+    "gfaydark_obj.s3d": {
+      "crc32": 3146077723,
+      "size": 1138223
+    },
+    "ggl_chr.s3d": {
+      "crc32": 3718950333,
+      "size": 239725
+    },
     "ggy.eqg": {
       "crc32": 1555734029,
       "size": 2650623
+    },
+    "glbanm.eqg": {
+      "crc32": 1845247831,
+      "size": 307
+    },
+    "glm_chr.s3d": {
+      "crc32": 2139803602,
+      "size": 418136
     },
     "global17_amr.s3d": {
       "crc32": 1345930508,
@@ -167,6 +1629,14 @@
       "crc32": 989943136,
       "size": 2492210
     },
+    "global5_chr.s3d": {
+      "crc32": 3084952183,
+      "size": 1881870
+    },
+    "global6_chr.s3d": {
+      "crc32": 1074475026,
+      "size": 1852955
+    },
     "global7_chr.s3d": {
       "crc32": 3567394842,
       "size": 2309873
@@ -179,13 +1649,181 @@
       "crc32": 2406610292,
       "size": 76196
     },
+    "globalbaf_chr.s3d": {
+      "crc32": 2135672638,
+      "size": 2264193
+    },
+    "globalbaf_chr2.s3d": {
+      "crc32": 3013449339,
+      "size": 200922
+    },
+    "globalbam_chr.s3d": {
+      "crc32": 3967114748,
+      "size": 2248673
+    },
+    "globalbam_chr2.s3d": {
+      "crc32": 2687635868,
+      "size": 7407
+    },
+    "globaldaf_chr.s3d": {
+      "crc32": 808069989,
+      "size": 981069
+    },
+    "globaldam_chr.s3d": {
+      "crc32": 865247831,
+      "size": 983388
+    },
+    "globaldwf_chr.s3d": {
+      "crc32": 5096177,
+      "size": 2220889
+    },
+    "globaldwf_chr2.s3d": {
+      "crc32": 2780068191,
+      "size": 7849
+    },
+    "globaldwm_chr.s3d": {
+      "crc32": 1046964484,
+      "size": 2192411
+    },
+    "globalelf_chr.s3d": {
+      "crc32": 2131007929,
+      "size": 2282585
+    },
+    "globalelf_chr2.s3d": {
+      "crc32": 1067992385,
+      "size": 93449
+    },
+    "globalelm_chr.s3d": {
+      "crc32": 3947508585,
+      "size": 2207275
+    },
+    "globalelm_chr2.s3d": {
+      "crc32": 840804900,
+      "size": 314949
+    },
+    "globalerf_chr.s3d": {
+      "crc32": 4228748408,
+      "size": 1074400
+    },
+    "globalerm_chr.s3d": {
+      "crc32": 1844118903,
+      "size": 1026693
+    },
     "globalfroglok_chr.s3d": {
       "crc32": 3267161901,
       "size": 131181
     },
+    "globalgnf_chr.s3d": {
+      "crc32": 1918306366,
+      "size": 2629622
+    },
+    "globalgnm_chr.s3d": {
+      "crc32": 4050506555,
+      "size": 2601459
+    },
+    "globalgnm_chr2.s3d": {
+      "crc32": 3025418652,
+      "size": 70019
+    },
+    "globalhaf_chr.s3d": {
+      "crc32": 52927212,
+      "size": 565225
+    },
+    "globalham_chr.s3d": {
+      "crc32": 2960231602,
+      "size": 643138
+    },
+    "globalhif_chr.s3d": {
+      "crc32": 2181431713,
+      "size": 934353
+    },
+    "globalhim_chr.s3d": {
+      "crc32": 1059081167,
+      "size": 1008848
+    },
+    "globalhof_chr.s3d": {
+      "crc32": 977744785,
+      "size": 2147598
+    },
+    "globalhof_chr2.s3d": {
+      "crc32": 2786007714,
+      "size": 7340
+    },
+    "globalhom_chr.s3d": {
+      "crc32": 550285291,
+      "size": 2099812
+    },
+    "globalhom_chr2.s3d": {
+      "crc32": 2141980879,
+      "size": 7174
+    },
+    "globalhuf_chr.s3d": {
+      "crc32": 3811636376,
+      "size": 2828181
+    },
+    "globalhuf_chr2.s3d": {
+      "crc32": 755684301,
+      "size": 147974
+    },
+    "globalhum_chr.s3d": {
+      "crc32": 277806906,
+      "size": 2755122
+    },
+    "globalhum_chr2.s3d": {
+      "crc32": 905130258,
+      "size": 59196
+    },
+    "globalikf_chr.s3d": {
+      "crc32": 4162369140,
+      "size": 3007290
+    },
+    "globalikf_chr2.s3d": {
+      "crc32": 283903684,
+      "size": 19549
+    },
+    "globalikm_chr.s3d": {
+      "crc32": 3458827962,
+      "size": 3061147
+    },
+    "globalikm_chr2.s3d": {
+      "crc32": 560141986,
+      "size": 136275
+    },
+    "globalkef_chr.s3d": {
+      "crc32": 2760938603,
+      "size": 3157470
+    },
+    "globalkef_chr2.s3d": {
+      "crc32": 522885406,
+      "size": 232105
+    },
+    "globalkem_chr.s3d": {
+      "crc32": 286022934,
+      "size": 3518772
+    },
+    "globalkem_chr2.s3d": {
+      "crc32": 815021752,
+      "size": 143218
+    },
     "globalload.txt": {
       "crc32": 2328635794,
       "size": 1855
+    },
+    "globalogf_chr.s3d": {
+      "crc32": 140965557,
+      "size": 2264814
+    },
+    "globalogf_chr2.s3d": {
+      "crc32": 2444753085,
+      "size": 33075
+    },
+    "globalogm_chr.s3d": {
+      "crc32": 4012791127,
+      "size": 1866348
+    },
+    "globalogm_chr2.s3d": {
+      "crc32": 441215236,
+      "size": 5875
     },
     "globalpcfroglok_chr.s3d": {
       "crc32": 153265561,
@@ -195,49 +1833,2925 @@
       "crc32": 3053528888,
       "size": 24980
     },
+    "globaltrf_chr.s3d": {
+      "crc32": 4050152474,
+      "size": 2124072
+    },
+    "globaltrf_chr2.s3d": {
+      "crc32": 1607025206,
+      "size": 6892
+    },
+    "globaltrm_chr.s3d": {
+      "crc32": 653929449,
+      "size": 2068064
+    },
+    "globaltrm_chr2.s3d": {
+      "crc32": 3013767420,
+      "size": 6555
+    },
+    "goo_chr.s3d": {
+      "crc32": 2853154089,
+      "size": 295296
+    },
+    "gpf_chr.s3d": {
+      "crc32": 1437875950,
+      "size": 243904
+    },
+    "gpm_chr.s3d": {
+      "crc32": 459939343,
+      "size": 205458
+    },
     "grass.s3d": {
       "crc32": 1225198608,
       "size": 819834
+    },
+    "greatdivide.s3d": {
+      "crc32": 111179580,
+      "size": 5738839
+    },
+    "greatdivide_chr.s3d": {
+      "crc32": 1813787354,
+      "size": 6544590
+    },
+    "greatdivide_obj.s3d": {
+      "crc32": 996799682,
+      "size": 1785693
+    },
+    "greatdivide_obj2.s3d": {
+      "crc32": 451516612,
+      "size": 63182
+    },
+    "gri_chr.s3d": {
+      "crc32": 3073955837,
+      "size": 119106
+    },
+    "griegsend.s3d": {
+      "crc32": 2233689068,
+      "size": 2120955
+    },
+    "griegsend_chr.s3d": {
+      "crc32": 21397843,
+      "size": 10954650
+    },
+    "griegsend_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "griegsend_obj.s3d": {
+      "crc32": 4047650452,
+      "size": 5411032
+    },
+    "grimling.s3d": {
+      "crc32": 286690328,
+      "size": 4232177
+    },
+    "grimling_chr.s3d": {
+      "crc32": 1988023132,
+      "size": 2137242
+    },
+    "grimling_obj.s3d": {
+      "crc32": 2377831958,
+      "size": 4147466
+    },
+    "grobb.s3d": {
+      "crc32": 4144803363,
+      "size": 1762791
+    },
+    "grobb_2_obj.s3d": {
+      "crc32": 4016260893,
+      "size": 641918
+    },
+    "grobb_chr.s3d": {
+      "crc32": 1402395514,
+      "size": 1358142
+    },
+    "grobb_chr.txt": {
+      "crc32": 1092988534,
+      "size": 49
+    },
+    "grobb_obj.s3d": {
+      "crc32": 2055044440,
+      "size": 382412
+    },
+    "growthplane.s3d": {
+      "crc32": 3106321199,
+      "size": 5644512
+    },
+    "growthplane2_chr.s3d": {
+      "crc32": 1878129619,
+      "size": 131652
     },
     "growthplane_chr.s3d": {
       "crc32": 1363590139,
       "size": 3165899
     },
+    "growthplane_obj.s3d": {
+      "crc32": 3921047264,
+      "size": 1106051
+    },
+    "gtd_chr.s3d": {
+      "crc32": 4197248171,
+      "size": 486065
+    },
+    "guildhall.eqg": {
+      "crc32": 2033609581,
+      "size": 10239345
+    },
+    "guildlobby.eqg": {
+      "crc32": 50465776,
+      "size": 5269585
+    },
+    "guka.s3d": {
+      "crc32": 169517367,
+      "size": 2712916
+    },
+    "guka_chr.txt": {
+      "crc32": 1913288408,
+      "size": 224
+    },
+    "guka_obj.s3d": {
+      "crc32": 3065749438,
+      "size": 1761068
+    },
+    "gukb.s3d": {
+      "crc32": 1113628570,
+      "size": 3064043
+    },
+    "gukb_chr.txt": {
+      "crc32": 2673205929,
+      "size": 215
+    },
+    "gukb_obj.s3d": {
+      "crc32": 1508173954,
+      "size": 1869850
+    },
+    "gukbottom.s3d": {
+      "crc32": 1819663972,
+      "size": 1688227
+    },
+    "gukbottom_chr.s3d": {
+      "crc32": 2268097625,
+      "size": 1894629
+    },
+    "gukbottom_chr.txt": {
+      "crc32": 1497221348,
+      "size": 28
+    },
+    "gukbottom_obj.s3d": {
+      "crc32": 655732347,
+      "size": 328040
+    },
+    "gukc.s3d": {
+      "crc32": 3624760216,
+      "size": 2550918
+    },
+    "gukc_chr.txt": {
+      "crc32": 2578708394,
+      "size": 231
+    },
+    "gukc_obj.s3d": {
+      "crc32": 3239509243,
+      "size": 923627
+    },
+    "gukd.s3d": {
+      "crc32": 107638665,
+      "size": 2449099
+    },
+    "gukd_chr.txt": {
+      "crc32": 1913288408,
+      "size": 224
+    },
+    "gukd_obj.s3d": {
+      "crc32": 258941370,
+      "size": 1314929
+    },
+    "guke.s3d": {
+      "crc32": 2504892061,
+      "size": 2442830
+    },
+    "guke_chr.txt": {
+      "crc32": 1913288408,
+      "size": 224
+    },
+    "guke_obj.s3d": {
+      "crc32": 3754446413,
+      "size": 1754196
+    },
+    "gukf.s3d": {
+      "crc32": 3391055245,
+      "size": 2966565
+    },
+    "gukf_chr.txt": {
+      "crc32": 2673205929,
+      "size": 215
+    },
+    "gukf_obj.s3d": {
+      "crc32": 3584781635,
+      "size": 1785639
+    },
+    "gukg.s3d": {
+      "crc32": 2984412050,
+      "size": 1655504
+    },
+    "gukg_chr.txt": {
+      "crc32": 919492065,
+      "size": 262
+    },
+    "gukg_obj.s3d": {
+      "crc32": 2547620340,
+      "size": 1261830
+    },
+    "gukh.s3d": {
+      "crc32": 2525578931,
+      "size": 2239485
+    },
+    "gukh_chr.txt": {
+      "crc32": 1913288408,
+      "size": 224
+    },
+    "gukh_obj.s3d": {
+      "crc32": 1940829222,
+      "size": 1294327
+    },
+    "guktop.s3d": {
+      "crc32": 2231893957,
+      "size": 1993156
+    },
+    "guktop_2_obj.s3d": {
+      "crc32": 3366499517,
+      "size": 152157
+    },
+    "guktop_chr.s3d": {
+      "crc32": 2634330063,
+      "size": 1833305
+    },
+    "guktop_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "guktop_obj.s3d": {
+      "crc32": 188857111,
+      "size": 389656
+    },
+    "gunthak.s3d": {
+      "crc32": 293471627,
+      "size": 6500691
+    },
+    "gunthak_2_obj.s3d": {
+      "crc32": 115613102,
+      "size": 512504
+    },
+    "gunthak_chr.s3d": {
+      "crc32": 3677878499,
+      "size": 1147934
+    },
+    "gunthak_chr.txt": {
+      "crc32": 1656327358,
+      "size": 335
+    },
+    "gunthak_obj.s3d": {
+      "crc32": 1810372605,
+      "size": 5574162
+    },
+    "gunthak_obj2.s3d": {
+      "crc32": 3013250434,
+      "size": 76149
+    },
+    "gvk_chr.s3d": {
+      "crc32": 142144587,
+      "size": 316461
+    },
+    "halas.s3d": {
+      "crc32": 2242361389,
+      "size": 1703029
+    },
+    "halas_chr.s3d": {
+      "crc32": 751314932,
+      "size": 2323699
+    },
+    "halas_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "halas_obj.s3d": {
+      "crc32": 1709051701,
+      "size": 1096389
+    },
+    "harbingers.eqg": {
+      "crc32": 4095537103,
+      "size": 14427741
+    },
+    "harbingers_chr.txt": {
+      "crc32": 2926112349,
+      "size": 84
+    },
+    "hateplane.s3d": {
+      "crc32": 2997526940,
+      "size": 2263975
+    },
+    "hateplane_chr.s3d": {
+      "crc32": 2300857157,
+      "size": 2206116
+    },
+    "hateplane_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "hateplane_obj.s3d": {
+      "crc32": 1734695137,
+      "size": 1058219
+    },
+    "hateplaneb.s3d": {
+      "crc32": 3381437383,
+      "size": 8428122
+    },
+    "hateplaneb_chr.s3d": {
+      "crc32": 1918386256,
+      "size": 1251865
+    },
+    "hateplaneb_chr.txt": {
+      "crc32": 201478335,
+      "size": 239
+    },
+    "hateplaneb_obj.s3d": {
+      "crc32": 3411214540,
+      "size": 4084126
+    },
+    "hatesfury.s3d": {
+      "crc32": 1517066726,
+      "size": 2435129
+    },
+    "hatesfury_chr.s3d": {
+      "crc32": 146834453,
+      "size": 417256
+    },
+    "hatesfury_chr.txt": {
+      "crc32": 1852564198,
+      "size": 182
+    },
+    "hatesfury_obj.s3d": {
+      "crc32": 2641094927,
+      "size": 8388795
+    },
+    "highkeep.s3d": {
+      "crc32": 583337906,
+      "size": 2460628
+    },
+    "highkeep_chr.s3d": {
+      "crc32": 4059332804,
+      "size": 2333191
+    },
+    "highkeep_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "highkeep_obj.s3d": {
+      "crc32": 1646073224,
+      "size": 475598
+    },
+    "highpass.s3d": {
+      "crc32": 1734420392,
+      "size": 1546280
+    },
+    "highpass_chr.s3d": {
+      "crc32": 3898256767,
+      "size": 2495952
+    },
+    "highpass_obj.s3d": {
+      "crc32": 599574052,
+      "size": 383667
+    },
+    "hohonora.s3d": {
+      "crc32": 3124071801,
+      "size": 4027441
+    },
+    "hohonora_chr.s3d": {
+      "crc32": 417229729,
+      "size": 4583657
+    },
+    "hohonora_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "hohonora_obj.s3d": {
+      "crc32": 3548897333,
+      "size": 3492749
+    },
+    "hohonorb.s3d": {
+      "crc32": 1142862076,
+      "size": 1622726
+    },
+    "hohonorb_chr.s3d": {
+      "crc32": 3494588896,
+      "size": 2207249
+    },
+    "hohonorb_obj.s3d": {
+      "crc32": 2357852313,
+      "size": 1852896
+    },
+    "hole.s3d": {
+      "crc32": 3526073638,
+      "size": 5879605
+    },
+    "hole_2_obj.s3d": {
+      "crc32": 1717824303,
+      "size": 160451
+    },
+    "hole_chr.s3d": {
+      "crc32": 1567496484,
+      "size": 1155178
+    },
+    "hole_chr.txt": {
+      "crc32": 2205011836,
+      "size": 29
+    },
+    "hole_obj.s3d": {
+      "crc32": 360966266,
+      "size": 2686354
+    },
+    "hollowshade.s3d": {
+      "crc32": 2511028397,
+      "size": 6811449
+    },
+    "hollowshade_chr.s3d": {
+      "crc32": 3676830132,
+      "size": 2329561
+    },
+    "hollowshade_obj.s3d": {
+      "crc32": 871862078,
+      "size": 1205374
+    },
+    "hpf_chr.s3d": {
+      "crc32": 1534651524,
+      "size": 267131
+    },
+    "hpm_chr.s3d": {
+      "crc32": 308302305,
+      "size": 186778
+    },
+    "ibr_chr.s3d": {
+      "crc32": 623559511,
+      "size": 431999
+    },
+    "iceclad.s3d": {
+      "crc32": 3440564770,
+      "size": 7594147
+    },
+    "iceclad_2_obj.s3d": {
+      "crc32": 4245447439,
+      "size": 388733
+    },
+    "iceclad_chr.s3d": {
+      "crc32": 3827285626,
+      "size": 3745480
+    },
+    "iceclad_chr.txt": {
+      "crc32": 3118169302,
+      "size": 78
+    },
+    "iceclad_chr2.s3d": {
+      "crc32": 69286962,
+      "size": 472817
+    },
+    "iceclad_obj.s3d": {
+      "crc32": 339254051,
+      "size": 1436750
+    },
+    "icy_chr.s3d": {
+      "crc32": 3112915633,
+      "size": 1107431
+    },
+    "iec_chr.s3d": {
+      "crc32": 462045433,
+      "size": 638644
+    },
+    "ifc_chr.s3d": {
+      "crc32": 755526357,
+      "size": 523799
+    },
+    "ihu_chr.s3d": {
+      "crc32": 3757772099,
+      "size": 389540
+    },
+    "ikkinz.s3d": {
+      "crc32": 1007559833,
+      "size": 868034
+    },
+    "ikkinz_chr.txt": {
+      "crc32": 3250684447,
+      "size": 251
+    },
+    "ikkinz_obj.s3d": {
+      "crc32": 1407671198,
+      "size": 2812160
+    },
+    "ila_chr.s3d": {
+      "crc32": 2162166466,
+      "size": 742439
+    },
+    "ilb_chr.s3d": {
+      "crc32": 809498948,
+      "size": 504418
+    },
+    "illsalin.eqg": {
+      "crc32": 664493785,
+      "size": 15849211
+    },
+    "illsalin_chr.txt": {
+      "crc32": 3814187241,
+      "size": 112
+    },
+    "illsalina.eqg": {
+      "crc32": 2483710557,
+      "size": 9351752
+    },
+    "illsalina_chr.txt": {
+      "crc32": 4216881325,
+      "size": 30
+    },
+    "illsalinb.eqg": {
+      "crc32": 1029202810,
+      "size": 7238872
+    },
+    "illsalinb_chr.txt": {
+      "crc32": 3841162629,
+      "size": 66
+    },
+    "illsalinc.eqg": {
+      "crc32": 3821936197,
+      "size": 8638412
+    },
+    "illsalinc_chr.txt": {
+      "crc32": 2372836283,
+      "size": 75
+    },
+    "inktuta.s3d": {
+      "crc32": 3449547917,
+      "size": 1629199
+    },
+    "inktuta_chr.txt": {
+      "crc32": 152332403,
+      "size": 132
+    },
+    "inktuta_obj.s3d": {
+      "crc32": 1724671014,
+      "size": 3560387
+    },
+    "innothule.s3d": {
+      "crc32": 3450755454,
+      "size": 865731
+    },
+    "innothule_2_obj.s3d": {
+      "crc32": 3336110334,
+      "size": 301135
+    },
+    "innothule_chr.s3d": {
+      "crc32": 3857985230,
+      "size": 2189373
+    },
+    "innothule_chr.txt": {
+      "crc32": 2685052503,
+      "size": 42
+    },
+    "innothule_chr2.s3d": {
+      "crc32": 1399992808,
+      "size": 246863
+    },
+    "innothule_obj.s3d": {
+      "crc32": 643267049,
+      "size": 220958
+    },
+    "isb_chr.s3d": {
+      "crc32": 93749564,
+      "size": 410963
+    },
+    "ise_chr.s3d": {
+      "crc32": 2328926365,
+      "size": 430854
+    },
+    "iwf_chr.s3d": {
+      "crc32": 3969531151,
+      "size": 271139
+    },
+    "iwh_chr.s3d": {
+      "crc32": 3372705356,
+      "size": 344050
+    },
+    "iwm_chr.s3d": {
+      "crc32": 1205103385,
+      "size": 251150
+    },
+    "izf_chr.s3d": {
+      "crc32": 1394257633,
+      "size": 276726
+    },
+    "izm_chr.s3d": {
+      "crc32": 944003523,
+      "size": 290725
+    },
+    "jaggedpine.s3d": {
+      "crc32": 3535412157,
+      "size": 8598594
+    },
+    "jaggedpine_chr.s3d": {
+      "crc32": 2973262231,
+      "size": 2627999
+    },
+    "jaggedpine_chr.txt": {
+      "crc32": 1109356703,
+      "size": 16
+    },
+    "jaggedpine_obj.s3d": {
+      "crc32": 1826950123,
+      "size": 2223730
+    },
+    "jkr_chr.s3d": {
+      "crc32": 560994616,
+      "size": 371171
+    },
+    "kael.s3d": {
+      "crc32": 1432575065,
+      "size": 4856486
+    },
+    "kael_2_obj.s3d": {
+      "crc32": 1799394538,
+      "size": 201849
+    },
+    "kael_chr.s3d": {
+      "crc32": 1138111659,
+      "size": 5161660
+    },
+    "kael_obj.s3d": {
+      "crc32": 483516099,
+      "size": 685314
+    },
+    "kaesora.s3d": {
+      "crc32": 3080061642,
+      "size": 1969412
+    },
+    "kaesora_chr.s3d": {
+      "crc32": 3154691589,
+      "size": 2434242
+    },
+    "kaesora_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "kaesora_obj.s3d": {
+      "crc32": 3648203648,
+      "size": 557981
+    },
+    "kaladima.s3d": {
+      "crc32": 2661643668,
+      "size": 999567
+    },
+    "kaladima_chr.s3d": {
+      "crc32": 886284400,
+      "size": 1206852
+    },
+    "kaladima_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "kaladima_obj.s3d": {
+      "crc32": 1150633914,
+      "size": 435426
+    },
+    "kaladimb.s3d": {
+      "crc32": 324663651,
+      "size": 1138464
+    },
+    "kaladimb_chr.s3d": {
+      "crc32": 908016819,
+      "size": 1388209
+    },
+    "kaladimb_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "kaladimb_obj.s3d": {
+      "crc32": 4013090756,
+      "size": 523854
+    },
+    "karnor.s3d": {
+      "crc32": 2154590081,
+      "size": 3258251
+    },
     "karnor_chr.s3d": {
       "crc32": 994370043,
       "size": 2973242
+    },
+    "karnor_obj.s3d": {
+      "crc32": 2960644398,
+      "size": 595862
+    },
+    "katta.s3d": {
+      "crc32": 531581603,
+      "size": 4463809
+    },
+    "katta_chr.s3d": {
+      "crc32": 79642237,
+      "size": 1868269
+    },
+    "katta_chr.txt": {
+      "crc32": 2467079163,
+      "size": 23
+    },
+    "katta_obj.s3d": {
+      "crc32": 3569431067,
+      "size": 6783621
     },
     "kbd.eqg": {
       "crc32": 4035214271,
       "size": 2995580
     },
+    "kedge.s3d": {
+      "crc32": 1933500294,
+      "size": 1136517
+    },
+    "kedge_chr.s3d": {
+      "crc32": 2694261412,
+      "size": 986170
+    },
+    "kedge_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "kedge_obj.s3d": {
+      "crc32": 111236341,
+      "size": 233403
+    },
+    "kerraridge.s3d": {
+      "crc32": 2563562578,
+      "size": 1464041
+    },
+    "kerraridge_chr.s3d": {
+      "crc32": 497207390,
+      "size": 1578050
+    },
+    "kerraridge_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "kerraridge_obj.s3d": {
+      "crc32": 2583826616,
+      "size": 328974
+    },
+    "kithicor.s3d": {
+      "crc32": 3407221549,
+      "size": 1167585
+    },
+    "kithicor_chr.s3d": {
+      "crc32": 811886178,
+      "size": 2694166
+    },
+    "kithicor_chr.txt": {
+      "crc32": 1033755784,
+      "size": 257
+    },
+    "kithicor_obj.s3d": {
+      "crc32": 678121368,
+      "size": 501342
+    },
+    "kob_chr.s3d": {
+      "crc32": 33981219,
+      "size": 261257
+    },
+    "kodtaz.s3d": {
+      "crc32": 1779360851,
+      "size": 3767745
+    },
+    "kodtaz_chr.txt": {
+      "crc32": 3377912193,
+      "size": 251
+    },
+    "kodtaz_obj.s3d": {
+      "crc32": 1931009089,
+      "size": 3322516
+    },
+    "kor.eqg": {
+      "crc32": 488035339,
+      "size": 1646654
+    },
+    "krb.eqg": {
+      "crc32": 2984511501,
+      "size": 1569344
+    },
+    "krk_chr.s3d": {
+      "crc32": 456261210,
+      "size": 382208
+    },
+    "krn.eqg": {
+      "crc32": 2453644248,
+      "size": 1065864
+    },
+    "kurn.s3d": {
+      "crc32": 572837784,
+      "size": 2824793
+    },
+    "kurn_chr.s3d": {
+      "crc32": 3622759167,
+      "size": 2607393
+    },
+    "kurn_obj.s3d": {
+      "crc32": 2613266541,
+      "size": 488082
+    },
+    "lakeofillomen.s3d": {
+      "crc32": 835711694,
+      "size": 5736341
+    },
+    "lakeofillomen_chr.s3d": {
+      "crc32": 2725314963,
+      "size": 2849644
+    },
+    "lakeofillomen_chr.txt": {
+      "crc32": 3039958178,
+      "size": 41
+    },
+    "lakeofillomen_lit.s3d": {
+      "crc32": 2184994576,
+      "size": 491717
+    },
+    "lakeofillomen_obj.s3d": {
+      "crc32": 2839338666,
+      "size": 2002587
+    },
+    "lakerathe.s3d": {
+      "crc32": 2704914401,
+      "size": 1235483
+    },
+    "lakerathe_chr.s3d": {
+      "crc32": 1037261903,
+      "size": 2560892
+    },
+    "lakerathe_chr.txt": {
+      "crc32": 3555614915,
+      "size": 21
+    },
+    "lakerathe_obj.s3d": {
+      "crc32": 4091125614,
+      "size": 901182
+    },
+    "lavastorm.eqg": {
+      "crc32": 2142906084,
+      "size": 11219944
+    },
+    "lavastorm.s3d": {
+      "crc32": 970476865,
+      "size": 839387
+    },
+    "lavastorm_chr.s3d": {
+      "crc32": 907732267,
+      "size": 2509031
+    },
+    "lavastorm_chr.txt": {
+      "crc32": 2151827620,
+      "size": 132
+    },
+    "lavastorm_obj.s3d": {
+      "crc32": 2917813434,
+      "size": 117590
+    },
     "ldonequip.s3d": {
       "crc32": 2225748163,
       "size": 1133942
+    },
+    "ldr.eqg": {
+      "crc32": 2928110386,
+      "size": 3449828
+    },
+    "letalis.s3d": {
+      "crc32": 565792389,
+      "size": 5424065
+    },
+    "letalis_chr.s3d": {
+      "crc32": 1494210690,
+      "size": 4136245
+    },
+    "letalis_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "letalis_obj.s3d": {
+      "crc32": 441311566,
+      "size": 498975
+    },
+    "lfaydark.s3d": {
+      "crc32": 251532157,
+      "size": 858814
+    },
+    "lfaydark_2_obj.s3d": {
+      "crc32": 4114900856,
+      "size": 487171
+    },
+    "lfaydark_chr.s3d": {
+      "crc32": 2304572745,
+      "size": 2276879
+    },
+    "lfaydark_chr.txt": {
+      "crc32": 1772923170,
+      "size": 30
+    },
+    "lfaydark_obj.s3d": {
+      "crc32": 1158626636,
+      "size": 975126
+    },
+    "lga_chr.s3d": {
+      "crc32": 3320855141,
+      "size": 363596
+    },
+    "lgequip.s3d": {
+      "crc32": 4227340498,
+      "size": 9006165
+    },
+    "lgequip2.s3d": {
+      "crc32": 3978013982,
+      "size": 1643869
+    },
+    "lgequip_amr.s3d": {
+      "crc32": 1063923899,
+      "size": 3594039
+    },
+    "lgequip_amr2.s3d": {
+      "crc32": 2941901176,
+      "size": 2140673
+    },
+    "lgr_chr.s3d": {
+      "crc32": 2215859766,
+      "size": 416688
+    },
+    "live_event_objects.eqg": {
+      "crc32": 283519826,
+      "size": 1999349
+    },
+    "lmf_chr.s3d": {
+      "crc32": 2163381275,
+      "size": 521318
+    },
+    "lmm_chr.s3d": {
+      "crc32": 1120406594,
+      "size": 632632
+    },
+    "load.s3d": {
+      "crc32": 527556677,
+      "size": 728515
+    },
+    "load2.s3d": {
+      "crc32": 1882232543,
+      "size": 3481216
+    },
+    "load2_obj.s3d": {
+      "crc32": 3611529147,
+      "size": 3222159
+    },
+    "load_obj.s3d": {
+      "crc32": 1639425620,
+      "size": 39803
     },
     "loyequip.s3d": {
       "crc32": 4209174336,
       "size": 494337
     },
+    "lsp.eqg": {
+      "crc32": 2900625400,
+      "size": 1171728
+    },
+    "lsq.eqg": {
+      "crc32": 3741780179,
+      "size": 2114143
+    },
+    "lug_chr.s3d": {
+      "crc32": 83229231,
+      "size": 237255
+    },
+    "luj_chr.s3d": {
+      "crc32": 2025507843,
+      "size": 389548
+    },
+    "lvr.eqg": {
+      "crc32": 3557664425,
+      "size": 59412
+    },
+    "maiden.s3d": {
+      "crc32": 2473509430,
+      "size": 5029165
+    },
+    "maiden_chr.s3d": {
+      "crc32": 2284685952,
+      "size": 4249379
+    },
+    "maiden_chr.txt": {
+      "crc32": 2889211012,
+      "size": 25
+    },
+    "maiden_chr2.s3d": {
+      "crc32": 2812503376,
+      "size": 619904
+    },
+    "maiden_obj.s3d": {
+      "crc32": 4029794600,
+      "size": 3102274
+    },
+    "mal_chr.s3d": {
+      "crc32": 2565932218,
+      "size": 206822
+    },
+    "map.eqg": {
+      "crc32": 3855599349,
+      "size": 337118
+    },
+    "mdr.eqg": {
+      "crc32": 4187161314,
+      "size": 3696234
+    },
+    "mep_chr.s3d": {
+      "crc32": 2247295134,
+      "size": 156210
+    },
+    "mes.eqg": {
+      "crc32": 1012527398,
+      "size": 147238
+    },
+    "mim_chr.s3d": {
+      "crc32": 3922071609,
+      "size": 19493
+    },
+    "mira.s3d": {
+      "crc32": 3549067924,
+      "size": 2073069
+    },
+    "mira_chr.txt": {
+      "crc32": 4226518301,
+      "size": 270
+    },
+    "mira_obj.s3d": {
+      "crc32": 1134598350,
+      "size": 393103
+    },
+    "mirb.s3d": {
+      "crc32": 1963397227,
+      "size": 1821372
+    },
+    "mirb_chr.txt": {
+      "crc32": 1214248776,
+      "size": 266
+    },
+    "mirb_obj.s3d": {
+      "crc32": 2938244939,
+      "size": 162840
+    },
+    "mirc.s3d": {
+      "crc32": 476919816,
+      "size": 2012990
+    },
+    "mirc_chr.txt": {
+      "crc32": 4226518301,
+      "size": 270
+    },
+    "mirc_obj.s3d": {
+      "crc32": 2809802273,
+      "size": 888009
+    },
+    "mird.s3d": {
+      "crc32": 1658683340,
+      "size": 2111067
+    },
+    "mird_chr.txt": {
+      "crc32": 4226518301,
+      "size": 270
+    },
+    "mird_obj.s3d": {
+      "crc32": 3513427868,
+      "size": 1615927
+    },
+    "mire.s3d": {
+      "crc32": 5525415,
+      "size": 1850669
+    },
+    "mire_chr.txt": {
+      "crc32": 4226518301,
+      "size": 270
+    },
+    "mire_obj.s3d": {
+      "crc32": 129871147,
+      "size": 1457511
+    },
+    "mirf.s3d": {
+      "crc32": 1701949175,
+      "size": 1573619
+    },
+    "mirf_chr.txt": {
+      "crc32": 4226518301,
+      "size": 270
+    },
+    "mirf_obj.s3d": {
+      "crc32": 1979436334,
+      "size": 1635308
+    },
+    "mirg.s3d": {
+      "crc32": 1638442084,
+      "size": 1615204
+    },
+    "mirg_chr.txt": {
+      "crc32": 2058727683,
+      "size": 279
+    },
+    "mirg_obj.s3d": {
+      "crc32": 1121472008,
+      "size": 3101949
+    },
+    "mirh.s3d": {
+      "crc32": 1048095840,
+      "size": 2256662
+    },
+    "mirh_chr.txt": {
+      "crc32": 2058727683,
+      "size": 279
+    },
+    "mirh_obj.s3d": {
+      "crc32": 1357943235,
+      "size": 4929490
+    },
+    "miri.s3d": {
+      "crc32": 4079593870,
+      "size": 1938886
+    },
+    "miri_chr.txt": {
+      "crc32": 2058727683,
+      "size": 279
+    },
+    "miri_obj.s3d": {
+      "crc32": 2395104483,
+      "size": 3156025
+    },
+    "mirj.s3d": {
+      "crc32": 2421231749,
+      "size": 1620198
+    },
+    "mirj_chr.txt": {
+      "crc32": 2058727683,
+      "size": 279
+    },
+    "mirj_obj.s3d": {
+      "crc32": 1354943890,
+      "size": 4751147
+    },
+    "mischiefplane.s3d": {
+      "crc32": 852192146,
+      "size": 6820506
+    },
+    "mischiefplane_chr.s3d": {
+      "crc32": 3789190436,
+      "size": 2036779
+    },
+    "mischiefplane_chr.txt": {
+      "crc32": 1894934210,
+      "size": 60
+    },
+    "mischiefplane_obj.s3d": {
+      "crc32": 3798702371,
+      "size": 1491314
+    },
+    "mistmoore.s3d": {
+      "crc32": 2665203090,
+      "size": 1258041
+    },
+    "mistmoore_chr.s3d": {
+      "crc32": 2831357430,
+      "size": 2083630
+    },
+    "mistmoore_chr.txt": {
+      "crc32": 2047501179,
+      "size": 165
+    },
+    "mistmoore_obj.s3d": {
+      "crc32": 3069815335,
+      "size": 441689
+    },
+    "misty.s3d": {
+      "crc32": 151130939,
+      "size": 680940
+    },
+    "misty_chr.s3d": {
+      "crc32": 4280346899,
+      "size": 2507333
+    },
+    "misty_chr.txt": {
+      "crc32": 3670261238,
+      "size": 39
+    },
+    "misty_obj.s3d": {
+      "crc32": 1528322085,
+      "size": 428528
+    },
+    "mmca.s3d": {
+      "crc32": 3673079109,
+      "size": 1593806
+    },
+    "mmca_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmca_obj.s3d": {
+      "crc32": 2351212783,
+      "size": 1833836
+    },
+    "mmcb.s3d": {
+      "crc32": 2140977353,
+      "size": 1228386
+    },
+    "mmcb_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmcb_obj.s3d": {
+      "crc32": 1754720474,
+      "size": 2511873
+    },
+    "mmcc.s3d": {
+      "crc32": 4000865328,
+      "size": 1536470
+    },
+    "mmcc_chr.txt": {
+      "crc32": 121811381,
+      "size": 273
+    },
+    "mmcc_obj.s3d": {
+      "crc32": 4039499848,
+      "size": 2297832
+    },
+    "mmcd.s3d": {
+      "crc32": 3381316547,
+      "size": 2094051
+    },
+    "mmcd_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmcd_obj.s3d": {
+      "crc32": 2464820426,
+      "size": 3681102
+    },
+    "mmce.s3d": {
+      "crc32": 3149011564,
+      "size": 2329022
+    },
+    "mmce_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmce_obj.s3d": {
+      "crc32": 3440763968,
+      "size": 3436332
+    },
+    "mmcf.s3d": {
+      "crc32": 1188665424,
+      "size": 2162514
+    },
+    "mmcf_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmcf_obj.s3d": {
+      "crc32": 4288087111,
+      "size": 3030610
+    },
+    "mmcg.s3d": {
+      "crc32": 4021618886,
+      "size": 915023
+    },
+    "mmcg_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmcg_obj.s3d": {
+      "crc32": 3853238536,
+      "size": 3761606
+    },
+    "mmch.s3d": {
+      "crc32": 2817969719,
+      "size": 1198614
+    },
+    "mmch_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmch_obj.s3d": {
+      "crc32": 3593281344,
+      "size": 4067068
+    },
+    "mmci.s3d": {
+      "crc32": 2241957323,
+      "size": 824484
+    },
+    "mmci_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmci_obj.s3d": {
+      "crc32": 133719667,
+      "size": 3780775
+    },
+    "mmcj.s3d": {
+      "crc32": 4039024940,
+      "size": 1701574
+    },
+    "mmcj_chr.txt": {
+      "crc32": 3584916014,
+      "size": 277
+    },
+    "mmcj_obj.s3d": {
+      "crc32": 2390992551,
+      "size": 3309700
+    },
+    "mmf_chr.s3d": {
+      "crc32": 3522687691,
+      "size": 558541
+    },
+    "mmm_chr.s3d": {
+      "crc32": 1015758954,
+      "size": 417836
+    },
+    "mmv_chr.s3d": {
+      "crc32": 1131222789,
+      "size": 273829
+    },
+    "mmy_chr.s3d": {
+      "crc32": 1759576594,
+      "size": 322992
+    },
     "mnr.eqg": {
       "crc32": 3651705013,
       "size": 2288653
+    },
+    "mnt.eqg": {
+      "crc32": 42781766,
+      "size": 2935712
+    },
+    "moi_chr.s3d": {
+      "crc32": 3827533787,
+      "size": 231052
+    },
+    "mseru.s3d": {
+      "crc32": 3854369906,
+      "size": 3775986
+    },
+    "mseru_chr.s3d": {
+      "crc32": 236399955,
+      "size": 4238903
+    },
+    "mseru_obj.s3d": {
+      "crc32": 1948789722,
+      "size": 895544
+    },
+    "mtc_chr.s3d": {
+      "crc32": 708692377,
+      "size": 90888
+    },
+    "muh_chr.s3d": {
+      "crc32": 282430615,
+      "size": 254413
+    },
+    "mur.eqg": {
+      "crc32": 3417790665,
+      "size": 2538532
+    },
+    "myg.eqg": {
+      "crc32": 101480823,
+      "size": 4334223
+    },
+    "nadox.s3d": {
+      "crc32": 4225495466,
+      "size": 5693045
+    },
+    "nadox_chr.txt": {
+      "crc32": 3710846267,
+      "size": 392
+    },
+    "nadox_obj.s3d": {
+      "crc32": 2733091663,
+      "size": 4962652
+    },
+    "najena.s3d": {
+      "crc32": 2741814233,
+      "size": 908145
+    },
+    "najena_chr.s3d": {
+      "crc32": 172626669,
+      "size": 2023749
+    },
+    "najena_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "najena_obj.s3d": {
+      "crc32": 1328276035,
+      "size": 397439
+    },
+    "natimbi.s3d": {
+      "crc32": 298129803,
+      "size": 7152722
+    },
+    "natimbi_chr.txt": {
+      "crc32": 2783333302,
+      "size": 260
+    },
+    "natimbi_obj.s3d": {
+      "crc32": 3240202996,
+      "size": 2177124
+    },
+    "necropolis.s3d": {
+      "crc32": 165064845,
+      "size": 2518376
+    },
+    "necropolis2_chr.s3d": {
+      "crc32": 3496905157,
+      "size": 1003811
+    },
+    "necropolis_2_obj.s3d": {
+      "crc32": 3442106639,
+      "size": 585106
+    },
+    "necropolis_chr.s3d": {
+      "crc32": 2177346381,
+      "size": 6441016
+    },
+    "necropolis_chr.txt": {
+      "crc32": 4060510753,
+      "size": 65
+    },
+    "necropolis_obj.s3d": {
+      "crc32": 2763754729,
+      "size": 1374088
+    },
+    "nedaria.s3d": {
+      "crc32": 1187281997,
+      "size": 4465856
+    },
+    "nedaria_chr.txt": {
+      "crc32": 3162934715,
+      "size": 206
+    },
+    "nedaria_obj.s3d": {
+      "crc32": 2290903492,
+      "size": 2275826
+    },
+    "nektulos.eqg": {
+      "crc32": 3103272263,
+      "size": 10863931
+    },
+    "nektulos.s3d": {
+      "crc32": 183041182,
+      "size": 966169
+    },
+    "nektulos_assets.txt": {
+      "crc32": 4196627875,
+      "size": 43
+    },
+    "nektulos_chr.s3d": {
+      "crc32": 3078968003,
+      "size": 2474324
+    },
+    "nektulos_chr.txt": {
+      "crc32": 1057502912,
+      "size": 358
+    },
+    "nektulos_obj.s3d": {
+      "crc32": 212903602,
+      "size": 225364
+    },
+    "nektulos_obj1.eqg": {
+      "crc32": 1419098625,
+      "size": 24143
+    },
+    "nektulosa.eqg": {
+      "crc32": 1669971569,
+      "size": 2509184
+    },
+    "nektulosa_chr.txt": {
+      "crc32": 3540734872,
+      "size": 168
+    },
+    "neriaka.s3d": {
+      "crc32": 515362570,
+      "size": 1507988
+    },
+    "neriaka_chr.s3d": {
+      "crc32": 1646345154,
+      "size": 2334771
+    },
+    "neriaka_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "neriaka_chr2.s3d": {
+      "crc32": 569344112,
+      "size": 122039
+    },
+    "neriaka_obj.s3d": {
+      "crc32": 1875786562,
+      "size": 929670
+    },
+    "neriakb.s3d": {
+      "crc32": 1136318617,
+      "size": 1692523
+    },
+    "neriakb_chr.s3d": {
+      "crc32": 558077595,
+      "size": 2217321
+    },
+    "neriakb_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "neriakb_obj.s3d": {
+      "crc32": 1364722718,
+      "size": 839082
+    },
+    "neriakc.s3d": {
+      "crc32": 1297875780,
+      "size": 1954130
+    },
+    "neriakc_chr.s3d": {
+      "crc32": 929431749,
+      "size": 2392046
+    },
+    "neriakc_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "neriakc_obj.s3d": {
+      "crc32": 3230431514,
+      "size": 889294
+    },
+    "netherbian.s3d": {
+      "crc32": 2186208611,
+      "size": 5049068
+    },
+    "netherbian_chr.s3d": {
+      "crc32": 3119452144,
+      "size": 4835943
+    },
+    "netherbian_obj.s3d": {
+      "crc32": 1088473149,
+      "size": 380531
+    },
+    "nexus.s3d": {
+      "crc32": 635877958,
+      "size": 1636996
+    },
+    "nexus_chr.s3d": {
+      "crc32": 1398107014,
+      "size": 254489
+    },
+    "nexus_obj.s3d": {
+      "crc32": 237206298,
+      "size": 573563
+    },
+    "nightmareb.s3d": {
+      "crc32": 1326215499,
+      "size": 1844223
+    },
+    "nightmareb_chr.s3d": {
+      "crc32": 4195387300,
+      "size": 1843437
+    },
+    "nightmareb_chr2.s3d": {
+      "crc32": 2224064680,
+      "size": 837797
+    },
+    "nightmareb_obj.s3d": {
+      "crc32": 3092483014,
+      "size": 369226
+    },
+    "nin_chr.s3d": {
+      "crc32": 183367364,
+      "size": 318707
+    },
+    "nmh_chr.s3d": {
+      "crc32": 333668318,
+      "size": 244181
+    },
+    "northkarana.s3d": {
+      "crc32": 1836565714,
+      "size": 1016136
+    },
+    "northkarana_chr.s3d": {
+      "crc32": 3419189380,
+      "size": 2555061
+    },
+    "northkarana_chr.txt": {
+      "crc32": 1109356703,
+      "size": 16
+    },
+    "northkarana_obj.s3d": {
+      "crc32": 593290220,
+      "size": 645708
+    },
+    "nro.s3d": {
+      "crc32": 2150365154,
+      "size": 935720
+    },
+    "nro2_chr.s3d": {
+      "crc32": 1613646543,
+      "size": 73800
+    },
+    "nro_2_obj.s3d": {
+      "crc32": 1793638853,
+      "size": 9878
+    },
+    "nro_chr.s3d": {
+      "crc32": 2369236599,
+      "size": 2569236
+    },
+    "nro_chr.txt": {
+      "crc32": 1332308301,
+      "size": 84
+    },
+    "nro_obj.s3d": {
+      "crc32": 3143704810,
+      "size": 553291
+    },
+    "nro_obj2.s3d": {
+      "crc32": 2180653707,
+      "size": 301167
+    },
+    "nurga.s3d": {
+      "crc32": 2819601876,
+      "size": 1482593
+    },
+    "nurga_chr.s3d": {
+      "crc32": 2119277557,
+      "size": 2644347
+    },
+    "nurga_chr.txt": {
+      "crc32": 1337760542,
+      "size": 35
+    },
+    "nurga_obj.s3d": {
+      "crc32": 3495346548,
+      "size": 264125
+    },
+    "nyd_chr.s3d": {
+      "crc32": 1321562506,
+      "size": 146185
+    },
+    "nym_chr.s3d": {
+      "crc32": 478040279,
+      "size": 332163
+    },
+    "oasis.s3d": {
+      "crc32": 3771677925,
+      "size": 544576
+    },
+    "oasis2_chr.s3d": {
+      "crc32": 1138710194,
+      "size": 73802
+    },
+    "oasis_2_obj.s3d": {
+      "crc32": 491791969,
+      "size": 373067
+    },
+    "oasis_chr.s3d": {
+      "crc32": 310244016,
+      "size": 2544081
+    },
+    "oasis_chr.txt": {
+      "crc32": 717909511,
+      "size": 52
+    },
+    "oasis_obj.s3d": {
+      "crc32": 2335544439,
+      "size": 570605
+    },
+    "obequip_lexit.s3d": {
+      "crc32": 3489504507,
+      "size": 1185388
+    },
+    "oggok.s3d": {
+      "crc32": 4008582073,
+      "size": 1377235
+    },
+    "oggok_chr.s3d": {
+      "crc32": 540686749,
+      "size": 1754899
+    },
+    "oggok_obj.s3d": {
+      "crc32": 4118014166,
+      "size": 310392
     },
     "omensequip.eqg": {
       "crc32": 2937148690,
       "size": 1891406
     },
+    "oot.s3d": {
+      "crc32": 3778992566,
+      "size": 1399827
+    },
+    "oot_chr.s3d": {
+      "crc32": 2419110497,
+      "size": 2515722
+    },
+    "oot_chr.txt": {
+      "crc32": 1671727057,
+      "size": 28
+    },
+    "oot_chr2.s3d": {
+      "crc32": 2278787724,
+      "size": 19505
+    },
+    "oot_obj.s3d": {
+      "crc32": 848960360,
+      "size": 707701
+    },
+    "opf_chr.s3d": {
+      "crc32": 3920754449,
+      "size": 202646
+    },
+    "opm_chr.s3d": {
+      "crc32": 4158941379,
+      "size": 235074
+    },
     "ork.eqg": {
       "crc32": 2995315081,
       "size": 4938308
+    },
+    "overthere.s3d": {
+      "crc32": 1884091966,
+      "size": 4783737
+    },
+    "overthere_chr.s3d": {
+      "crc32": 2458607282,
+      "size": 3125894
+    },
+    "overthere_chr.txt": {
+      "crc32": 2288017983,
+      "size": 77
+    },
+    "overthere_obj.s3d": {
+      "crc32": 3786578938,
+      "size": 2511953
+    },
+    "paf_chr.s3d": {
+      "crc32": 3791676518,
+      "size": 320173
+    },
+    "paineel.s3d": {
+      "crc32": 360858127,
+      "size": 4019101
+    },
+    "paineel_chr.s3d": {
+      "crc32": 1089986843,
+      "size": 1525689
+    },
+    "paineel_chr.txt": {
+      "crc32": 808956218,
+      "size": 21
+    },
+    "paineel_obj.s3d": {
+      "crc32": 341873175,
+      "size": 2045214
+    },
+    "paludal.s3d": {
+      "crc32": 262785339,
+      "size": 2540841
+    },
+    "paludal_chr.s3d": {
+      "crc32": 4000351743,
+      "size": 1348639
+    },
+    "paludal_obj.s3d": {
+      "crc32": 1996604821,
+      "size": 1039350
+    },
+    "paw.s3d": {
+      "crc32": 2120092239,
+      "size": 1934813
+    },
+    "paw_chr.s3d": {
+      "crc32": 1473890640,
+      "size": 2247408
+    },
+    "paw_chr.txt": {
+      "crc32": 3706754938,
+      "size": 120
+    },
+    "paw_obj.s3d": {
+      "crc32": 2790540229,
+      "size": 204294
+    },
+    "pbr_chr.s3d": {
+      "crc32": 2219615921,
+      "size": 117240
+    },
+    "permafrost.s3d": {
+      "crc32": 1497532175,
+      "size": 1971204
+    },
+    "permafrost_chr.s3d": {
+      "crc32": 2695688757,
+      "size": 2562518
+    },
+    "permafrost_chr.txt": {
+      "crc32": 2610968677,
+      "size": 21
+    },
+    "permafrost_obj.s3d": {
+      "crc32": 632946540,
+      "size": 530404
+    },
+    "pma.eqg": {
+      "crc32": 1131489327,
+      "size": 2051000
+    },
+    "poair.s3d": {
+      "crc32": 1102912048,
+      "size": 6163303
+    },
+    "poair_chr.s3d": {
+      "crc32": 3501822880,
+      "size": 4087769
+    },
+    "poair_obj.s3d": {
+      "crc32": 1267671186,
+      "size": 5102932
+    },
+    "podisease.s3d": {
+      "crc32": 2672122833,
+      "size": 8519653
+    },
+    "podisease_chr.s3d": {
+      "crc32": 2814498484,
+      "size": 4538825
+    },
+    "podisease_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "podisease_obj.s3d": {
+      "crc32": 3079720226,
+      "size": 1999736
+    },
+    "poeartha.s3d": {
+      "crc32": 2285492368,
+      "size": 2268822
+    },
+    "poeartha_chr.s3d": {
+      "crc32": 4081416197,
+      "size": 3962484
+    },
+    "poeartha_obj.s3d": {
+      "crc32": 98014039,
+      "size": 1022765
+    },
+    "poearthb.s3d": {
+      "crc32": 2501647094,
+      "size": 2367976
+    },
+    "poearthb_chr.s3d": {
+      "crc32": 1120712485,
+      "size": 2038170
+    },
+    "poearthb_obj.s3d": {
+      "crc32": 4220782480,
+      "size": 1373007
+    },
+    "pofire.s3d": {
+      "crc32": 2053848978,
+      "size": 7423626
+    },
+    "pofire_chr.s3d": {
+      "crc32": 3398551241,
+      "size": 7481382
+    },
+    "pofire_obj.s3d": {
+      "crc32": 1122693834,
+      "size": 4132478
+    },
+    "poinnovation.s3d": {
+      "crc32": 2387019281,
+      "size": 8645009
+    },
+    "poinnovation_chr.s3d": {
+      "crc32": 4226203537,
+      "size": 3093838
+    },
+    "poinnovation_chr.txt": {
+      "crc32": 1862379542,
+      "size": 21
+    },
+    "poinnovation_obj.s3d": {
+      "crc32": 2912457572,
+      "size": 2723024
+    },
+    "pojustice.s3d": {
+      "crc32": 3428359829,
+      "size": 4667967
+    },
+    "pojustice_chr.s3d": {
+      "crc32": 4013170180,
+      "size": 8236239
+    },
+    "pojustice_chr.txt": {
+      "crc32": 2534112151,
+      "size": 39
+    },
+    "pojustice_obj.s3d": {
+      "crc32": 3826528614,
+      "size": 3196278
+    },
+    "poknowledge.s3d": {
+      "crc32": 56125343,
+      "size": 4277702
+    },
+    "poknowledge_assets.txt": {
+      "crc32": 2518207940,
+      "size": 19
+    },
+    "poknowledge_chr.s3d": {
+      "crc32": 3091409354,
+      "size": 4673817
+    },
+    "poknowledge_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "poknowledge_obj.s3d": {
+      "crc32": 2366357917,
+      "size": 6619031
+    },
+    "poknowledge_obj2.s3d": {
+      "crc32": 2431909234,
+      "size": 170326
+    },
+    "poknowledge_obj3.eqg": {
+      "crc32": 2765101593,
+      "size": 415056
+    },
+    "pokport_gukta.eqg": {
+      "crc32": 714118550,
+      "size": 198402
+    },
+    "ponightmare.s3d": {
+      "crc32": 1652894397,
+      "size": 10192628
+    },
+    "ponightmare_chr.s3d": {
+      "crc32": 1644769929,
+      "size": 5051450
+    },
+    "ponightmare_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "ponightmare_chr2.s3d": {
+      "crc32": 191168156,
+      "size": 441710
+    },
+    "ponightmare_obj.s3d": {
+      "crc32": 4091295571,
+      "size": 3624362
+    },
+    "postorms.s3d": {
+      "crc32": 3603316310,
+      "size": 8906873
+    },
+    "postorms_chr.s3d": {
+      "crc32": 650749298,
+      "size": 5715336
+    },
+    "postorms_chr.txt": {
+      "crc32": 2778788628,
+      "size": 21
+    },
+    "postorms_obj.s3d": {
+      "crc32": 3571486320,
+      "size": 4624153
+    },
+    "potactics.s3d": {
+      "crc32": 3976666063,
+      "size": 5716436
+    },
+    "potactics_chr.s3d": {
+      "crc32": 36620213,
+      "size": 6725769
+    },
+    "potactics_chr.txt": {
+      "crc32": 2096608195,
+      "size": 25
+    },
+    "potactics_obj.s3d": {
+      "crc32": 2943829346,
+      "size": 3655710
+    },
+    "potimea.s3d": {
+      "crc32": 1213337883,
+      "size": 3765745
+    },
+    "potimea_chr.s3d": {
+      "crc32": 345396112,
+      "size": 3225341
+    },
+    "potimea_chr.txt": {
+      "crc32": 1694371834,
+      "size": 151
+    },
+    "potimea_obj.s3d": {
+      "crc32": 2342691969,
+      "size": 7235314
+    },
+    "potimeb.s3d": {
+      "crc32": 3897708182,
+      "size": 5002953
+    },
+    "potimeb_chr.s3d": {
+      "crc32": 3323067621,
+      "size": 10515271
+    },
+    "potimeb_chr2.s3d": {
+      "crc32": 311629026,
+      "size": 692130
+    },
+    "potimeb_obj.s3d": {
+      "crc32": 2661206427,
+      "size": 3482563
+    },
+    "potorment.s3d": {
+      "crc32": 2520571366,
+      "size": 3209332
+    },
+    "potorment_chr.s3d": {
+      "crc32": 2797867961,
+      "size": 1523123
+    },
+    "potorment_chr.txt": {
+      "crc32": 2096608195,
+      "size": 25
+    },
+    "potorment_obj.s3d": {
+      "crc32": 3816096146,
+      "size": 1939965
+    },
+    "potranquility.s3d": {
+      "crc32": 3224735115,
+      "size": 9338109
+    },
+    "potranquility_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "potranquility_obj.s3d": {
+      "crc32": 4156966665,
+      "size": 8742539
+    },
+    "povalor.s3d": {
+      "crc32": 4030842643,
+      "size": 7196046
+    },
+    "povalor_chr.s3d": {
+      "crc32": 3509936140,
+      "size": 4695518
+    },
+    "povalor_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "povalor_chr2.s3d": {
+      "crc32": 1512755493,
+      "size": 100294
+    },
+    "povalor_obj.s3d": {
+      "crc32": 1265605797,
+      "size": 5146484
+    },
+    "powar.s3d": {
+      "crc32": 4110063317,
+      "size": 7265412
+    },
+    "powar_chr.s3d": {
+      "crc32": 3552591851,
+      "size": 6044921
+    },
+    "powar_obj.s3d": {
+      "crc32": 1329867134,
+      "size": 8918522
+    },
+    "powater.s3d": {
+      "crc32": 3180018628,
+      "size": 2816373
+    },
+    "powater_chr.s3d": {
+      "crc32": 3916709648,
+      "size": 2431425
+    },
+    "powater_obj.s3d": {
+      "crc32": 3244726283,
+      "size": 1364483
+    },
+    "pri_chr.s3d": {
+      "crc32": 763546230,
+      "size": 302547
+    },
+    "provinggrounds.eqg": {
+      "crc32": 699894107,
+      "size": 16372465
+    },
+    "provinggrounds_chr.txt": {
+      "crc32": 3003713171,
+      "size": 154
+    },
+    "prt.eqg": {
+      "crc32": 183349093,
+      "size": 326967
+    },
+    "pum_chr.s3d": {
+      "crc32": 1174054542,
+      "size": 77838
+    },
+    "pus_chr.s3d": {
+      "crc32": 311781828,
+      "size": 218741
+    },
+    "qcat.s3d": {
+      "crc32": 2026592400,
+      "size": 880738
+    },
+    "qcat_chr.s3d": {
+      "crc32": 2653290350,
+      "size": 2516849
+    },
+    "qcat_chr.txt": {
+      "crc32": 2617780730,
+      "size": 30
+    },
+    "qcat_obj.s3d": {
+      "crc32": 3741117207,
+      "size": 198672
+    },
+    "qey2hh1.s3d": {
+      "crc32": 3201531297,
+      "size": 1439614
+    },
+    "qey2hh1_chr.s3d": {
+      "crc32": 561570405,
+      "size": 2747485
+    },
+    "qey2hh1_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "qey2hh1_obj.s3d": {
+      "crc32": 4284963844,
+      "size": 862720
+    },
+    "qeynos.s3d": {
+      "crc32": 69632277,
+      "size": 3470966
+    },
+    "qeynos2.s3d": {
+      "crc32": 997480689,
+      "size": 1784385
+    },
+    "qeynos2_chr.s3d": {
+      "crc32": 3781822326,
+      "size": 2558305
+    },
+    "qeynos2_chr.txt": {
+      "crc32": 564929423,
+      "size": 34
+    },
+    "qeynos2_obj.s3d": {
+      "crc32": 7128734,
+      "size": 523169
+    },
+    "qeynos_chr.s3d": {
+      "crc32": 2394568567,
+      "size": 2758677
+    },
+    "qeynos_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "qeynos_obj.s3d": {
+      "crc32": 793440709,
+      "size": 922350
+    },
+    "qeytoqrg.s3d": {
+      "crc32": 1507935969,
+      "size": 1029434
+    },
+    "qeytoqrg_chr.s3d": {
+      "crc32": 349471979,
+      "size": 2617234
+    },
+    "qeytoqrg_chr.txt": {
+      "crc32": 808956218,
+      "size": 21
+    },
+    "qeytoqrg_obj.s3d": {
+      "crc32": 3847043333,
+      "size": 304073
+    },
+    "qinimi.s3d": {
+      "crc32": 3033048278,
+      "size": 2993925
+    },
+    "qinimi_chr.txt": {
+      "crc32": 2610088430,
+      "size": 210
+    },
+    "qinimi_obj.s3d": {
+      "crc32": 2319710766,
+      "size": 2450763
+    },
+    "qrg.s3d": {
+      "crc32": 4118913919,
+      "size": 1084569
+    },
+    "qrg_2_obj.s3d": {
+      "crc32": 2670478402,
+      "size": 178022
+    },
+    "qrg_chr.s3d": {
+      "crc32": 1815901878,
+      "size": 2466280
+    },
+    "qrg_chr.txt": {
+      "crc32": 3373975528,
+      "size": 12
+    },
+    "qrg_obj.s3d": {
+      "crc32": 2178843441,
+      "size": 408251
+    },
+    "qvic.s3d": {
+      "crc32": 780197934,
+      "size": 3446081
+    },
+    "qvic_chr.txt": {
+      "crc32": 638032639,
+      "size": 212
+    },
+    "qvic_obj.s3d": {
+      "crc32": 1108727865,
+      "size": 3088488
+    },
+    "qvicb.s3d": {
+      "crc32": 922566845,
+      "size": 480290
+    },
+    "qvicb_chr.txt": {
+      "crc32": 3189872532,
+      "size": 199
+    },
+    "qvicb_obj.s3d": {
+      "crc32": 947116689,
+      "size": 391581
+    },
+    "rak_chr.s3d": {
+      "crc32": 419131848,
+      "size": 246222
     },
     "rap_chr.s3d": {
       "crc32": 2410671957,
       "size": 207157
     },
+    "rat.eqg": {
+      "crc32": 3607355969,
+      "size": 2115304
+    },
+    "rathemtn.s3d": {
+      "crc32": 2445907446,
+      "size": 1556109
+    },
+    "rathemtn_chr.s3d": {
+      "crc32": 780934575,
+      "size": 2606127
+    },
+    "rathemtn_chr.txt": {
+      "crc32": 291862478,
+      "size": 200
+    },
+    "rathemtn_chr2.s3d": {
+      "crc32": 3012880008,
+      "size": 512580
+    },
+    "rathemtn_obj.s3d": {
+      "crc32": 1205047462,
+      "size": 861405
+    },
+    "rathemtn_obj2.s3d": {
+      "crc32": 1584354930,
+      "size": 692975
+    },
+    "rem_chr.s3d": {
+      "crc32": 134677919,
+      "size": 247555
+    },
+    "rgm_chr.s3d": {
+      "crc32": 1855169998,
+      "size": 100273
+    },
+    "riftseekers.eqg": {
+      "crc32": 3199684388,
+      "size": 11675630
+    },
+    "riftseekers_chr.txt": {
+      "crc32": 3942674340,
+      "size": 138
+    },
+    "rivervale.s3d": {
+      "crc32": 4031514092,
+      "size": 1586043
+    },
+    "rivervale_chr.s3d": {
+      "crc32": 1645066559,
+      "size": 2381767
+    },
+    "rivervale_chr.txt": {
+      "crc32": 87691803,
+      "size": 12
+    },
+    "rivervale_obj.s3d": {
+      "crc32": 137734444,
+      "size": 575481
+    },
+    "riwwi.s3d": {
+      "crc32": 795360758,
+      "size": 2513244
+    },
+    "riwwi_chr.txt": {
+      "crc32": 2335941042,
+      "size": 186
+    },
+    "riwwi_obj.s3d": {
+      "crc32": 4191786338,
+      "size": 3230845
+    },
+    "rkp.eqg": {
+      "crc32": 432066513,
+      "size": 227179
+    },
+    "rob.eqg": {
+      "crc32": 1315359838,
+      "size": 83129
+    },
+    "roe_chr.s3d": {
+      "crc32": 3563746023,
+      "size": 324202
+    },
+    "rom_chr.s3d": {
+      "crc32": 1459601839,
+      "size": 673734
+    },
+    "rtn.eqg": {
+      "crc32": 1624009927,
+      "size": 2151569
+    },
+    "ruja.s3d": {
+      "crc32": 242025390,
+      "size": 3075487
+    },
+    "ruja_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "ruja_obj.s3d": {
+      "crc32": 3514485421,
+      "size": 1086400
+    },
+    "rujb.s3d": {
+      "crc32": 158648332,
+      "size": 2094096
+    },
+    "rujb_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujb_obj.s3d": {
+      "crc32": 3720076236,
+      "size": 2507006
+    },
+    "rujc.s3d": {
+      "crc32": 2199572257,
+      "size": 2986496
+    },
+    "rujc_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujc_obj.s3d": {
+      "crc32": 265574401,
+      "size": 2402300
+    },
+    "rujd.s3d": {
+      "crc32": 2651768544,
+      "size": 3348476
+    },
+    "rujd_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujd_obj.s3d": {
+      "crc32": 173994505,
+      "size": 1935350
+    },
+    "ruje.s3d": {
+      "crc32": 1940962902,
+      "size": 2538467
+    },
+    "ruje_chr.txt": {
+      "crc32": 1600073584,
+      "size": 201
+    },
+    "ruje_obj.s3d": {
+      "crc32": 250167921,
+      "size": 3089451
+    },
+    "rujf.s3d": {
+      "crc32": 1118872177,
+      "size": 2184826
+    },
+    "rujf_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujf_obj.s3d": {
+      "crc32": 3900563554,
+      "size": 1809474
+    },
+    "rujg.s3d": {
+      "crc32": 1115284200,
+      "size": 1714027
+    },
+    "rujg_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujg_obj.s3d": {
+      "crc32": 4269197548,
+      "size": 2918724
+    },
+    "rujh.s3d": {
+      "crc32": 1329502650,
+      "size": 1655898
+    },
+    "rujh_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujh_obj.s3d": {
+      "crc32": 4054408769,
+      "size": 2505694
+    },
+    "ruji.s3d": {
+      "crc32": 2643412218,
+      "size": 1904063
+    },
+    "ruji_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "ruji_obj.s3d": {
+      "crc32": 2358940404,
+      "size": 2346473
+    },
+    "rujj.s3d": {
+      "crc32": 4273552105,
+      "size": 2058241
+    },
+    "rujj_chr.txt": {
+      "crc32": 446552382,
+      "size": 150
+    },
+    "rujj_obj.s3d": {
+      "crc32": 3062343572,
+      "size": 2282977
+    },
+    "runnyeye.s3d": {
+      "crc32": 2176008903,
+      "size": 2034290
+    },
+    "runnyeye_chr.s3d": {
+      "crc32": 3507507534,
+      "size": 1977612
+    },
+    "runnyeye_chr.txt": {
+      "crc32": 869848785,
+      "size": 70
+    },
+    "runnyeye_obj.s3d": {
+      "crc32": 2172824673,
+      "size": 459087
+    },
+    "scarlet.s3d": {
+      "crc32": 1577072347,
+      "size": 5810313
+    },
+    "scarlet_chr.s3d": {
+      "crc32": 4041190716,
+      "size": 3796834
+    },
+    "scarlet_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "scarlet_obj.s3d": {
+      "crc32": 2995121554,
+      "size": 1441908
+    },
+    "scr_chr.s3d": {
+      "crc32": 649057138,
+      "size": 120184
+    },
+    "scu.eqg": {
+      "crc32": 1258340321,
+      "size": 3293301
+    },
+    "sdc_chr.s3d": {
+      "crc32": 54200517,
+      "size": 300169
+    },
+    "sdf_chr.s3d": {
+      "crc32": 117063685,
+      "size": 188794
+    },
+    "sdm_chr.s3d": {
+      "crc32": 89201496,
+      "size": 206624
+    },
+    "sdr.eqg": {
+      "crc32": 4046623926,
+      "size": 4312706
+    },
+    "sebilis.s3d": {
+      "crc32": 2201869472,
+      "size": 3506579
+    },
+    "sebilis_chr.s3d": {
+      "crc32": 1991625256,
+      "size": 2160507
+    },
+    "sebilis_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "sebilis_obj.s3d": {
+      "crc32": 1333427264,
+      "size": 699828
+    },
+    "sed_chr.s3d": {
+      "crc32": 1633858648,
+      "size": 255409
+    },
+    "sef_chr.s3d": {
+      "crc32": 1167519836,
+      "size": 872879
+    },
+    "seg.eqg": {
+      "crc32": 3933050182,
+      "size": 439518
+    },
+    "sem_chr.s3d": {
+      "crc32": 485763187,
+      "size": 843534
+    },
+    "sgr_chr.s3d": {
+      "crc32": 3659038323,
+      "size": 197646
+    },
+    "shadeweaver.s3d": {
+      "crc32": 3021412679,
+      "size": 5424786
+    },
+    "shadeweaver_chr.s3d": {
+      "crc32": 2172113393,
+      "size": 3728830
+    },
+    "shadeweaver_obj.s3d": {
+      "crc32": 406897367,
+      "size": 2237711
+    },
+    "shadowhaven.s3d": {
+      "crc32": 3505870625,
+      "size": 5922009
+    },
+    "shadowhaven_chr.s3d": {
+      "crc32": 1046757434,
+      "size": 254497
+    },
+    "shadowhaven_obj.s3d": {
+      "crc32": 3481214664,
+      "size": 6907217
+    },
+    "shadowrest.s3d": {
+      "crc32": 433548075,
+      "size": 788243
+    },
+    "shadowrest_chr.txt": {
+      "crc32": 2968503357,
+      "size": 29
+    },
+    "shadowrest_obj.s3d": {
+      "crc32": 1758888618,
+      "size": 1719570
+    },
+    "shadowspine.eqg": {
+      "crc32": 3906669442,
+      "size": 3656503
+    },
+    "shadowspine_chr.txt": {
+      "crc32": 3965798348,
+      "size": 55
+    },
+    "sharvahl.s3d": {
+      "crc32": 3208566295,
+      "size": 5577915
+    },
+    "sharvahl_chr.s3d": {
+      "crc32": 4222142761,
+      "size": 2506285
+    },
+    "sharvahl_chr2.s3d": {
+      "crc32": 319644998,
+      "size": 442858
+    },
+    "sharvahl_obj.s3d": {
+      "crc32": 197041744,
+      "size": 6976372
+    },
+    "shd.eqg": {
+      "crc32": 1588098322,
+      "size": 3625878
+    },
+    "shl.eqg": {
+      "crc32": 1041234836,
+      "size": 3140183
+    },
+    "shp_chr.s3d": {
+      "crc32": 38067857,
+      "size": 144666
+    },
+    "shr_chr.s3d": {
+      "crc32": 1634405950,
+      "size": 130349
+    },
+    "sir_chr.s3d": {
+      "crc32": 2372308968,
+      "size": 44769
+    },
+    "sirens.s3d": {
+      "crc32": 56424175,
+      "size": 4898678
+    },
+    "sirens_chr.s3d": {
+      "crc32": 3260270196,
+      "size": 3146474
+    },
+    "sirens_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "sirens_obj.s3d": {
+      "crc32": 3034250466,
+      "size": 367219
+    },
+    "skb_chr.s3d": {
+      "crc32": 598755686,
+      "size": 332227
+    },
+    "skn_chr.s3d": {
+      "crc32": 281150853,
+      "size": 168673
+    },
     "skt_chr.s3d": {
       "crc32": 1328493250,
       "size": 1106324
+    },
+    "sky.s3d": {
+      "crc32": 2591308983,
+      "size": 1970158
+    },
+    "skyfire.s3d": {
+      "crc32": 4023163845,
+      "size": 4400614
+    },
+    "skyfire_chr.s3d": {
+      "crc32": 2430709892,
+      "size": 2753183
+    },
+    "skyfire_chr.txt": {
+      "crc32": 1290850100,
+      "size": 247
+    },
+    "skyfire_obj.s3d": {
+      "crc32": 2174532715,
+      "size": 1292027
+    },
+    "skyshrine.s3d": {
+      "crc32": 3560954163,
+      "size": 5509990
+    },
+    "skyshrine2_chr.s3d": {
+      "crc32": 1803187199,
+      "size": 1111857
+    },
+    "skyshrine_2_obj.s3d": {
+      "crc32": 1123824294,
+      "size": 800013
+    },
+    "skyshrine_chr.s3d": {
+      "crc32": 2764003895,
+      "size": 5340012
+    },
+    "skyshrine_chr.txt": {
+      "crc32": 2610968677,
+      "size": 21
+    },
+    "skyshrine_chr2.s3d": {
+      "crc32": 51218495,
+      "size": 1674562
+    },
+    "skyshrine_obj.s3d": {
+      "crc32": 1307578713,
+      "size": 1906884
+    },
+    "sleeper.s3d": {
+      "crc32": 1422949892,
+      "size": 5222761
+    },
+    "sleeper2_chr.s3d": {
+      "crc32": 2126377214,
+      "size": 595749
+    },
+    "sleeper_2_obj.s3d": {
+      "crc32": 2598347178,
+      "size": 466011
+    },
+    "sleeper_chr.s3d": {
+      "crc32": 4001796721,
+      "size": 4397746
+    },
+    "sleeper_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "sleeper_chr2.s3d": {
+      "crc32": 1066405218,
+      "size": 993207
+    },
+    "sleeper_obj.s3d": {
+      "crc32": 3603463914,
+      "size": 888860
+    },
+    "sncrematory.s3d": {
+      "crc32": 1696662082,
+      "size": 1944686
+    },
+    "sncrematory_chr.txt": {
+      "crc32": 2454513330,
+      "size": 193
+    },
+    "sncrematory_obj.s3d": {
+      "crc32": 1756119565,
+      "size": 1335242
+    },
+    "snk.eqg": {
+      "crc32": 44789463,
+      "size": 990333
+    },
+    "snlair.s3d": {
+      "crc32": 58548262,
+      "size": 1997410
+    },
+    "snlair_chr.txt": {
+      "crc32": 3807998576,
+      "size": 174
+    },
+    "snlair_obj.s3d": {
+      "crc32": 473723898,
+      "size": 1241897
+    },
+    "snn_chr.s3d": {
+      "crc32": 1961491697,
+      "size": 381369
+    },
+    "snplant.s3d": {
+      "crc32": 1501052057,
+      "size": 1646085
+    },
+    "snplant_chr.txt": {
+      "crc32": 2283900902,
+      "size": 200
+    },
+    "snplant_obj.s3d": {
+      "crc32": 3002627174,
+      "size": 916158
+    },
+    "snpool.s3d": {
+      "crc32": 867218343,
+      "size": 1699840
+    },
+    "snpool_chr.txt": {
+      "crc32": 3807998576,
+      "size": 174
+    },
+    "snpool_obj.s3d": {
+      "crc32": 3065986393,
+      "size": 1862165
+    },
+    "soldunga.s3d": {
+      "crc32": 2023003022,
+      "size": 2337111
+    },
+    "soldunga_chr.s3d": {
+      "crc32": 3000560124,
+      "size": 1967180
+    },
+    "soldunga_chr.txt": {
+      "crc32": 2610968677,
+      "size": 21
+    },
+    "soldunga_obj.s3d": {
+      "crc32": 1493706310,
+      "size": 585383
+    },
+    "soldungb.s3d": {
+      "crc32": 923750095,
+      "size": 1544173
+    },
+    "soldungb_chr.s3d": {
+      "crc32": 1589076010,
+      "size": 2526299
+    },
+    "soldungb_chr.txt": {
+      "crc32": 357769493,
+      "size": 39
+    },
+    "soldungb_obj.s3d": {
+      "crc32": 3102592623,
+      "size": 888212
+    },
+    "soldungc.s3d": {
+      "crc32": 1602807176,
+      "size": 2908826
+    },
+    "soldungc_chr.txt": {
+      "crc32": 3291839041,
+      "size": 302
+    },
+    "soldungc_obj.s3d": {
+      "crc32": 3599885864,
+      "size": 2353632
+    },
+    "solrotower.s3d": {
+      "crc32": 675013601,
+      "size": 4368450
+    },
+    "solrotower_chr.s3d": {
+      "crc32": 56856502,
+      "size": 7228099
+    },
+    "solrotower_chr.txt": {
+      "crc32": 3483060505,
+      "size": 12
+    },
+    "solrotower_chr2.s3d": {
+      "crc32": 607785116,
+      "size": 240058
+    },
+    "solrotower_obj.s3d": {
+      "crc32": 2069144464,
+      "size": 2079704
+    },
+    "soltemple.s3d": {
+      "crc32": 2290840031,
+      "size": 1051256
+    },
+    "soltemple_chr.s3d": {
+      "crc32": 3692150028,
+      "size": 244516
+    },
+    "soltemple_obj.s3d": {
+      "crc32": 867282072,
+      "size": 535210
+    },
+    "southkarana.s3d": {
+      "crc32": 2845841727,
+      "size": 1980726
+    },
+    "southkarana_chr.s3d": {
+      "crc32": 2628618975,
+      "size": 2535274
+    },
+    "southkarana_obj.s3d": {
+      "crc32": 2128562474,
+      "size": 467902
+    },
+    "spd_chr.s3d": {
+      "crc32": 651418162,
+      "size": 248617
     },
     "spells.eff": {
       "crc32": 4130124969,
@@ -255,13 +4769,965 @@
       "crc32": 1098406920,
       "size": 112092
     },
+    "spq.eqg": {
+      "crc32": 313271787,
+      "size": 3799530
+    },
+    "sro.s3d": {
+      "crc32": 3182538062,
+      "size": 439340
+    },
+    "sro_2_obj.s3d": {
+      "crc32": 3091809024,
+      "size": 297528
+    },
+    "sro_chr.s3d": {
+      "crc32": 3654682690,
+      "size": 2484461
+    },
+    "sro_chr.txt": {
+      "crc32": 2610968677,
+      "size": 21
+    },
+    "sro_obj.s3d": {
+      "crc32": 2016386156,
+      "size": 682903
+    },
+    "sseru.s3d": {
+      "crc32": 4261702557,
+      "size": 5664739
+    },
+    "sseru_chr.s3d": {
+      "crc32": 2992495721,
+      "size": 2529127
+    },
+    "sseru_obj.s3d": {
+      "crc32": 3786558111,
+      "size": 3365373
+    },
+    "ssratemple.s3d": {
+      "crc32": 3610091702,
+      "size": 4297140
+    },
+    "ssratemple_chr.s3d": {
+      "crc32": 2409501076,
+      "size": 1412753
+    },
+    "ssratemple_obj.s3d": {
+      "crc32": 1396009131,
+      "size": 2392634
+    },
+    "steamfont.s3d": {
+      "crc32": 917069639,
+      "size": 839019
+    },
+    "steamfont_chr.s3d": {
+      "crc32": 1925024222,
+      "size": 2433383
+    },
+    "steamfont_chr.txt": {
+      "crc32": 2195467554,
+      "size": 140
+    },
+    "steamfont_obj.s3d": {
+      "crc32": 3929344423,
+      "size": 449989
+    },
+    "stf_chr.s3d": {
+      "crc32": 2196021724,
+      "size": 252217
+    },
+    "stillmoona.eqg": {
+      "crc32": 399850566,
+      "size": 27640720
+    },
+    "stillmoona_chr.txt": {
+      "crc32": 530019347,
+      "size": 66
+    },
+    "stillmoonb.eqg": {
+      "crc32": 2205149907,
+      "size": 16224380
+    },
+    "stillmoonb_chr.txt": {
+      "crc32": 143829165,
+      "size": 75
+    },
+    "stonebrunt.s3d": {
+      "crc32": 400338798,
+      "size": 7946269
+    },
+    "stonebrunt_2_obj.s3d": {
+      "crc32": 1693896497,
+      "size": 221079
+    },
+    "stonebrunt_chr.s3d": {
+      "crc32": 1450300267,
+      "size": 3059042
+    },
+    "stonebrunt_chr.txt": {
+      "crc32": 1109356703,
+      "size": 16
+    },
+    "stonebrunt_obj.s3d": {
+      "crc32": 2199526731,
+      "size": 944021
+    },
+    "stonebrunt_obj2.s3d": {
+      "crc32": 3859986688,
+      "size": 249621
+    },
+    "str_chr.s3d": {
+      "crc32": 561406582,
+      "size": 206146
+    },
+    "stu_chr.s3d": {
+      "crc32": 3248644007,
+      "size": 165510
+    },
+    "swampofnohope.s3d": {
+      "crc32": 1100697417,
+      "size": 3987542
+    },
+    "swampofnohope_chr.s3d": {
+      "crc32": 395935540,
+      "size": 2569997
+    },
+    "swampofnohope_chr.txt": {
+      "crc32": 639363976,
+      "size": 45
+    },
+    "swampofnohope_chr2.s3d": {
+      "crc32": 4063634689,
+      "size": 787693
+    },
+    "swampofnohope_obj.s3d": {
+      "crc32": 2155634854,
+      "size": 2117692
+    },
+    "syn_chr.s3d": {
+      "crc32": 3993790258,
+      "size": 294291
+    },
+    "tac_chr.s3d": {
+      "crc32": 2734103666,
+      "size": 372433
+    },
+    "tac_chr.txt": {
+      "crc32": 4116286124,
+      "size": 26
+    },
+    "tacvi.s3d": {
+      "crc32": 991996736,
+      "size": 1009302
+    },
+    "tacvi_chr.txt": {
+      "crc32": 2948130247,
+      "size": 251
+    },
+    "tacvi_obj.s3d": {
+      "crc32": 2134605593,
+      "size": 2272526
+    },
+    "taka.s3d": {
+      "crc32": 590069362,
+      "size": 2489061
+    },
+    "taka_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "taka_obj.s3d": {
+      "crc32": 991755518,
+      "size": 1631195
+    },
+    "takb.s3d": {
+      "crc32": 3801304741,
+      "size": 2975777
+    },
+    "takb_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takb_obj.s3d": {
+      "crc32": 1637776689,
+      "size": 1528572
+    },
+    "takc.s3d": {
+      "crc32": 668612863,
+      "size": 2588070
+    },
+    "takc_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takc_obj.s3d": {
+      "crc32": 701333787,
+      "size": 1474260
+    },
+    "takd.s3d": {
+      "crc32": 2987240848,
+      "size": 3327208
+    },
+    "takd_2_obj.s3d": {
+      "crc32": 2155755952,
+      "size": 34003
+    },
+    "takd_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takd_obj.s3d": {
+      "crc32": 228895580,
+      "size": 2652534
+    },
+    "take.s3d": {
+      "crc32": 2052680649,
+      "size": 2275262
+    },
+    "take_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "take_obj.s3d": {
+      "crc32": 4198506644,
+      "size": 1673584
+    },
+    "takf.s3d": {
+      "crc32": 2994271782,
+      "size": 2815917
+    },
+    "takf_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takf_obj.s3d": {
+      "crc32": 1444123536,
+      "size": 1751836
+    },
+    "takg.s3d": {
+      "crc32": 2027895419,
+      "size": 3128323
+    },
+    "takg_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takg_obj.s3d": {
+      "crc32": 6602758,
+      "size": 1315578
+    },
+    "takh.s3d": {
+      "crc32": 3523773441,
+      "size": 3267930
+    },
+    "takh_chr.txt": {
+      "crc32": 338900330,
+      "size": 324
+    },
+    "takh_obj.s3d": {
+      "crc32": 2633344783,
+      "size": 1315578
+    },
+    "taki.s3d": {
+      "crc32": 2421368695,
+      "size": 2505883
+    },
+    "taki_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "taki_obj.s3d": {
+      "crc32": 2786132012,
+      "size": 1322139
+    },
+    "takj.s3d": {
+      "crc32": 1982010239,
+      "size": 2637927
+    },
+    "takj_chr.txt": {
+      "crc32": 2804853527,
+      "size": 202
+    },
+    "takj_obj.s3d": {
+      "crc32": 1492348539,
+      "size": 1745622
+    },
     "tar.eqg": {
       "crc32": 626863151,
       "size": 1440117
     },
+    "tbf_chr.s3d": {
+      "crc32": 1954645312,
+      "size": 272542
+    },
+    "tbl_chr.s3d": {
+      "crc32": 1855761897,
+      "size": 386010
+    },
+    "tbm_chr.s3d": {
+      "crc32": 3934302267,
+      "size": 242019
+    },
+    "tef_chr.s3d": {
+      "crc32": 496946870,
+      "size": 742010
+    },
+    "tem_chr.s3d": {
+      "crc32": 3526720822,
+      "size": 577668
+    },
+    "templeveeshan.s3d": {
+      "crc32": 824621304,
+      "size": 5293620
+    },
+    "templeveeshan_2_obj.s3d": {
+      "crc32": 1794860756,
+      "size": 155222
+    },
+    "templeveeshan_chr.s3d": {
+      "crc32": 1587716945,
+      "size": 7095374
+    },
+    "templeveeshan_chr.txt": {
+      "crc32": 2532545687,
+      "size": 12
+    },
+    "templeveeshan_obj.s3d": {
+      "crc32": 3171563312,
+      "size": 510647
+    },
+    "ten_chr.s3d": {
+      "crc32": 78450936,
+      "size": 88818
+    },
+    "tenebrous.s3d": {
+      "crc32": 3155968836,
+      "size": 4016396
+    },
+    "tenebrous_chr.s3d": {
+      "crc32": 3202704073,
+      "size": 3913308
+    },
+    "tenebrous_chr.txt": {
+      "crc32": 2837558011,
+      "size": 34
+    },
+    "tenebrous_obj.s3d": {
+      "crc32": 1685692426,
+      "size": 1843231
+    },
+    "tgl_chr.s3d": {
+      "crc32": 1490654340,
+      "size": 1076369
+    },
+    "tgo.eqg": {
+      "crc32": 2303292354,
+      "size": 1405261
+    },
+    "thedeep.s3d": {
+      "crc32": 4204040892,
+      "size": 1578693
+    },
+    "thedeep_chr.s3d": {
+      "crc32": 1773514018,
+      "size": 2532290
+    },
+    "thedeep_obj.s3d": {
+      "crc32": 2900798008,
+      "size": 126133
+    },
+    "thegrey.s3d": {
+      "crc32": 3766143165,
+      "size": 4986139
+    },
+    "thegrey_chr.s3d": {
+      "crc32": 1972582375,
+      "size": 3080576
+    },
+    "thegrey_obj.s3d": {
+      "crc32": 2283174336,
+      "size": 610772
+    },
+    "thenest.eqg": {
+      "crc32": 3468841232,
+      "size": 26576857
+    },
+    "thenest_chr.txt": {
+      "crc32": 1938247718,
+      "size": 109
+    },
+    "thundercrest.eqg": {
+      "crc32": 345690637,
+      "size": 24930852
+    },
+    "thundercrest_chr.txt": {
+      "crc32": 1930926270,
+      "size": 75
+    },
+    "thurgadina.s3d": {
+      "crc32": 1999938937,
+      "size": 6948795
+    },
+    "thurgadina_chr.s3d": {
+      "crc32": 3868774228,
+      "size": 3258361
+    },
+    "thurgadina_chr.txt": {
+      "crc32": 2617780730,
+      "size": 30
+    },
+    "thurgadina_obj.s3d": {
+      "crc32": 312244837,
+      "size": 1716741
+    },
+    "thurgadinb.s3d": {
+      "crc32": 1551415077,
+      "size": 6085837
+    },
+    "thurgadinb2_chr.s3d": {
+      "crc32": 347806898,
+      "size": 195423
+    },
+    "thurgadinb_chr.s3d": {
+      "crc32": 804809176,
+      "size": 4733504
+    },
+    "thurgadinb_obj.s3d": {
+      "crc32": 1089187331,
+      "size": 1453602
+    },
+    "timorous.s3d": {
+      "crc32": 4158427016,
+      "size": 6086601
+    },
+    "timorous2_chr.s3d": {
+      "crc32": 238707385,
+      "size": 26918
+    },
+    "timorous_chr.s3d": {
+      "crc32": 2532470577,
+      "size": 3613033
+    },
+    "timorous_chr.txt": {
+      "crc32": 644116139,
+      "size": 34
+    },
+    "timorous_lit.s3d": {
+      "crc32": 1367216915,
+      "size": 613537
+    },
+    "timorous_obj.s3d": {
+      "crc32": 2493575707,
+      "size": 2391819
+    },
+    "tipt.s3d": {
+      "crc32": 2464516045,
+      "size": 2530190
+    },
+    "tipt_chr.txt": {
+      "crc32": 952249216,
+      "size": 257
+    },
+    "tipt_obj.s3d": {
+      "crc32": 1168346514,
+      "size": 2745057
+    },
+    "tln.eqg": {
+      "crc32": 115728474,
+      "size": 4849782
+    },
+    "tmb_chr.s3d": {
+      "crc32": 1147504766,
+      "size": 393016
+    },
+    "tmt_chr.s3d": {
+      "crc32": 1850181916,
+      "size": 545462
+    },
+    "tnf_chr.s3d": {
+      "crc32": 308208366,
+      "size": 962561
+    },
+    "tnm_chr.s3d": {
+      "crc32": 3542139849,
+      "size": 860785
+    },
+    "torgiran.s3d": {
+      "crc32": 913488612,
+      "size": 6335879
+    },
+    "torgiran_chr.s3d": {
+      "crc32": 643784463,
+      "size": 1110090
+    },
+    "torgiran_chr.txt": {
+      "crc32": 2851361939,
+      "size": 161
+    },
+    "torgiran_obj.s3d": {
+      "crc32": 398093633,
+      "size": 2829171
+    },
+    "tox.s3d": {
+      "crc32": 4291469462,
+      "size": 975926
+    },
+    "tox_chr.s3d": {
+      "crc32": 575004721,
+      "size": 2382692
+    },
+    "tox_chr.txt": {
+      "crc32": 141147881,
+      "size": 21
+    },
+    "tox_obj.s3d": {
+      "crc32": 3464868920,
+      "size": 438479
+    },
+    "tpb_chr.s3d": {
+      "crc32": 4273190857,
+      "size": 371220
+    },
+    "tpo_chr.s3d": {
+      "crc32": 1008839671,
+      "size": 241139
+    },
+    "tradeskill_objects.eqg": {
+      "crc32": 1150349778,
+      "size": 2409810
+    },
+    "trakanon.s3d": {
+      "crc32": 113174232,
+      "size": 4565184
+    },
+    "trakanon_chr.s3d": {
+      "crc32": 2360101126,
+      "size": 2425467
+    },
+    "trakanon_obj.s3d": {
+      "crc32": 1338623883,
+      "size": 2511759
+    },
+    "transfurnace.eqg": {
+      "crc32": 868160405,
+      "size": 934200
+    },
+    "trk_chr.s3d": {
+      "crc32": 3079447263,
+      "size": 523964
+    },
+    "trn_chr.s3d": {
+      "crc32": 4083035690,
+      "size": 455230
+    },
+    "trw_chr.s3d": {
+      "crc32": 393837619,
+      "size": 377059
+    },
+    "tsm_chr.s3d": {
+      "crc32": 1596277536,
+      "size": 238392
+    },
+    "ttb_chr.s3d": {
+      "crc32": 1353591594,
+      "size": 416583
+    },
+    "tutorial.s3d": {
+      "crc32": 14474310,
+      "size": 1053850
+    },
+    "tutorial_obj.s3d": {
+      "crc32": 2719490976,
+      "size": 316311
+    },
+    "tutoriala.eqg": {
+      "crc32": 1449208751,
+      "size": 6507660
+    },
+    "tutoriala.s3d": {
+      "crc32": 2309399370,
+      "size": 2507195
+    },
+    "tutoriala_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "tutoriala_obj.s3d": {
+      "crc32": 1903904961,
+      "size": 2403073
+    },
+    "tutorialb.eqg": {
+      "crc32": 1094726040,
+      "size": 19435420
+    },
+    "tutorialb.s3d": {
+      "crc32": 181565075,
+      "size": 1648126
+    },
+    "tutorialb_assets.txt": {
+      "crc32": 2033881479,
+      "size": 40
+    },
+    "tutorialb_chr.txt": {
+      "crc32": 3413430793,
+      "size": 135
+    },
+    "tutorialb_obj.s3d": {
+      "crc32": 1810927873,
+      "size": 2505699
+    },
+    "tvp_chr.s3d": {
+      "crc32": 3715080399,
+      "size": 341433
+    },
+    "twf_chr.s3d": {
+      "crc32": 2379876573,
+      "size": 430851
+    },
+    "twilight.s3d": {
+      "crc32": 507862889,
+      "size": 6856580
+    },
+    "twilight_chr.s3d": {
+      "crc32": 1191764850,
+      "size": 3228452
+    },
+    "twilight_obj.s3d": {
+      "crc32": 4255198508,
+      "size": 4495737
+    },
+    "txevu.s3d": {
+      "crc32": 460142943,
+      "size": 2648481
+    },
+    "txevu_chr.txt": {
+      "crc32": 2076003630,
+      "size": 238
+    },
+    "txevu_obj.s3d": {
+      "crc32": 4279408835,
+      "size": 3773407
+    },
+    "tzf_chr.s3d": {
+      "crc32": 1611499877,
+      "size": 224366
+    },
+    "tzm_chr.s3d": {
+      "crc32": 1646692175,
+      "size": 205999
+    },
+    "udk_chr.s3d": {
+      "crc32": 3839185983,
+      "size": 723716
+    },
+    "umbral.s3d": {
+      "crc32": 1658967236,
+      "size": 5119624
+    },
+    "umbral_chr.s3d": {
+      "crc32": 331852547,
+      "size": 4508539
+    },
+    "umbral_chr.txt": {
+      "crc32": 3431067416,
+      "size": 10
+    },
+    "umbral_obj.s3d": {
+      "crc32": 2672914871,
+      "size": 1481935
+    },
+    "unb_chr.s3d": {
+      "crc32": 2869023196,
+      "size": 177346
+    },
+    "unrest.s3d": {
+      "crc32": 3834177017,
+      "size": 1875473
+    },
+    "unrest_chr.s3d": {
+      "crc32": 2515552704,
+      "size": 2301535
+    },
+    "unrest_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "unrest_obj.s3d": {
+      "crc32": 4228014659,
+      "size": 403838
+    },
+    "uqua.s3d": {
+      "crc32": 1726757888,
+      "size": 1942545
+    },
+    "uqua_chr.txt": {
+      "crc32": 143747604,
+      "size": 160
+    },
+    "uqua_obj.s3d": {
+      "crc32": 2308408537,
+      "size": 1636870
+    },
+    "uqua_obj2.s3d": {
+      "crc32": 1102839359,
+      "size": 60391
+    },
+    "vac_chr.s3d": {
+      "crc32": 1189287501,
+      "size": 246853
+    },
+    "vas_chr.s3d": {
+      "crc32": 3537726875,
+      "size": 172168
+    },
+    "veeshan.s3d": {
+      "crc32": 3628931843,
+      "size": 3830571
+    },
+    "veeshan_chr.s3d": {
+      "crc32": 1897359500,
+      "size": 2898465
+    },
+    "veeshan_chr.txt": {
+      "crc32": 1290850100,
+      "size": 247
+    },
+    "veeshan_obj.s3d": {
+      "crc32": 1519894612,
+      "size": 1666604
+    },
+    "veg_chr.s3d": {
+      "crc32": 3089174283,
+      "size": 207672
+    },
+    "vek_chr.s3d": {
+      "crc32": 3439073823,
+      "size": 257585
+    },
+    "veksar.s3d": {
+      "crc32": 2062437486,
+      "size": 3816266
+    },
+    "veksar_chr.txt": {
+      "crc32": 474960959,
+      "size": 235
+    },
+    "veksar_obj.s3d": {
+      "crc32": 244467574,
+      "size": 3552419
+    },
+    "velketor.s3d": {
+      "crc32": 195375168,
+      "size": 3279207
+    },
+    "velketor_chr.s3d": {
+      "crc32": 3803097411,
+      "size": 7038989
+    },
+    "velketor_chr.txt": {
+      "crc32": 532589181,
+      "size": 12
+    },
+    "velketor_obj.s3d": {
+      "crc32": 2900099771,
+      "size": 919355
+    },
+    "vequip.s3d": {
+      "crc32": 4055751137,
+      "size": 327563
+    },
+    "vexthal.s3d": {
+      "crc32": 2900415703,
+      "size": 7383554
+    },
+    "vexthal_chr.s3d": {
+      "crc32": 2026162026,
+      "size": 1763170
+    },
+    "vexthal_chr2.s3d": {
+      "crc32": 2751165501,
+      "size": 619907
+    },
+    "vexthal_obj.s3d": {
+      "crc32": 3288378483,
+      "size": 2441902
+    },
+    "vxed.s3d": {
+      "crc32": 822388093,
+      "size": 2558693
+    },
+    "vxed_chr.txt": {
+      "crc32": 1325911719,
+      "size": 284
+    },
+    "vxed_obj.s3d": {
+      "crc32": 2633664180,
+      "size": 1704306
+    },
+    "wakening.s3d": {
+      "crc32": 2145304802,
+      "size": 2187786
+    },
+    "wakening_2_obj.s3d": {
+      "crc32": 3905559203,
+      "size": 67975
+    },
+    "wakening_chr.s3d": {
+      "crc32": 2790258437,
+      "size": 6594863
+    },
+    "wakening_chr.txt": {
+      "crc32": 2785816221,
+      "size": 12
+    },
+    "wakening_obj.s3d": {
+      "crc32": 4133694453,
+      "size": 1234788
+    },
+    "wallofslaughter.eqg": {
+      "crc32": 256609631,
+      "size": 23781704
+    },
+    "wallofslaughter_chr.txt": {
+      "crc32": 352095243,
+      "size": 214
+    },
+    "warrens.s3d": {
+      "crc32": 2097149728,
+      "size": 2242972
+    },
+    "warrens_chr.s3d": {
+      "crc32": 3218548577,
+      "size": 2230969
+    },
+    "warrens_chr.txt": {
+      "crc32": 808956218,
+      "size": 21
+    },
+    "warrens_obj.s3d": {
+      "crc32": 889210069,
+      "size": 955344
+    },
+    "warslikswood.s3d": {
+      "crc32": 2934367339,
+      "size": 6525667
+    },
+    "warslikswood_chr.s3d": {
+      "crc32": 2210198044,
+      "size": 2768144
+    },
+    "warslikswood_lit.s3d": {
+      "crc32": 2367544754,
+      "size": 389037
+    },
+    "warslikswood_obj.s3d": {
+      "crc32": 2538275367,
+      "size": 1321474
+    },
+    "wbu_chr.s3d": {
+      "crc32": 624034953,
+      "size": 193680
+    },
+    "wel_chr.s3d": {
+      "crc32": 2999910395,
+      "size": 291550
+    },
+    "westkorlach.eqg": {
+      "crc32": 1361640015,
+      "size": 19862373
+    },
+    "westkorlach_assets.txt": {
+      "crc32": 1610602329,
+      "size": 48
+    },
+    "westkorlach_chr.txt": {
+      "crc32": 2661258431,
+      "size": 180
+    },
+    "westkorlacha.eqg": {
+      "crc32": 881653508,
+      "size": 25259352
+    },
+    "westkorlacha_chr.txt": {
+      "crc32": 1490395903,
+      "size": 37
+    },
+    "westkorlachb.eqg": {
+      "crc32": 1734194102,
+      "size": 7075514
+    },
+    "westkorlachb_chr.txt": {
+      "crc32": 3087316120,
+      "size": 30
+    },
+    "westkorlachc.eqg": {
+      "crc32": 4216571028,
+      "size": 3864237
+    },
+    "westkorlachc_chr.txt": {
+      "crc32": 3680627212,
+      "size": 75
+    },
+    "westwastes.s3d": {
+      "crc32": 177364959,
+      "size": 4230134
+    },
+    "westwastes_2_obj.s3d": {
+      "crc32": 1466855848,
+      "size": 67357
+    },
+    "westwastes_chr.s3d": {
+      "crc32": 3566075852,
+      "size": 6820829
+    },
+    "westwastes_chr.txt": {
+      "crc32": 2263285429,
+      "size": 40
+    },
+    "westwastes_chr2.s3d": {
+      "crc32": 2882883302,
+      "size": 277566
+    },
+    "westwastes_obj.s3d": {
+      "crc32": 2296035091,
+      "size": 1225984
+    },
+    "wmp_chr.s3d": {
+      "crc32": 912854631,
+      "size": 295854
+    },
+    "wof_chr.s3d": {
+      "crc32": 3350171302,
+      "size": 209757
+    },
+    "wrf_chr.s3d": {
+      "crc32": 1322975039,
+      "size": 244530
+    },
+    "wuf_chr.s3d": {
+      "crc32": 2220736087,
+      "size": 208924
+    },
     "wwf.eqg": {
       "crc32": 1462563884,
       "size": 4626513
+    },
+    "wyv_chr.s3d": {
+      "crc32": 279503223,
+      "size": 273306
+    },
+    "yxtta.s3d": {
+      "crc32": 355346421,
+      "size": 3003707
+    },
+    "yxtta_chr.txt": {
+      "crc32": 9435256,
+      "size": 251
+    },
+    "yxtta_obj.s3d": {
+      "crc32": 2207774880,
+      "size": 3762040
     },
     "zmm.eqg": {
       "crc32": 521225910,

@@ -113,7 +113,7 @@ fn hex_number(bytes: &[u8]) -> u32 {
     })
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct ItemLink {
     pub body: String,
     pub text: String,
@@ -122,7 +122,7 @@ pub struct ItemLink {
     pub item_id: u32,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct Message {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
@@ -133,7 +133,7 @@ pub struct Message {
     pub item_links: Vec<ItemLink>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct ChatEvent {
     #[serde(rename = "type")]
     kind: &'static str,

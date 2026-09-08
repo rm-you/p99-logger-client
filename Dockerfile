@@ -5,13 +5,16 @@ WORKDIR /build
 RUN apk add --no-cache git musl-dev && rustup component add clippy rustfmt
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
+COPY tests ./tests
 COPY protocol ./protocol
 COPY assets.json ./
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/local/cargo/git \
     cargo fmt --all --check && \
     cargo test --locked --all-targets && \
+    cargo test --locked --no-default-features && \
     cargo clippy --locked --all-targets -- -D warnings && \
+    cargo clippy --locked --all-targets --no-default-features -- -D warnings && \
     cargo build --locked --release
 
 FROM scratch
