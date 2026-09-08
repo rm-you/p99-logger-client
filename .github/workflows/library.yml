@@ -1,0 +1,27 @@
+name: Mobile library
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [aarch64-linux-android, aarch64-apple-ios]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Install Rust target
+        run: rustup toolchain install stable --profile minimal --target ${{ matrix.target }}
+
+      - name: Check library without CLI dependencies
+        run: cargo +stable check --locked --lib --no-default-features --target ${{ matrix.target }}

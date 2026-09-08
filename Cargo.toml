@@ -5,6 +5,15 @@ edition = "2021"
 description = "Headless Project 1999 chat logger"
 repository = "https://github.com/rm-you/p99-logger-client"
 
+[features]
+default = ["cli"]
+cli = ["dep:signal-hook"]
+
+[[bin]]
+name = "p99-logger-client"
+path = "src/main.rs"
+required-features = ["cli"]
+
 [dependencies]
 anyhow = "1"
 chrono = { version = "0.4", default-features = false, features = ["clock", "serde"] }
@@ -16,7 +25,7 @@ num-bigint = "0.4"
 rand = "0.8"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-signal-hook = "0.3"
+signal-hook = { version = "0.3", optional = true }
 eq-login-protocol = { package = "protocol", git = "https://github.com/eq-p99-tools/p99-login-proxy", tag = "v2.0.0-rc9" }
 
 [lints.rust]

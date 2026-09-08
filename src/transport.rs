@@ -4,6 +4,7 @@ use std::{
     collections::{HashMap, VecDeque},
     io,
     net::{SocketAddr, UdpSocket},
+    sync::atomic::{AtomicBool, Ordering},
     time::{Duration, Instant},
 };
 
@@ -66,6 +67,16 @@ impl Session {
     }
     /// Negotiate a new reliable EQ UDP session with the remote endpoint.
     pub fn connect(address: SocketAddr, echo_response: bool) -> Result<Self> {
+        Self::connect_cancellable(address, echo_response, &AtomicBool::new(false))
+    }
+
+    /// Negotiate a session while allowing its owner to cancel network waits.
+    pub(crate) fn connect_cancellable(
+        address: SocketAddr,
+        echo_response: bool,
+        stop: &AtomicBool,
+    ) -> Result<Self> {
+        ensure!(!stop.load(Ordering::Relaxed), "shutdown requested");
         let socket = UdpSocket::bind(if address.is_ipv4() {
             "0.0.0.0:0"
         } else {
@@ -82,6 +93,7 @@ impl Session {
         let deadline = Instant::now() + Duration::from_secs(15);
         let mut last_send: Option<Instant> = None;
         loop {
+            ensure!(!stop.load(Ordering::Relaxed), "shutdown requested");
             ensure!(
                 Instant::now() < deadline,
                 "UDP session negotiation timed out"

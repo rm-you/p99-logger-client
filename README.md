@@ -66,10 +66,14 @@ To collect only guild chat, use `"channels": ["gu"]`. The canonical names are
 Filtering applies to decoded chat records; malformed recognized packets remain
 visible as `decode_error` records.
 
-The repository and published image include the checksum inventory for the
-current P99 files. To override it after a P99 patch or add files requested by a
-different zone, generate an inventory from a current installation; the game
-files are not needed afterward:
+The repository and published image include checksums for the installed zone
+and model archives, along with the world validation files. The server supplies
+a manifest of filenames during world login and zone handoff; the client looks
+up and sends only the requested checksums. No zone selection is needed in the
+configuration.
+
+To refresh the inventory after a P99 patch or use a different installation,
+generate it from the current game files; the files are not needed afterward:
 
 ```sh
 mkdir -p .local/collector/config .local/collector/data
@@ -86,10 +90,18 @@ docker run --rm --network none --user "$(id -u):$(id -g)" \
 Then add `"assets": "/config/assets.json"` to the private configuration. The
 Compose configuration already mounts that directory read-only at `/config`.
 
-The default inventory list covers the world manifest and East Commonlands.
-Other zones may request additional files. Add their filenames to a text file
-and pass its path as the final `scan-assets` argument. Missing files are
-recorded explicitly, and an unknown manifest entry fails with a diagnostic.
+By default, `scan-assets` inventories the known validation files, all installed
+`.s3d` and `.eqg` archives, and zone `_chr.txt` and `_assets.txt` lists. It also
+checks their referenced archives and the conventional optional zone companion
+filenames. Account settings, character settings, and chat logs are not scanned.
+Only filenames, sizes, and CRC32 values are stored, with explicit `null` entries
+for files checked and found absent.
+
+To scan an exact set of files instead, pass a text file containing their names
+as the final `scan-assets` argument. An unrecognized filename in a server
+manifest still fails with a diagnostic; it is never silently treated as an
+absent file. The expanded inventory covers installed assets, but live zone
+entry has only been verified in East Commonlands.
 
 ## Run with Compose
 
@@ -134,14 +146,60 @@ Auction and OOC have live native coverage. Guild, group, shout, tell, say,
 raid, broadcast, GM-say, emote, and unknown channel IDs share the tested
 channel decoder but have not all been exercised live.
 
+## Embed in a native application
+
+The same crate exposes the complete login/world/zone session engine through
+`p99_logger_client::client`. The CLI is an adapter for JSON configuration,
+JSONL files, process signals, and health files; the library does not read those
+files, install signal handlers, or print to stdout/stderr.
+
+For a sibling phone UI repository, add:
+
+```toml
+[dependencies]
+p99-logger-client = { path = "../p99-logger-client", default-features = false }
+```
+
+After the API is released, replace `path` with this repository's `git` URL and
+the release `tag`. Disabling default features removes the CLI and its signal
+dependency. The network engine and bundled asset inventory remain available.
+
+Create a `client::ClientConfig` from the app's configuration screen, then
+construct `Client::new(config, identity)`. `ClientIdentity` contains the short
+hostname and username metadata used in V62 validation (1–15 UTF-8 bytes each;
+hostname is uppercased). These are host metadata, separate from login
+credentials. The host app supplies them; the library has no Linux filesystem
+or environment-variable dependency. Use `Client::with_assets` to override
+the bundled checksums when needed.
+
+Run `Client::run` on a dedicated worker thread with a `CancellationToken` and
+`RunOptions`. It emits owned `ClientEvent` values for status, communication
+records, diagnostics, and reconnect attempts. `RecordEvent` distinguishes
+decoded chat from decode errors; chat contains typed channels and item links.
+Serializing a `Record` produces the same flat schema as the CLI's JSONL.
+
+Keep the event handler quick: enqueue events for the UI thread, and explicitly
+handle a full queue. Returning an error stops the client and closes its session
+without retrying or invoking that handler again. Calling `cancel()` interrupts
+network waits and reconnect delays; platform DNS resolution can still block.
+Wait for the worker to finish before starting another connection. A cancelled
+token stays cancelled, so create a new token for the next run. The module's
+Rustdoc includes a compiling worker/queue example.
+
+The phone app owns credential storage, its UI, and lifecycle decisions, including
+when to disconnect as it backgrounds. `ClientConfig` intentionally has no
+`Debug` or `Serialize` implementation. No message-sending API is provided yet.
+
 ## Build and release
 
 ```sh
 docker build -t p99-logger-client .
 ```
 
-The Docker build checks formatting, runs the Rust tests, runs Clippy with
-warnings denied, and creates a stripped static binary in a `scratch` image.
+The Docker build checks formatting, runs Rust tests and Clippy with and without
+the CLI feature, and creates a stripped static binary in a `scratch` image.
+The mobile-library workflow checks compilation for Android and iOS on ARM64;
+device packaging and lifecycle behavior are the phone UI repository's job.
 The GitHub Actions workflow builds `linux/amd64`. Pull requests build without
 publishing. Merges to `main`, version tags, and manual runs publish
 provenance/SBOM-enabled images to
