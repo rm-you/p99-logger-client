@@ -259,6 +259,18 @@ struct CharacterSession<'a> {
     duration: Option<Duration>,
 }
 
+/// Warn about unscanned files while allowing the server to evaluate checksum zero.
+fn file_response(assets: &Assets, manifest: &[u8], log: &mut Events<'_>) -> Result<Vec<u8>> {
+    let response = assets.file_response(manifest)?;
+    if !response.unknown_files.is_empty() {
+        log.diagnostic(format!(
+            "Warning: asset inventory has no entry for {}; sending checksum 0",
+            response.unknown_files.join(", ")
+        ))?;
+    }
+    Ok(response.body)
+}
+
 /// Complete world validation, select the character, and follow its zone handoff.
 fn world(
     context: &CharacterSession<'_>,
@@ -298,7 +310,7 @@ fn world(
             }
             WorldOpcode::FileManifest => {
                 codec.manifest(&mut packet.body)?;
-                let mut response = assets.file_response(&packet.body)?;
+                let mut response = file_response(assets, &packet.body, log)?;
                 codec.file_response(&mut response)?;
                 session.send(
                     0x5072,
@@ -348,7 +360,7 @@ fn world(
                 let host = std::str::from_utf8(cstr(&packet.body[..128]))?.to_owned();
                 let port = u16::from_le_bytes(packet.body[128..130].try_into().unwrap());
                 let manifest = codec.zone_manifest(&packet.body)?;
-                let response = assets.file_response(&manifest)?;
+                let response = file_response(assets, &manifest, log)?;
                 session.send(0x509d, &[])?;
                 session.close()?;
                 return zone(context, &mut codec, &host, port, response, log);
@@ -556,6 +568,35 @@ fn le32(bytes: &[u8]) -> u32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn unknown_asset_warning_reaches_the_host_without_aborting_the_response() {
+        let assets: Assets =
+            serde_json::from_str(r#"{"client":"test","files":{"absent.eqg":null}}"#).unwrap();
+        let config = ClientConfig::new(
+            "EXAMPLE_ACCOUNT",
+            "EXAMPLE_PASSWORD",
+            "Test Server",
+            "ExampleCharacter",
+        );
+        let mut received = Vec::new();
+        let mut handler = |event| {
+            received.push(event);
+            Ok(())
+        };
+        let mut log = Events::new(&config, &mut handler);
+        let manifest = b"\x11\x00\x01unknown.eqg\0\x12\x00\x01absent.eqg\0";
+        let response = file_response(&assets, manifest, &mut log).unwrap();
+        let mut expected = crc32fast::hash(manifest).to_le_bytes().to_vec();
+        expected.extend(b"\x11\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00");
+        assert_eq!(response, expected);
+        assert_eq!(received.len(), 1);
+        let super::super::ClientEvent::Diagnostic(message) = &received[0] else {
+            panic!("expected diagnostic event");
+        };
+        assert!(message.contains("unknown.eqg") && message.contains("checksum 0"));
+        assert!(!message.contains("absent.eqg"));
+    }
 
     #[test]
     fn validation_uses_host_metadata_and_the_current_session_key() {

@@ -111,8 +111,8 @@ mod config_tests {
         assert!(assets.spells().is_ok());
         for zone in ["ecommons", "qeynos", "freportw", "sebilis", "velketor"] {
             assert!(assets.files[&format!("{zone}.s3d")].is_some());
-            assert!(assets.files.contains_key(&format!("{zone}_assets.txt")));
         }
+        assert!(assets.files.values().all(Option::is_some));
 
         let config: Config = serde_json::from_str(
             r#"{

@@ -91,17 +91,18 @@ Then add `"assets": "/config/assets.json"` to the private configuration. The
 Compose configuration already mounts that directory read-only at `/config`.
 
 By default, `scan-assets` inventories the known validation files, all installed
-`.s3d` and `.eqg` archives, and zone `_chr.txt` and `_assets.txt` lists. It also
-checks their referenced archives and the conventional optional zone companion
-filenames. Account settings, character settings, and chat logs are not scanned.
-Only filenames, sizes, and CRC32 values are stored, with explicit `null` entries
-for files checked and found absent.
+`.s3d` and `.eqg` archives, and zone `_chr.txt` and `_assets.txt` lists. Account
+settings, character settings, and chat logs are not scanned. Only filenames,
+sizes, and CRC32 values for measured files are stored; absent files are omitted.
 
 To scan an exact set of files instead, pass a text file containing their names
-as the final `scan-assets` argument. An unrecognized filename in a server
-manifest still fails with a diagnostic; it is never silently treated as an
-absent file. The expanded inventory covers installed assets, but live zone
-entry has only been verified in East Commonlands.
+as the final `scan-assets` argument. For an unrecognized filename in a server
+manifest, the client emits a warning and sends checksum `0`, letting the server
+decide whether to accept it. Older inventories containing explicit `null`
+entries remain supported and also send `0`. If the server requires the real
+checksum, refresh the inventory; retrying alone cannot fix it. Malformed
+manifests still fail validation. The expanded inventory covers installed
+assets, but live zone entry has only been verified in East Commonlands.
 
 ## Run with Compose
 

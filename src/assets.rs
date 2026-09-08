@@ -19,6 +19,13 @@ pub struct Assets {
     pub files: BTreeMap<String, Option<FileChecksum>>,
 }
 
+/// A manifest response and the unscanned filenames that received checksum zero.
+#[derive(Debug, Eq, PartialEq)]
+pub struct FileResponse {
+    pub body: Vec<u8>,
+    pub unknown_files: Vec<String>,
+}
+
 impl Assets {
     /// Load the checksum inventory compiled into the library without filesystem access.
     pub fn bundled() -> Result<Self> {
@@ -26,72 +33,25 @@ impl Assets {
             .context("parse built-in asset inventory")
     }
 
-    /// Inventory known validation files and every installed zone/model archive.
-    /// Check optional zone companions explicitly, including files that are absent.
+    /// Inventory installed validation files, zone/model archives, and zone lists.
     pub fn scan_all(directory: &Path) -> Result<Self> {
         let mut names: BTreeSet<String> = include_str!("../protocol/p99-v62-files.txt")
             .lines()
             .map(str::to_ascii_lowercase)
             .collect();
-        let mut roots = BTreeSet::new();
         for (name, path) in directory_entries(directory)? {
-            let archive = name
-                .strip_suffix(".s3d")
-                .or_else(|| name.strip_suffix(".eqg"));
-            let companion = name
-                .strip_suffix("_chr.txt")
-                .or_else(|| name.strip_suffix("_assets.txt"));
-            if archive.is_none() && companion.is_none() {
-                continue;
-            }
-            if !path.is_file() {
-                continue;
-            }
-            if let Some(root) = companion.or_else(|| archive.filter(|root| !root.contains('_'))) {
-                roots.insert(root.to_owned());
-            }
-            if companion.is_some() {
-                let text = fs::read_to_string(&path)?;
-                for line in text.lines().map(str::trim).filter(|line| !line.is_empty()) {
-                    if name.ends_with("_assets.txt") {
-                        let line = line.to_ascii_lowercase();
-                        ensure!(
-                            valid_asset_name(&line)
-                                && (line.ends_with(".s3d") || line.ends_with(".eqg")),
-                            "invalid asset-list archive"
-                        );
-                        names.insert(line);
-                    } else if let Some((_, archive)) = line.split_once(',') {
-                        let archive = archive.split(',').next().unwrap().trim();
-                        ensure!(valid_asset_name(archive), "invalid character-list archive");
-                        for extension in [".s3d", ".eqg"] {
-                            names.insert(format!("{}{extension}", archive.to_ascii_lowercase()));
-                        }
-                    }
-                }
-            }
-            names.insert(name);
-        }
-        // Zone manifests can request optional files even when they do not exist
-        // locally. Check both archive formats and the stock companion names.
-        for root in roots {
-            for suffix in [
-                ".s3d",
-                ".eqg",
-                "_obj.s3d",
-                "_2_obj.s3d",
-                "_chr.s3d",
-                "_chr.txt",
-                "_assets.txt",
-            ] {
-                names.insert(format!("{root}{suffix}"));
+            if path.is_file()
+                && [".s3d", ".eqg", "_chr.txt", "_assets.txt"]
+                    .iter()
+                    .any(|suffix| name.ends_with(suffix))
+            {
+                names.insert(name);
             }
         }
         Self::scan(directory, &names.into_iter().collect::<Vec<_>>())
     }
 
-    /// Generate an inventory from the user's installation. Absence is explicit,
-    /// distinct from a profile which has never checked a requested filename.
+    /// Measure requested files in the installation, omitting files that are absent.
     pub fn scan(directory: &Path, names: &[String]) -> Result<Self> {
         let installed = directory_entries(directory)?;
         let resources = if names
@@ -117,26 +77,27 @@ impl Assets {
             } else {
                 installed.get(&name)
             };
-            let value = if let Some(path) = path {
-                let mut file = fs::File::open(path)?;
-                let size = file.metadata()?.len();
-                let mut buffer = vec![0; 65536];
-                let mut crc = crc32fast::Hasher::new();
-                loop {
-                    let count = file.read(&mut buffer)?;
-                    if count == 0 {
-                        break;
-                    }
-                    crc.update(&buffer[..count]);
+            let Some(path) = path else {
+                continue;
+            };
+            let mut file = fs::File::open(path)?;
+            let size = file.metadata()?.len();
+            let mut buffer = vec![0; 65536];
+            let mut crc = crc32fast::Hasher::new();
+            loop {
+                let count = file.read(&mut buffer)?;
+                if count == 0 {
+                    break;
                 }
+                crc.update(&buffer[..count]);
+            }
+            files.insert(
+                name,
                 Some(FileChecksum {
                     crc32: crc.finalize(),
                     size,
-                })
-            } else {
-                None
-            };
-            files.insert(name, value);
+                }),
+            );
         }
         Ok(Self {
             client: "Titanium/P99-V62".into(),
@@ -145,21 +106,30 @@ impl Assets {
     }
 
     /// Build the checksum response requested by a world or zone manifest.
-    pub fn file_response(&self, manifest: &[u8]) -> Result<Vec<u8>> {
+    /// Unknown files receive zero and are returned for caller diagnostics;
+    /// the server decides whether that response is sufficient for admission.
+    pub fn file_response(&self, manifest: &[u8]) -> Result<FileResponse> {
         let mut output = crc32fast::hash(manifest).to_le_bytes().to_vec();
+        let mut unknown_files = Vec::new();
         for entry in parse_manifest(manifest)? {
             if entry.is_skipped() {
                 continue;
             }
-            let checksum = self
-                .files
-                .get(&entry.name.to_lowercase())
-                .with_context(|| format!("asset inventory has no entry for {}", entry.name))?;
-            let crc = checksum.as_ref().map_or(0, |checksum| checksum.crc32);
+            let crc = match self.files.get(&entry.name.to_ascii_lowercase()) {
+                Some(Some(checksum)) => checksum.crc32,
+                Some(None) => 0,
+                None => {
+                    unknown_files.push(entry.name);
+                    0
+                }
+            };
             output.extend_from_slice(&entry.id.to_le_bytes());
             output.extend_from_slice(&crc.to_le_bytes());
         }
-        Ok(output)
+        Ok(FileResponse {
+            body: output,
+            unknown_files,
+        })
     }
 
     /// Return the spell-file metadata used by the V62 CRC1 response.
@@ -287,7 +257,7 @@ mod tests {
     }
 
     #[test]
-    fn discovers_zones_models_and_absent_dependencies_without_personal_files() {
+    fn discovers_measured_assets_without_absent_or_personal_files() {
         let install = Installation::new();
         install.write("NewZone.S3D", b"zone archive");
         install.write("NewZone_chr.txt", b"2\nabc,missing_chr\ndef,present\n");
@@ -319,8 +289,11 @@ mod tests {
             "missing_chr.eqg",
             "missing_object.eqg",
         ] {
-            assert!(assets.files[name].is_none(), "{name}");
+            assert!(!assets.files.contains_key(name), "{name}");
         }
+        assert!(assets.files.values().all(Option::is_some));
+        assert!(assets.files.contains_key("newzone_chr.txt"));
+        assert!(assets.files.contains_key("newzone_assets.txt"));
         for name in ["eqclient.ini", "eqlog_examplecharacter.txt", "notes.txt"] {
             assert!(!assets.files.contains_key(name), "{name}");
         }
@@ -331,7 +304,9 @@ mod tests {
         let install = Installation::new();
         install.write("FirstZone.s3d", b"first zone");
         install.write("SecondZone.s3d", b"second zone");
-        let assets = Assets::scan_all(&install.0).unwrap();
+        let mut assets = Assets::scan_all(&install.0).unwrap();
+        // Older inventories may still explicitly mark absent files with null.
+        assets.files.insert("secondzone_assets.txt".into(), None);
         let request = manifest(&[
             (42, 1, "SECONDZONE.S3D"),
             (8, 9, "secondzone_assets.txt"),
@@ -342,14 +317,54 @@ mod tests {
         expected.extend_from_slice(&crc32fast::hash(b"second zone").to_le_bytes());
         expected.extend_from_slice(&8_u16.to_le_bytes());
         expected.extend_from_slice(&0_u32.to_le_bytes());
-        assert_eq!(assets.file_response(&request).unwrap(), expected);
+        let response = assets.file_response(&request).unwrap();
+        assert_eq!(response.body, expected);
+        assert!(response.unknown_files.is_empty());
+        assets.files.remove("secondzone_assets.txt");
+        let response = assets.file_response(&request).unwrap();
+        assert_eq!(response.body, expected);
+        assert_eq!(response.unknown_files, ["secondzone_assets.txt"]);
+    }
 
-        let unknown = manifest(&[(5, 1, "unscanned_file.eqg")]);
-        assert!(assets
-            .file_response(&unknown)
-            .unwrap_err()
-            .to_string()
-            .contains("no entry"));
+    #[test]
+    fn unknown_files_receive_zero_without_losing_known_checksums_or_inventory_state() {
+        let install = Installation::new();
+        install.write("Present.s3d", b"present");
+        let mut assets = Assets::scan(&install.0, &["present.s3d".into()]).unwrap();
+        assets.files.insert("absent.eqg".into(), None);
+        let request = manifest(&[
+            (17, 1, "UNKNOWN.EQG"),
+            (22, 5, "PRESENT.S3D"),
+            (9, 9, "absent.eqg"),
+            (31, 2, "skipped.eqg"),
+        ]);
+        let response = assets.file_response(&request).unwrap();
+        let mut expected = crc32fast::hash(&request).to_le_bytes().to_vec();
+        for (id, crc) in [(17u16, 0u32), (22, crc32fast::hash(b"present")), (9, 0)] {
+            expected.extend(id.to_le_bytes());
+            expected.extend(crc.to_le_bytes());
+        }
+        assert_eq!(response.body, expected);
+        assert_eq!(response.unknown_files, ["UNKNOWN.EQG"]);
+        assert_eq!(assets.files.len(), 2);
+        assert!(!assets.files.contains_key("unknown.eqg"));
+    }
+
+    #[test]
+    fn zero_fallback_still_rejects_malformed_manifests() {
+        let assets = Assets {
+            client: "test".into(),
+            files: BTreeMap::new(),
+        };
+        for invalid in [
+            vec![],
+            vec![1, 0, 1],
+            manifest(&[(1, 3, "unknown.eqg")]),
+            manifest(&[(1, 1, "../unknown.eqg")]),
+            manifest(&[(1, 1, "first.eqg"), (1, 1, "second.eqg")]),
+        ] {
+            assert!(assets.file_response(&invalid).is_err());
+        }
     }
 
     #[test]
@@ -359,9 +374,9 @@ mod tests {
         install.write("OtherZone.s3d", b"other");
         let assets =
             Assets::scan(&install.0, &["newzone.s3d".into(), "missing.eqg".into()]).unwrap();
-        assert_eq!(assets.files.len(), 2);
+        assert_eq!(assets.files.len(), 1);
         assert!(assets.files["newzone.s3d"].is_some());
-        assert!(assets.files["missing.eqg"].is_none());
+        assert!(!assets.files.contains_key("missing.eqg"));
         assert!(Assets::scan(&install.0, &["../outside.s3d".into()]).is_err());
     }
 }
