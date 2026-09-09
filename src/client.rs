@@ -246,10 +246,27 @@ pub struct Record {
     pub event: RecordEvent,
 }
 
+/// Ordered connection milestones, from the start of an attempt to zone admission.
+/// These describe completed protocol work, not elapsed time or packet counts.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ConnectionStage {
+    ConnectingLogin,
+    Authenticating,
+    SelectingServer,
+    ConnectingWorld,
+    SelectingCharacter,
+    ConnectingZone,
+    LoadingCharacter,
+    EnteringWorld,
+    Ready,
+}
+
 #[derive(Clone, Debug, Serialize)]
 #[serde(tag = "type", content = "data", rename_all = "snake_case")]
 pub enum ClientEvent {
     Status(SessionStatus),
+    Progress(ConnectionStage),
     Record(Box<Record>),
     Diagnostic(String),
     Reconnecting { error: String, delay_seconds: u64 },
@@ -306,6 +323,7 @@ impl Client {
             }
             events.reset();
             events.status(ConnectionState::Connecting, 0, None)?;
+            events.send(ClientEvent::Progress(ConnectionStage::ConnectingLogin))?;
             let result = session::run(
                 &self.config,
                 &self.identity,

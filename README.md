@@ -188,7 +188,11 @@ the bundled checksums when needed.
 
 Run `Client::run` on a dedicated worker thread with a `CancellationToken` and
 `RunOptions`. It emits owned `ClientEvent` values for status, communication
-records, diagnostics, and reconnect attempts. `RecordEvent` distinguishes
+records, connection milestones, diagnostics, and reconnect attempts.
+`ClientEvent::Progress` carries an ordered `ConnectionStage`, starting at
+`ConnectingLogin` for every attempt and ending at `Ready` after zone admission.
+Hosts can use these milestones for step-based progress without parsing diagnostics.
+`RecordEvent` distinguishes
 decoded chat from decode errors; chat contains typed channels and item links.
 Serializing a `Record` produces the same flat schema as the CLI's JSONL.
 

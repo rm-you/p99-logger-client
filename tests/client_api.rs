@@ -1,8 +1,8 @@
 //! Synthetic loopback peers exercise the public API without accounts or captures.
 use anyhow::{bail, Result};
 use p99_logger_client::client::{
-    CancellationToken, Client, ClientConfig, ClientEvent, ClientIdentity, ConnectionState,
-    LoginError, RunOptions,
+    CancellationToken, Client, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage,
+    ConnectionState, LoginError, RunOptions,
 };
 use std::{
     net::{SocketAddr, UdpSocket},
@@ -258,6 +258,7 @@ fn rejected_credentials_close_login_and_never_enter_the_retry_loop() {
         let (done, result) = mpsc::channel();
         let worker = thread::spawn(move || {
             let mut retries = 0;
+            let mut stages = Vec::new();
             let outcome = engine.run(
                 &worker_cancel,
                 RunOptions {
@@ -265,13 +266,16 @@ fn rejected_credentials_close_login_and_never_enter_the_retry_loop() {
                     ..RunOptions::default()
                 },
                 |event| {
+                    if let ClientEvent::Progress(stage) = &event {
+                        stages.push(*stage);
+                    }
                     if matches!(event, ClientEvent::Reconnecting { .. }) {
                         retries += 1;
                     }
                     Ok(())
                 },
             );
-            done.send((outcome, retries)).unwrap();
+            done.send((outcome, retries, stages)).unwrap();
         });
         let (address, id) = negotiate(&socket);
         socket
@@ -295,13 +299,21 @@ fn rejected_credentials_close_login_and_never_enter_the_retry_loop() {
         let outcome = result.recv_timeout(Duration::from_secs(3));
         cancel.cancel();
         worker.join().unwrap();
-        let (outcome, retries) = outcome.expect("credential rejection must end immediately");
+        let (outcome, retries, stages) =
+            outcome.expect("credential rejection must end immediately");
         let error = outcome.unwrap_err();
         assert_eq!(
             error.downcast_ref::<LoginError>(),
             Some(&LoginError::InvalidCredentials)
         );
         assert_eq!(retries, 0);
+        assert_eq!(
+            stages,
+            [
+                ConnectionStage::ConnectingLogin,
+                ConnectionStage::Authenticating
+            ]
+        );
         assert!(
             !error.to_string().contains("EXAMPLE_ACCOUNT")
                 && !error.to_string().contains("EXAMPLE_PASSWORD")

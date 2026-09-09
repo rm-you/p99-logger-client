@@ -1,6 +1,6 @@
 use super::{
-    CancellationToken, ClientConfig, ClientIdentity, ConnectionState, DecodeError, Events,
-    LoginError, RecordEvent, RunOptions,
+    CancellationToken, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage, ConnectionState,
+    DecodeError, Events, LoginError, RecordEvent, RunOptions,
 };
 use crate::{
     assets::Assets,
@@ -157,6 +157,7 @@ fn login(
         let packet = next(&mut session, deadline, stop)?;
         match LoginOpcode::from(packet.opcode) {
             LoginOpcode::Ready if !sent_credentials => {
+                log.send(ClientEvent::Progress(ConnectionStage::Authenticating))?;
                 let mut body = vec![0; 10];
                 body[0] = 3;
                 body[5] = 2;
@@ -170,6 +171,7 @@ fn login(
             }
             LoginOpcode::Accepted => {
                 credentials = Some(login_credentials(&packet.body)?);
+                log.send(ClientEvent::Progress(ConnectionStage::SelectingServer))?;
                 let mut request = vec![0; 10];
                 request[0] = 4;
                 session.send(4, &request)?;
@@ -200,10 +202,12 @@ fn login(
                     "login server denied world entry"
                 );
                 session.close()?;
-                return Ok((
+                let selection = (
                     credentials.context("play response before authentication")?,
                     selected.context("play response before selection")?,
-                ));
+                );
+                log.send(ClientEvent::Progress(ConnectionStage::ConnectingWorld))?;
+                return Ok(selection);
             }
             _ => (),
         }
@@ -339,6 +343,7 @@ fn world(
                     hex::encode(&packet.body)
                 );
                 accepted = true;
+                log.send(ClientEvent::Progress(ConnectionStage::SelectingCharacter))?;
                 log.diagnostic("World accepted native V62 client validation".into())?;
                 session.send(0x7752, &0u32.to_le_bytes())?;
                 session.send(0x5e99, &[])?;
@@ -363,6 +368,7 @@ fn world(
                 put_string(&mut enter[..64], &config.character)?;
                 session.send(0x7cba, &enter)?;
                 entered = true;
+                log.send(ClientEvent::Progress(ConnectionStage::ConnectingZone))?;
             }
             WorldOpcode::ZoneHandoff => {
                 ensure!(entered && packet.body.len() >= 130, "invalid zone handoff");
@@ -398,6 +404,7 @@ fn zone(
     put_string(&mut entry[4..], &config.character)?;
     codec.zone_entry(&entry)?;
     session.send(0x7213, &entry)?;
+    log.send(ClientEvent::Progress(ConnectionStage::LoadingCharacter))?;
     let connected = Instant::now();
     let mut ready = false;
     let mut saw_spawn = false;
@@ -521,6 +528,7 @@ fn zone(
                 session.send(0x5e20, &[])?;
                 session.send(0x0c11, &1u32.to_le_bytes())?;
                 ready = true;
+                log.send(ClientEvent::Progress(ConnectionStage::Ready))?;
                 log.status(
                     ConnectionState::Connected,
                     packets,
@@ -542,6 +550,7 @@ fn zone(
             session.send(0x367d, &[])?;
             session.send(0x5966, &[])?;
             requested = true;
+            log.send(ClientEvent::Progress(ConnectionStage::EnteringWorld))?;
         }
         match chat::parse(packet.opcode, &packet.body, config.include_raw) {
             Ok(Some(event)) => log.record(&zone_name, RecordEvent::Chat(event))?,

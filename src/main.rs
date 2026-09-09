@@ -347,6 +347,7 @@ fn main() -> Result<()> {
         options,
         |event| match event {
             ClientEvent::Record(record) => log.emit(&record),
+            ClientEvent::Progress(_) => Ok(()),
             ClientEvent::Status(status) => {
                 if let Some(path) = &config.health {
                     health(path, &status)?;
