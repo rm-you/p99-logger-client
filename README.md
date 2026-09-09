@@ -137,15 +137,28 @@ duplicating the original packet and message bytes. Set `include_raw` to `true`
 when collecting reverse-engineering data to add `payload_hex`, `message`, and
 `message_hex`.
 
-Item links retain their complete 45-character body, label, item ID, and wire
-byte offsets. Empty item-link arrays are omitted. MOTD, guild MOTD, emotes,
-special messages, and string-table messages are also logged. Unknown channel
-IDs are preserved rather than dropped. Malformed recognized communication
+Item links retain their complete 45-character body, label, item ID, wire
+byte offsets, and decoded-text byte offsets. Empty item-link arrays are omitted.
+MOTD, guild MOTD, emotes, special messages, and string-table messages are also
+logged. Unknown channel IDs are preserved rather than dropped. Malformed recognized communication
 packets always produce `decode_error` records with their original bytes.
 
 Auction and OOC have live native coverage. Guild, group, shout, tell, say,
 raid, broadcast, GM-say, emote, and unknown channel IDs share the tested
 channel decoder but have not all been exercised live.
+
+### Item-link positions
+
+Each item link includes `text_start` and `text_end`: the inclusive start and
+exclusive end in UTF-8 bytes of its label in the decoded `text` string. These
+ranges remain correct when non-UTF-8 wire bytes become replacement characters.
+JavaScript consumers must convert UTF-8 byte positions before slicing strings.
+For formatted game messages, ranges refer to the individual argument's `text`.
+
+The existing `start` and `end` fields retain their original wire-byte meaning,
+including link metadata and delimiters. Use the new fields to display inline
+links; do not apply wire offsets to decoded text. All item-link fields remain
+available when raw packet logging is disabled.
 
 ## Embed in a native application
 

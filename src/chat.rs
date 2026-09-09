@@ -117,8 +117,12 @@ fn hex_number(bytes: &[u8]) -> u32 {
 pub struct ItemLink {
     pub body: String,
     pub text: String,
+    /// Inclusive/exclusive offsets in the original wire bytes, including delimiters.
     pub start: usize,
     pub end: usize,
+    /// Inclusive/exclusive UTF-8 byte offsets of the label in `Message::text`.
+    pub text_start: usize,
+    pub text_end: usize,
     pub item_id: u32,
 }
 
@@ -178,11 +182,13 @@ impl ChatEvent {
 }
 
 /// Extract readable text and complete item-link bodies from a wire message.
-/// Link offsets are wire-message byte offsets including both 0x12 delimiters.
+/// `start`/`end` retain wire byte offsets, including both 0x12 delimiters.
+/// `text_start`/`text_end` address the decoded label after lossy UTF-8 conversion.
 pub fn message(bytes: &[u8], include_raw: bool) -> Message {
     let bytes = cstr(bytes);
     let mut links = Vec::new();
-    let mut readable = Vec::new();
+    let mut readable = String::new();
+    let mut plain_start = 0;
     let mut pos = 0;
     while pos < bytes.len() {
         if bytes[pos] == 0x12 && pos + 46 < bytes.len() {
@@ -190,27 +196,33 @@ pub fn message(bytes: &[u8], include_raw: bool) -> Message {
             if body.iter().all(u8::is_ascii_hexdigit) {
                 if let Some(tail) = bytes[pos + 46..].iter().position(|&b| b == 0x12) {
                     let end = pos + 46 + tail;
-                    let label = &bytes[pos + 46..end];
+                    let label = String::from_utf8_lossy(&bytes[pos + 46..end]).into_owned();
+                    readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..pos]));
+                    let text_start = readable.len();
+                    readable.push_str(&label);
+                    let text_end = readable.len();
                     links.push(ItemLink {
                         body: String::from_utf8_lossy(body).into_owned(),
-                        text: String::from_utf8_lossy(label).into_owned(),
+                        text: label,
                         start: pos,
                         end: end + 1,
+                        text_start,
+                        text_end,
                         item_id: hex_number(&body[1..6]),
                     });
-                    readable.extend_from_slice(label);
                     pos = end + 1;
+                    plain_start = pos;
                     continue;
                 }
             }
         }
-        readable.push(bytes[pos]);
         pos += 1;
     }
+    readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..]));
     Message {
         message: include_raw.then(|| String::from_utf8_lossy(bytes).into_owned()),
         message_hex: include_raw.then(|| hex::encode(bytes)),
-        text: String::from_utf8_lossy(&readable).into_owned(),
+        text: readable,
         item_links: links,
     }
 }
@@ -324,12 +336,43 @@ mod tests {
         assert_eq!(event.item_links[0].item_id, 42);
         assert_eq!(event.item_links[0].start, 4);
         assert_eq!(event.item_links[0].end, 55);
+        assert_eq!(event.item_links[0].text_start, 4);
+        assert_eq!(event.item_links[0].text_end, 8);
         assert_eq!(event.item_links[0].body, std::str::from_utf8(link).unwrap());
         let json = serde_json::to_value(&event).unwrap();
         for field in ["action_id", "hash", "augment_ids", "is_evolving"] {
             assert!(json["item_links"][0].get(field).is_none());
         }
         assert!(message(b"bad \x12short\x12", false).item_links.is_empty());
+    }
+
+    #[test]
+    fn display_ranges_address_decoded_text_with_unicode_and_replacement_characters() {
+        let body = b"00002A0000000000000000000000000000000ABCDEF12";
+        let mut input = "é 🗡 unlinked Item ".as_bytes().to_vec();
+        input.push(0xff);
+        for label in [b"Item".as_slice(), "Épée".as_bytes(), b"I\xfftem"] {
+            input.push(b' ');
+            input.push(0x12);
+            input.extend(body);
+            input.extend(label);
+            input.push(0x12);
+        }
+        input.extend(b" end");
+        let decoded = message(&input, false);
+        assert_eq!(decoded.text, "é 🗡 unlinked Item � Item Épée I�tem end");
+        assert_eq!(decoded.item_links.len(), 3);
+        let mut previous_end = 0;
+        for link in &decoded.item_links {
+            assert_eq!(&decoded.text[link.text_start..link.text_end], link.text);
+            assert!(link.text_start >= previous_end);
+            assert_eq!(input[link.start], 0x12);
+            assert_eq!(input[link.end - 1], 0x12);
+            previous_end = link.text_end;
+        }
+        let json = serde_json::to_value(decoded).unwrap();
+        assert!(json["item_links"][0]["text_start"].is_u64());
+        assert!(json.get("message_hex").is_none());
     }
 
     #[test]
