@@ -223,3 +223,11 @@ publishes `latest`.
 The login crypto and server-list parser are pinned to the proven Rust
 implementation in
 [p99-login-proxy](https://github.com/eq-p99-tools/p99-login-proxy).
+
+### Login failures
+
+A confirmed account/password rejection stops the client immediately, even with
+reconnection enabled. Correct the credentials before starting another session.
+Transient connection failures retain the normal retry behavior. Native callers
+can downcast the error from `Client::run` to `client::LoginError::InvalidCredentials`;
+this uses the bad-password response detector in the shared SSO login crate.

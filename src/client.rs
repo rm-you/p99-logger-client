@@ -157,7 +157,25 @@ impl From<Arc<AtomicBool>> for CancellationToken {
     }
 }
 
-/// Limits for one run; default behavior reconnects until cancellation.
+/// A confirmed login rejection that cannot be resolved by reconnecting.
+/// Hosts can downcast the error returned by `Client::run` to present a specific message.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LoginError {
+    /// The login server rejected the account/password pair.
+    InvalidCredentials,
+}
+
+impl fmt::Display for LoginError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::InvalidCredentials => f.write_str("Login account or password was rejected"),
+        }
+    }
+}
+
+impl std::error::Error for LoginError {}
+
+/// Limits for one run; transient failures reconnect until cancellation by default.
 #[derive(Clone, Debug)]
 pub struct RunOptions {
     pub reconnect: bool,
@@ -271,6 +289,7 @@ impl Client {
 
     /// Connect and deliver events synchronously until completion or cancellation.
     /// Run on a worker thread and keep the handler fast (typically enqueue events).
+    /// A confirmed credential rejection returns `LoginError` without reconnecting.
     /// A handler error terminates the run, without reconnecting or invoking it again.
     /// Network waits and retry delays observe cancellation; system DNS resolution
     /// remains a blocking platform call. Sessions close when the run unwinds.
@@ -305,7 +324,7 @@ impl Client {
                 return events.status(ConnectionState::Stopped, 0, None);
             }
             events.status(ConnectionState::Disconnected, 0, None)?;
-            if !options.reconnect {
+            if !options.reconnect || result.as_ref().is_err_and(|error| error.is::<LoginError>()) {
                 return result;
             }
             events.send(ClientEvent::Reconnecting {

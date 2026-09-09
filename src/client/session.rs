@@ -1,6 +1,6 @@
 use super::{
     CancellationToken, ClientConfig, ClientIdentity, ConnectionState, DecodeError, Events,
-    RecordEvent, RunOptions,
+    LoginError, RecordEvent, RunOptions,
 };
 use crate::{
     assets::Assets,
@@ -11,7 +11,7 @@ use crate::{
 use anyhow::{bail, ensure, Context, Result};
 use eq_login_protocol::{
     crypto::{des_decrypt, DesKeyIv},
-    login::encrypt_login_credentials,
+    login::{encrypt_login_credentials, is_bad_password_login_result},
     server_list::parse_server_list,
 };
 use std::{
@@ -169,20 +169,7 @@ fn login(
                 sent_credentials = true;
             }
             LoginOpcode::Accepted => {
-                ensure!(packet.body.len() >= 34, "login was rejected");
-                let ciphertext = &packet.body[10..];
-                let clear =
-                    des_decrypt(&ciphertext[..ciphertext.len() / 8 * 8], DesKeyIv::default())?;
-                ensure!(clear.len() >= 23, "invalid login response");
-                let account = le32(&clear[8..12]);
-                ensure!(
-                    account != 0 && account != u32::MAX && clear[0] == 1,
-                    "login was rejected"
-                );
-                let key = cstr(&clear[12..23])
-                    .try_into()
-                    .context("invalid login session key")?;
-                credentials = Some(Credentials { account, key });
+                credentials = Some(login_credentials(&packet.body)?);
                 let mut request = vec![0; 10];
                 request[0] = 4;
                 session.send(4, &request)?;
@@ -221,6 +208,28 @@ fn login(
             _ => (),
         }
     }
+}
+
+/// Use the SSO crate's failure signature before parsing the successful session key.
+fn login_credentials(body: &[u8]) -> Result<Credentials> {
+    let mut application = 0x17u16.to_le_bytes().to_vec();
+    application.extend_from_slice(body);
+    if is_bad_password_login_result(&application, DesKeyIv::default()) {
+        return Err(LoginError::InvalidCredentials.into());
+    }
+    ensure!(body.len() >= 34, "invalid login response");
+    let ciphertext = &body[10..];
+    let clear = des_decrypt(&ciphertext[..ciphertext.len() / 8 * 8], DesKeyIv::default())?;
+    ensure!(clear.len() >= 23, "invalid login response");
+    let account = le32(&clear[8..12]);
+    ensure!(
+        account != 0 && account != u32::MAX && clear[0] == 1,
+        "login was rejected"
+    );
+    let key = cstr(&clear[12..23])
+        .try_into()
+        .context("invalid login session key")?;
+    Ok(Credentials { account, key })
 }
 
 /// Build the current P99 CRC1 client-validation response.
@@ -619,5 +628,30 @@ mod tests {
         assert_eq!(cstr(&second[50..66]), b"TEST-DEVICE");
         assert_eq!(cstr(&second[66..82]), b"test-user");
         assert_eq!(&second[82..90], &[127, 0, 0, 1, 192, 0, 2, 10]);
+    }
+}
+
+#[cfg(test)]
+mod login_tests {
+    use super::*;
+    use eq_login_protocol::crypto::des_encrypt;
+
+    #[test]
+    fn valid_session_keys_and_malformed_responses_are_not_bad_passwords() {
+        let mut clear = vec![0; 32];
+        clear[0] = 1;
+        clear[8..12].copy_from_slice(&12345u32.to_le_bytes());
+        clear[12..22].copy_from_slice(b"EXAMPLEKEY");
+        let mut body = vec![0; 10];
+        body[0] = 3;
+        body[5] = 2;
+        body.extend(des_encrypt(&clear, DesKeyIv::default()));
+        let credentials = login_credentials(&body).unwrap();
+        assert_eq!(credentials.account, 12345);
+        assert_eq!(&credentials.key, b"EXAMPLEKEY");
+        for length in [0, 10, 18, 26] {
+            let error = login_credentials(&body[..length]).err().unwrap();
+            assert!(!error.is::<LoginError>());
+        }
     }
 }

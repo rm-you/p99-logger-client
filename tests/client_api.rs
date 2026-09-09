@@ -2,7 +2,7 @@
 use anyhow::{bail, Result};
 use p99_logger_client::client::{
     CancellationToken, Client, ClientConfig, ClientEvent, ClientIdentity, ConnectionState,
-    RunOptions,
+    LoginError, RunOptions,
 };
 use std::{
     net::{SocketAddr, UdpSocket},
@@ -221,4 +221,102 @@ fn invalid_settings_fail_before_start_without_disclosing_credentials() {
     let error = result.err().unwrap().to_string();
     assert!(error.contains("character name"));
     assert!(!error.contains("EXAMPLE_ACCOUNT") && !error.contains("EXAMPLE_PASSWORD"));
+}
+
+/// Construct encrypted replies from synthetic values, never from a packet capture.
+fn login_reply() -> Vec<u8> {
+    use eq_login_protocol::crypto::{des_encrypt, DesKeyIv};
+    let mut clear = vec![0; 32];
+    clear[0] = 1;
+    clear[8..12].copy_from_slice(&eq_login_protocol::LOGIN_RESULT_FAILURE_STATUS.to_le_bytes());
+    let mut body = vec![0; 10];
+    body[0] = 3;
+    body[5] = 2;
+    body.extend(des_encrypt(&clear, DesKeyIv::default()));
+    body
+}
+
+fn application_packet(sequence: u16, opcode: u16, body: &[u8]) -> Vec<u8> {
+    let mut packet = vec![0, 9];
+    packet.extend(sequence.to_be_bytes());
+    packet.extend(opcode.to_le_bytes());
+    packet.extend(body);
+    let mut crc = crc32fast::Hasher::new();
+    crc.update(&1234u32.to_le_bytes());
+    crc.update(&packet);
+    packet.extend(&crc.finalize().to_be_bytes()[2..]);
+    packet
+}
+
+#[test]
+fn rejected_credentials_close_login_and_never_enter_the_retry_loop() {
+    for reconnect in [true, false] {
+        let socket = peer();
+        let engine = client(config(socket.local_addr().unwrap().port()));
+        let cancel = CancellationToken::default();
+        let worker_cancel = cancel.clone();
+        let (done, result) = mpsc::channel();
+        let worker = thread::spawn(move || {
+            let mut retries = 0;
+            let outcome = engine.run(
+                &worker_cancel,
+                RunOptions {
+                    reconnect,
+                    ..RunOptions::default()
+                },
+                |event| {
+                    if matches!(event, ClientEvent::Reconnecting { .. }) {
+                        retries += 1;
+                    }
+                    Ok(())
+                },
+            );
+            done.send((outcome, retries)).unwrap();
+        });
+        let (address, id) = negotiate(&socket);
+        socket
+            .send_to(&application_packet(0, 0x16, &[]), address)
+            .unwrap();
+        loop {
+            let (packet, sender) = receive(&socket);
+            assert_eq!(sender, address);
+            if packet.starts_with(&[0, 9, 0, 1, 2, 0]) {
+                break;
+            }
+        }
+        let mut response = login_reply();
+        // The proven SSO detector also accepts the optional one-byte trailer.
+        if reconnect {
+            response.push(0);
+        }
+        socket
+            .send_to(&application_packet(1, 0x17, &response), address)
+            .unwrap();
+        let outcome = result.recv_timeout(Duration::from_secs(3));
+        cancel.cancel();
+        worker.join().unwrap();
+        let (outcome, retries) = outcome.expect("credential rejection must end immediately");
+        let error = outcome.unwrap_err();
+        assert_eq!(
+            error.downcast_ref::<LoginError>(),
+            Some(&LoginError::InvalidCredentials)
+        );
+        assert_eq!(retries, 0);
+        assert!(
+            !error.to_string().contains("EXAMPLE_ACCOUNT")
+                && !error.to_string().contains("EXAMPLE_PASSWORD")
+        );
+        loop {
+            let (packet, _) = receive(&socket);
+            if packet.starts_with(&[0, 5]) {
+                assert_eq!(packet, closed_packet(&id));
+                break;
+            }
+        }
+        // No server-list or world request follows the rejected login.
+        socket
+            .set_read_timeout(Some(Duration::from_millis(150)))
+            .unwrap();
+        assert!(socket.recv_from(&mut [0; 2048]).is_err());
+    }
 }
