@@ -204,9 +204,19 @@ Wait for the worker to finish before starting another connection. A cancelled
 token stays cancelled, so create a new token for the next run. The module's
 Rustdoc includes a compiling worker/queue example.
 
+For two-way clients, call `Client::run_with_commands` with the receiving side of
+a bounded `std::sync::mpsc` queue. After `ConnectionStage::Ready`, enqueue
+`ClientCommand::SendChat` with a typed `chat::OutboundChat` variant. Standard
+guild, group, shout, auction, OOC, tell, say, and raid messages are supported;
+the engine builds the Titanium packet and sends it through the active reliable
+zone session. Commands wait in the host queue until zone admission, including
+during reconnects, so callers should enqueue only while their latest state is
+connected. Invalid text or tell recipients produce a diagnostic and do not
+disconnect the character.
+
 The phone app owns credential storage, its UI, and lifecycle decisions, including
 when to disconnect as it backgrounds. `ClientConfig` intentionally has no
-`Debug` or `Serialize` implementation. No message-sending API is provided yet.
+`Debug` or `Serialize` implementation.
 
 ## Build and release
 

@@ -1,8 +1,9 @@
 //! Synthetic loopback peers exercise the public API without accounts or captures.
 use anyhow::{bail, Result};
+use p99_logger_client::chat::OutboundChat;
 use p99_logger_client::client::{
-    CancellationToken, Client, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage,
-    ConnectionState, LoginError, RunOptions,
+    CancellationToken, Client, ClientCommand, ClientConfig, ClientEvent, ClientIdentity,
+    ConnectionStage, ConnectionState, LoginError, RunOptions,
 };
 use std::{
     net::{SocketAddr, UdpSocket},
@@ -83,6 +84,28 @@ fn cancellation_before_start_never_resolves_or_connects() {
     let mut states = Vec::new();
     client(settings)
         .run(&cancel, RunOptions::default(), |event| {
+            if let ClientEvent::Status(status) = event {
+                states.push(status.state);
+            }
+            Ok(())
+        })
+        .unwrap();
+    assert_eq!(states, [ConnectionState::Stopped]);
+}
+
+#[test]
+fn command_enabled_run_can_stop_before_connecting() {
+    let mut settings = config(1);
+    settings.host = "this host cannot resolve".into();
+    let cancel = CancellationToken::default();
+    cancel.cancel();
+    let (sender, commands) = mpsc::sync_channel(1);
+    sender
+        .try_send(ClientCommand::SendChat(OutboundChat::Say("ok".into())))
+        .unwrap();
+    let mut states = Vec::new();
+    client(settings)
+        .run_with_commands(&cancel, RunOptions::default(), &commands, |event| {
             if let ClientEvent::Status(status) = event {
                 states.push(status.state);
             }
