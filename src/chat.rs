@@ -3,6 +3,14 @@ use serde::{Deserialize, Serialize};
 
 const CHANNEL_MESSAGE_HEADER: usize = 148;
 const MAX_OUTBOUND_MESSAGE: usize = 4095;
+const STML_ENTITIES: &[(&[u8], char)] = &[
+    (b"&AMP;", '&'),
+    (b"&PCT;", '%'),
+    (b"&LT;", '<'),
+    (b"&GT;", '>'),
+    (b"&QUOT;", '"'),
+    (b"&NBSP;", ' '),
+];
 
 /// Titanium uses mixed polarity: guild/social/group/shout/auction/OOC and
 /// melee-miss filters show messages when set to one. Most spell filters use
@@ -88,13 +96,31 @@ impl OutboundChat {
     }
 }
 
+/// Escape literal percent signs as Titanium's command path does before chat
+/// reaches the wire packet.
+fn encode_chat_text(text: &str) -> String {
+    let mut encoded = String::with_capacity(text.len());
+    for character in text.chars() {
+        if character == '%' {
+            encoded.push_str("&PCT;");
+        } else {
+            encoded.push(character);
+        }
+    }
+    encoded
+}
+
 /// Encode the Titanium client-to-zone `ChannelMessage_Struct`.
 pub(crate) fn encode_outbound(message: &OutboundChat, sender: &str) -> Result<Vec<u8>> {
-    let text = message.message();
-    ensure!(!text.is_empty(), "chat message must not be empty");
-    ensure!(!text.contains('\0'), "chat message must not contain NUL");
+    let message_text = message.message();
+    ensure!(!message_text.is_empty(), "chat message must not be empty");
     ensure!(
-        text.len() <= MAX_OUTBOUND_MESSAGE,
+        !message_text.contains('\0'),
+        "chat message must not contain NUL"
+    );
+    let wire_text = encode_chat_text(message_text);
+    ensure!(
+        wire_text.len() <= MAX_OUTBOUND_MESSAGE,
         "chat message exceeds server field size"
     );
     ensure!(
@@ -102,7 +128,7 @@ pub(crate) fn encode_outbound(message: &OutboundChat, sender: &str) -> Result<Ve
         "sender exceeds protocol field size"
     );
 
-    let mut body = vec![0; CHANNEL_MESSAGE_HEADER + text.len() + 1];
+    let mut body = vec![0; CHANNEL_MESSAGE_HEADER + wire_text.len() + 1];
     if let Some(recipient) = message.recipient() {
         ensure!(
             !recipient.is_empty() && recipient.len() < 64 && !recipient.contains('\0'),
@@ -114,8 +140,8 @@ pub(crate) fn encode_outbound(message: &OutboundChat, sender: &str) -> Result<Ve
     // Language 0 is Common Tongue. The two unknown words remain zero.
     body[132..136].copy_from_slice(&message.channel().to_le_bytes());
     body[144..148].copy_from_slice(&100u32.to_le_bytes());
-    body[CHANNEL_MESSAGE_HEADER..CHANNEL_MESSAGE_HEADER + text.len()]
-        .copy_from_slice(text.as_bytes());
+    body[CHANNEL_MESSAGE_HEADER..CHANNEL_MESSAGE_HEADER + wire_text.len()]
+        .copy_from_slice(wire_text.as_bytes());
     Ok(body)
 }
 
@@ -182,6 +208,38 @@ fn nonempty_text(bytes: &[u8]) -> Option<String> {
         value if value.is_empty() => None,
         value => Some(value),
     }
+}
+
+/// Decode the named entities used by EverQuest's STML text in a single pass.
+/// Unverified and incomplete entities remain unchanged.
+fn display_text(bytes: &[u8]) -> String {
+    let mut readable = String::new();
+    let mut plain_start = 0;
+    let mut position = 0;
+    while position < bytes.len() {
+        let entity = if bytes[position] == b'&' {
+            STML_ENTITIES.iter().find_map(|&(entity, replacement)| {
+                let end = position + entity.len();
+                (bytes
+                    .get(position..end)
+                    .is_some_and(|candidate| candidate.eq_ignore_ascii_case(entity)))
+                .then_some((end, replacement))
+            })
+        } else {
+            None
+        };
+
+        if let Some((end, replacement)) = entity {
+            readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..position]));
+            readable.push(replacement);
+            position = end;
+            plain_start = end;
+        } else {
+            position += 1;
+        }
+    }
+    readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..]));
+    readable
 }
 
 fn hex_number(bytes: &[u8]) -> u32 {
@@ -279,8 +337,8 @@ pub fn message(bytes: &[u8], include_raw: bool) -> Message {
             if body.iter().all(u8::is_ascii_hexdigit) {
                 if let Some(tail) = bytes[pos + 46..].iter().position(|&b| b == 0x12) {
                     let end = pos + 46 + tail;
-                    let label = String::from_utf8_lossy(&bytes[pos + 46..end]).into_owned();
-                    readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..pos]));
+                    let label = display_text(&bytes[pos + 46..end]);
+                    readable.push_str(&display_text(&bytes[plain_start..pos]));
                     let text_start = readable.len();
                     readable.push_str(&label);
                     let text_end = readable.len();
@@ -301,7 +359,7 @@ pub fn message(bytes: &[u8], include_raw: bool) -> Message {
         }
         pos += 1;
     }
-    readable.push_str(&String::from_utf8_lossy(&bytes[plain_start..]));
+    readable.push_str(&display_text(&bytes[plain_start..]));
     Message {
         message: include_raw.then(|| String::from_utf8_lossy(bytes).into_owned()),
         message_hex: include_raw.then(|| hex::encode(bytes)),
@@ -447,6 +505,30 @@ mod tests {
     }
 
     #[test]
+    fn outbound_chat_uses_titanium_percent_escaping() {
+        let input = "95% & < > \" a  b Épée";
+        let body = encode_outbound(&OutboundChat::Say(input.into()), "ExampleCharacter").unwrap();
+        let wire_text = &body[CHANNEL_MESSAGE_HEADER..body.len() - 1];
+        assert_eq!(wire_text, b"95&PCT; & < > \" a  b \xC3\x89p\xC3\xA9e");
+        assert_eq!(display_text(wire_text), input);
+
+        let maximum = encode_outbound(
+            &OutboundChat::Say("%".repeat(MAX_OUTBOUND_MESSAGE / b"&PCT;".len())),
+            "ExampleCharacter",
+        )
+        .unwrap();
+        assert_eq!(
+            maximum.len(),
+            CHANNEL_MESSAGE_HEADER + MAX_OUTBOUND_MESSAGE + 1
+        );
+        assert!(encode_outbound(
+            &OutboundChat::Say("%".repeat(MAX_OUTBOUND_MESSAGE / b"&PCT;".len() + 1)),
+            "ExampleCharacter",
+        )
+        .is_err());
+    }
+
+    #[test]
     fn outbound_chat_rejects_values_the_wire_or_server_cannot_represent() {
         for message in [
             OutboundChat::Say(String::new()),
@@ -490,6 +572,54 @@ mod tests {
             assert!(json["item_links"][0].get(field).is_none());
         }
         assert!(message(b"bad \x12short\x12", false).item_links.is_empty());
+    }
+
+    #[test]
+    fn stml_entities_decode_only_in_display_text() {
+        let input = b"95&PCT; &AMP; &LT; &GT; &QUOT; a&NBSP;&nbsp;b &pct; &amp; &lt; &gt; &quot; &AMP;PCT; &AMP;&PCT; &apos; &#37; &PCT";
+        let decoded = message(input, true);
+        assert_eq!(
+            decoded.text,
+            "95% & < > \" a  b % & < > \" &PCT; &% &apos; &#37; &PCT"
+        );
+        assert_eq!(decoded.message.as_deref(), std::str::from_utf8(input).ok());
+        assert_eq!(
+            decoded.message_hex.as_deref(),
+            Some(hex::encode(input).as_str())
+        );
+    }
+
+    #[test]
+    fn percent_entities_preserve_link_wire_offsets_and_update_display_ranges() {
+        let body = b"00002A0000000000000000000000000000000ABCDEF12";
+        let mut input = "é&PCT; ".as_bytes().to_vec();
+        for (label, suffix) in [
+            (b"Sword&PCT;".as_slice(), b" &pct; ".as_slice()),
+            ("Épée".as_bytes(), b" &PCT;".as_slice()),
+        ] {
+            input.push(0x12);
+            input.extend(body);
+            input.extend(label);
+            input.push(0x12);
+            input.extend(suffix);
+        }
+
+        let decoded = message(&input, true);
+        assert_eq!(decoded.text, "é% Sword% % Épée %");
+        assert_eq!(decoded.message.as_deref(), std::str::from_utf8(&input).ok());
+        assert_eq!(
+            decoded.message_hex.as_deref(),
+            Some(hex::encode(&input).as_str())
+        );
+        assert_eq!(decoded.item_links.len(), 2);
+        assert_eq!(decoded.item_links[0].text, "Sword%");
+        assert_eq!(decoded.item_links[1].text, "Épée");
+        for link in &decoded.item_links {
+            assert_eq!(&decoded.text[link.text_start..link.text_end], link.text);
+            assert_eq!(input[link.start], 0x12);
+            assert_eq!(input[link.end - 1], 0x12);
+            assert_eq!(link.body, std::str::from_utf8(body).unwrap());
+        }
     }
 
     #[test]
