@@ -1,6 +1,6 @@
 use super::{
-    CancellationToken, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage, ConnectionState,
-    DecodeError, Events, LoginError, RecordEvent, RunOptions,
+    CancellationToken, ClientCommand, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage,
+    ConnectionState, DecodeError, Events, LoginError, RecordEvent, RunOptions,
 };
 use crate::{
     assets::Assets,
@@ -16,6 +16,7 @@ use eq_login_protocol::{
 };
 use std::{
     net::{IpAddr, ToSocketAddrs},
+    sync::mpsc::Receiver,
     time::{Duration, Instant},
 };
 
@@ -31,6 +32,7 @@ pub(super) fn run(
     assets: &Assets,
     stop: &CancellationToken,
     options: &RunOptions,
+    commands: Option<&Receiver<ClientCommand>>,
     log: &mut Events<'_>,
 ) -> Result<()> {
     ensure!(!stop.is_cancelled(), "shutdown requested");
@@ -41,6 +43,7 @@ pub(super) fn run(
         credentials: &credentials,
         stop,
         duration: options.zone_duration,
+        commands,
     };
     world(&context, assets, &ip, options.world_only, log)
 }
@@ -270,6 +273,7 @@ struct CharacterSession<'a> {
     credentials: &'a Credentials,
     stop: &'a CancellationToken,
     duration: Option<Duration>,
+    commands: Option<&'a Receiver<ClientCommand>>,
 }
 
 /// Warn about unscanned files while allowing the server to evaluate checksum zero.
@@ -452,6 +456,23 @@ fn zone(
             session.send_unreliable(0x14cb, &stationary)?;
             position_sequence = position_sequence.wrapping_add(1);
             last_position = Instant::now();
+        }
+        if ready {
+            if let Some(commands) = context.commands {
+                // Bound each pass so continuous producers cannot starve receive/ACK work.
+                for command in commands.try_iter().take(64) {
+                    match command {
+                        ClientCommand::SendChat(message) => {
+                            match chat::encode_outbound(&message, &config.character) {
+                                Ok(body) => session.send(0x1004, &body)?,
+                                Err(error) => log.diagnostic(format!(
+                                    "Rejected invalid outbound chat command: {error}"
+                                ))?,
+                            }
+                        }
+                    }
+                }
+            }
         }
         let Some(mut packet) = session.receive()? else {
             continue;

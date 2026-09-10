@@ -5,8 +5,8 @@
 //! This example stops on a full or closed queue rather than dropping records.
 //!
 //! ```no_run
-//! use p99_logger_client::client::{CancellationToken, Client, ClientConfig,
-//!     ClientIdentity, RunOptions};
+//! use p99_logger_client::{chat::OutboundChat, client::{CancellationToken,
+//!     Client, ClientCommand, ClientConfig, ClientIdentity, RunOptions}};
 //! use std::{sync::mpsc, thread};
 //!
 //! # fn example() -> anyhow::Result<()> {
@@ -19,11 +19,14 @@
 //! let cancel = CancellationToken::default();
 //! let worker_cancel = cancel.clone();
 //! let (events, receiver) = mpsc::sync_channel(512);
+//! let (commands, command_queue) = mpsc::sync_channel(32);
 //! let worker = thread::spawn(move || {
-//!     client.run(&worker_cancel, RunOptions::default(), |event| {
+//!     client.run_with_commands(&worker_cancel, RunOptions::default(), &command_queue, |event| {
 //!         events.try_send(event).map_err(|_| anyhow::anyhow!("UI event queue unavailable"))
 //!     })
 //! });
+//! // After observing ConnectionStage::Ready, this is equivalent to `/say ok`.
+//! commands.try_send(ClientCommand::SendChat(OutboundChat::Say("ok".into())))?;
 //! // During the UI event loop, drain receiver.try_iter() and render the events.
 //! // On Disconnect or app shutdown, cancel and await worker completion.
 //! cancel.cancel();
@@ -37,7 +40,7 @@ mod session;
 
 use crate::{
     assets::Assets,
-    chat::{ChannelName, ChatEvent},
+    chat::{ChannelName, ChatEvent, OutboundChat},
 };
 use anyhow::{ensure, Context, Result};
 use serde::{Deserialize, Serialize};
@@ -46,6 +49,7 @@ use std::{
     fmt,
     sync::{
         atomic::{AtomicBool, Ordering},
+        mpsc::Receiver,
         Arc,
     },
     time::{Duration, Instant},
@@ -272,6 +276,12 @@ pub enum ClientEvent {
     Reconnecting { error: String, delay_seconds: u64 },
 }
 
+/// Work submitted by the host while the character is connected.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum ClientCommand {
+    SendChat(OutboundChat),
+}
+
 /// A reusable native client. The caller owns the worker thread and event storage.
 pub struct Client {
     config: ClientConfig,
@@ -316,7 +326,30 @@ impl Client {
         options: RunOptions,
         mut handler: impl FnMut(ClientEvent) -> Result<()>,
     ) -> Result<()> {
-        let mut events = Events::new(&self.config, &mut handler);
+        self.run_inner(cancel, options, None, &mut handler)
+    }
+
+    /// Connect and process commands from a nonblocking host-owned queue.
+    /// Commands are consumed only after zone admission and may remain queued
+    /// while a reconnect is in progress. Dropping every sender disables input.
+    pub fn run_with_commands(
+        &self,
+        cancel: &CancellationToken,
+        options: RunOptions,
+        commands: &Receiver<ClientCommand>,
+        mut handler: impl FnMut(ClientEvent) -> Result<()>,
+    ) -> Result<()> {
+        self.run_inner(cancel, options, Some(commands), &mut handler)
+    }
+
+    fn run_inner(
+        &self,
+        cancel: &CancellationToken,
+        options: RunOptions,
+        commands: Option<&Receiver<ClientCommand>>,
+        handler: &mut dyn FnMut(ClientEvent) -> Result<()>,
+    ) -> Result<()> {
+        let mut events = Events::new(&self.config, handler);
         loop {
             if cancel.is_cancelled() {
                 return events.status(ConnectionState::Stopped, 0, None);
@@ -330,6 +363,7 @@ impl Client {
                 &self.assets,
                 cancel,
                 &options,
+                commands,
                 &mut events,
             );
             if result

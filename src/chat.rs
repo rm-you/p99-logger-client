@@ -1,6 +1,9 @@
 use anyhow::{ensure, Result};
 use serde::{Deserialize, Serialize};
 
+const CHANNEL_MESSAGE_HEADER: usize = 148;
+const MAX_OUTBOUND_MESSAGE: usize = 4095;
+
 /// Titanium uses mixed polarity: guild/social/group/shout/auction/OOC and
 /// melee-miss filters show messages when set to one. Most spell filters use
 /// zero. This matches the successful stock client's 29-word filter packet.
@@ -34,6 +37,86 @@ pub enum ChannelName {
     System,
     GuildMotd,
     Unknown,
+}
+
+/// A chat message the logged-in character can send through the zone server.
+/// Every variant uses Common Tongue; tells carry their recipient explicitly.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum OutboundChat {
+    Guild(String),
+    Group(String),
+    Shout(String),
+    Auction(String),
+    Ooc(String),
+    Tell { recipient: String, message: String },
+    Say(String),
+    Raid(String),
+}
+
+impl OutboundChat {
+    const fn channel(&self) -> u32 {
+        match self {
+            Self::Guild(_) => 0,
+            Self::Group(_) => 2,
+            Self::Shout(_) => 3,
+            Self::Auction(_) => 4,
+            Self::Ooc(_) => 5,
+            Self::Tell { .. } => 7,
+            Self::Say(_) => 8,
+            Self::Raid(_) => 15,
+        }
+    }
+
+    fn message(&self) -> &str {
+        match self {
+            Self::Guild(message)
+            | Self::Group(message)
+            | Self::Shout(message)
+            | Self::Auction(message)
+            | Self::Ooc(message)
+            | Self::Say(message)
+            | Self::Raid(message)
+            | Self::Tell { message, .. } => message,
+        }
+    }
+
+    fn recipient(&self) -> Option<&str> {
+        match self {
+            Self::Tell { recipient, .. } => Some(recipient),
+            _ => None,
+        }
+    }
+}
+
+/// Encode the Titanium client-to-zone `ChannelMessage_Struct`.
+pub(crate) fn encode_outbound(message: &OutboundChat, sender: &str) -> Result<Vec<u8>> {
+    let text = message.message();
+    ensure!(!text.is_empty(), "chat message must not be empty");
+    ensure!(!text.contains('\0'), "chat message must not contain NUL");
+    ensure!(
+        text.len() <= MAX_OUTBOUND_MESSAGE,
+        "chat message exceeds server field size"
+    );
+    ensure!(
+        !sender.is_empty() && sender.len() < 64 && !sender.contains('\0'),
+        "sender exceeds protocol field size"
+    );
+
+    let mut body = vec![0; CHANNEL_MESSAGE_HEADER + text.len() + 1];
+    if let Some(recipient) = message.recipient() {
+        ensure!(
+            !recipient.is_empty() && recipient.len() < 64 && !recipient.contains('\0'),
+            "tell recipient exceeds protocol field size"
+        );
+        body[..recipient.len()].copy_from_slice(recipient.as_bytes());
+    }
+    body[64..64 + sender.len()].copy_from_slice(sender.as_bytes());
+    // Language 0 is Common Tongue. The two unknown words remain zero.
+    body[132..136].copy_from_slice(&message.channel().to_le_bytes());
+    body[144..148].copy_from_slice(&100u32.to_le_bytes());
+    body[CHANNEL_MESSAGE_HEADER..CHANNEL_MESSAGE_HEADER + text.len()]
+        .copy_from_slice(text.as_bytes());
+    Ok(body)
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -320,6 +403,69 @@ mod tests {
             }
         }
         assert!(parse(0xffff, &[], false).unwrap().is_none());
+    }
+
+    #[test]
+    fn outbound_chat_matches_the_titanium_channel_message_layout() {
+        let cases = [
+            (OutboundChat::Guild("guild".into()), 0, None),
+            (OutboundChat::Group("group".into()), 2, None),
+            (OutboundChat::Shout("shout".into()), 3, None),
+            (OutboundChat::Auction("auction".into()), 4, None),
+            (OutboundChat::Ooc("ooc".into()), 5, None),
+            (
+                OutboundChat::Tell {
+                    recipient: "Recipient".into(),
+                    message: "tell".into(),
+                },
+                7,
+                Some("Recipient"),
+            ),
+            (OutboundChat::Say("say".into()), 8, None),
+            (OutboundChat::Raid("raid".into()), 15, None),
+        ];
+
+        for (message, channel, recipient) in cases {
+            let expected_message = message.message().as_bytes().to_vec();
+            let body = encode_outbound(&message, "ExampleCharacter").unwrap();
+            assert_eq!(
+                body.len(),
+                CHANNEL_MESSAGE_HEADER + expected_message.len() + 1
+            );
+            assert_eq!(text(&body[..64]), recipient.unwrap_or_default());
+            assert_eq!(text(&body[64..128]), "ExampleCharacter");
+            assert_eq!(u32_at(&body, 128), 0);
+            assert_eq!(u32_at(&body, 132), channel);
+            assert_eq!(&body[136..144], &[0; 8]);
+            assert_eq!(u32_at(&body, 144), 100);
+            assert_eq!(
+                &body[CHANNEL_MESSAGE_HEADER..body.len() - 1],
+                expected_message
+            );
+            assert_eq!(body.last(), Some(&0));
+        }
+    }
+
+    #[test]
+    fn outbound_chat_rejects_values_the_wire_or_server_cannot_represent() {
+        for message in [
+            OutboundChat::Say(String::new()),
+            OutboundChat::Say("bad\0message".into()),
+            OutboundChat::Say("x".repeat(MAX_OUTBOUND_MESSAGE + 1)),
+            OutboundChat::Tell {
+                recipient: String::new(),
+                message: "hello".into(),
+            },
+            OutboundChat::Tell {
+                recipient: "x".repeat(64),
+                message: "hello".into(),
+            },
+        ] {
+            assert!(encode_outbound(&message, "ExampleCharacter").is_err());
+        }
+        assert!(
+            encode_outbound(&OutboundChat::Say("hello".into()), "x".repeat(64).as_str()).is_err()
+        );
     }
 
     #[test]
