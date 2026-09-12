@@ -1,14 +1,17 @@
 # p99-logger-client
 
-A native Rust client that logs into Project 1999, enters an existing character,
-keeps the character at its saved position, and writes received communications
-as JSONL. It runs headlessly without Wine, the EverQuest executable, or game
-assets at runtime. The small checksum inventory required by the server is built
-into the executable image.
+A native Rust client that logs into an EverQuest server, enters an existing
+character, keeps the character at its saved position, and writes received
+communications as JSONL. It runs headlessly without Wine or the EverQuest
+executable.
 
-The client targets the Titanium/P99 V62 protocol. Live tests on P99 Green have
-received auction and OOC messages, including complete item-link data. It never
-sends chat, navigates, attacks, or performs other gameplay.
+The client supports the Titanium/P99 V62 protocol and has source-derived,
+offline-tested support for Project Quarm's Windows TAKP/EQMac protocol. P99
+Green has live coverage for auction and OOC messages, including complete item
+links. Quarm support has not connected to a live server; its first live test is
+intentionally waiting for approval from the Quarm team. See
+[the Quarm protocol plan](docs/quarm-protocol.md) for the packet flow, evidence,
+and approval checklist.
 
 ## Configuration
 
@@ -16,6 +19,14 @@ Copy [config.example.json](config.example.json) to a private location and set
 the login account, password, exact server-list name, and existing character.
 Keep the configuration and output private. The included Compose setup uses
 `.local/`, which Git and Docker both exclude.
+
+`protocol` selects the client family and its default login endpoint. It may be
+omitted for existing P99 configurations.
+
+| `protocol` | Default login endpoint | Status |
+| --- | --- | --- |
+| `project1999` | `login.eqemulator.net:5998` | Live tested |
+| `quarm` | `loginserver.takproject.net:6000` | Offline tested; live approval pending |
 
 The public P99 server-list names are:
 
@@ -40,13 +51,31 @@ The account and character must already exist; this client does not create or
 modify them. The `server` value is matched case-insensitively against the name
 returned by the live server list, so retain its punctuation and spacing.
 
-The optional fields are `host` (default `login.eqemulator.net`), `port`
-(default `5998`), `assets`, `output`, `health`, `channels`, `include_raw`
-(default `false`), and `reconnect_seconds` (default `30`). With no `output`,
-JSONL is written only to standard output. When `assets` is omitted, the client
-uses the inventory compiled into the binary; set it to a readable path to
-override that inventory. The example supplies the fixed `output` and `health`
-paths used by Compose, so users still edit only the four required values.
+A fictional Quarm configuration is:
+
+```json
+{
+  "protocol": "quarm",
+  "user": "EXAMPLE_TAKP_LOGIN_ACCOUNT",
+  "pass": "EXAMPLE_PASSWORD",
+  "server": "The Project Quarm Server",
+  "character": "ExampleCharacter"
+}
+```
+
+The Quarm server name above comes from the EQEmulator registration and the
+TAKP login server appends ` Server` to registered world names. Confirm it from
+the returned server list before the first approved live test.
+
+The optional fields are `protocol` (default `project1999`), `host`, `port`,
+`assets`, `output`, `health`, `channels`, `include_raw` (default `false`), and
+`reconnect_seconds` (default `30`). `host` and `port` override the selected
+protocol's endpoint. With no `output`, JSONL is written only to standard output.
+For P99, omitting `assets` uses the inventory compiled into the binary; set it
+to a readable path to override that inventory. Quarm's implemented handshake
+does not use this inventory. The example supplies the fixed `output` and
+`health` paths used by Compose, so P99 users still edit only the four required
+values.
 
 Omit `channels` to log every decoded communication category. Set it to a list
 to keep only selected categories. These examples are equivalent; the short
@@ -66,7 +95,7 @@ To collect only guild chat, use `"channels": ["gu"]`. The canonical names are
 Filtering applies to decoded chat records; malformed recognized packets remain
 visible as `decode_error` records.
 
-The repository and published image include checksums for the installed zone
+For P99, the repository and published image include checksums for the installed zone
 and model archives, along with the world validation files. The server supplies
 a manifest of filenames during world login and zone handoff; the client looks
 up and sends only the requested checksums. No zone selection is needed in the
@@ -137,15 +166,18 @@ duplicating the original packet and message bytes. Set `include_raw` to `true`
 when collecting reverse-engineering data to add `payload_hex`, `message`, and
 `message_hex`.
 
-Item links retain their complete 45-character body, label, item ID, wire
-byte offsets, and decoded-text byte offsets. Empty item-link arrays are omitted.
+Item links retain their complete protocol body (45 characters on P99 and 7 on
+Quarm), label, item ID, wire byte offsets, and decoded-text byte offsets. Empty
+item-link arrays are omitted.
 MOTD, guild MOTD, emotes, special messages, and string-table messages are also
 logged. Unknown channel IDs are preserved rather than dropped. Malformed recognized communication
 packets always produce `decode_error` records with their original bytes.
 
-Auction and OOC have live native coverage. Guild, group, shout, tell, say,
+On P99, auction and OOC have live native coverage. Guild, group, shout, tell, say,
 raid, broadcast, GM-say, emote, and unknown channel IDs share the tested
-channel decoder but have not all been exercised live.
+channel decoder but have not all been exercised live. Quarm channel, MOTD,
+guild-MOTD, emote, special-message, and formatted-message layouts have offline
+tests against structures from the Quarm server source; none has live coverage.
 
 ### Item-link positions
 
@@ -179,12 +211,14 @@ the release `tag`. Disabling default features removes the CLI and its signal
 dependency. The network engine and bundled asset inventory remain available.
 
 Create a `client::ClientConfig` from the app's configuration screen, then
-construct `Client::new(config, identity)`. `ClientIdentity` contains the short
-hostname and username metadata used in V62 validation (1–15 UTF-8 bytes each;
-hostname is uppercased). These are host metadata, separate from login
-credentials. The host app supplies them; the library has no Linux filesystem
-or environment-variable dependency. Use `Client::with_assets` to override
-the bundled checksums when needed.
+construct `Client::new(config, identity)`. `ClientConfig::new` selects P99;
+`ClientConfig::for_protocol` selects a specific family. `ClientIdentity`
+contains the short hostname and username metadata used in P99 V62 validation
+(1–15 UTF-8 bytes each; hostname is uppercased). Quarm does not transmit these
+fields, although callers still supply valid values to the shared API. These are
+host metadata, separate from login credentials. The host app supplies them;
+the library has no Linux filesystem or environment-variable dependency. Use
+`Client::with_assets` to override the bundled P99 checksums when needed.
 
 Run `Client::run` on a dedicated worker thread with a `CancellationToken` and
 `RunOptions`. It emits owned `ClientEvent` values for status, communication
@@ -208,11 +242,12 @@ For two-way clients, call `Client::run_with_commands` with the receiving side of
 a bounded `std::sync::mpsc` queue. After `ConnectionStage::Ready`, enqueue
 `ClientCommand::SendChat` with a typed `chat::OutboundChat` variant. Standard
 guild, group, shout, auction, OOC, tell, say, and raid messages are supported;
-the engine builds the Titanium packet and sends it through the active reliable
-zone session. Commands wait in the host queue until zone admission, including
-during reconnects, so callers should enqueue only while their latest state is
-connected. Invalid text or tell recipients produce a diagnostic and do not
-disconnect the character.
+the engine builds the selected family's packet and sends it through the active
+reliable zone session. Commands wait in the host queue until zone admission,
+including during reconnects, so callers should enqueue only while their latest
+state is connected. Invalid text or tell recipients produce a diagnostic and
+do not disconnect the character. Quarm outbound chat is offline-tested only and
+should be included in the team's approval before live use.
 
 The phone app owns credential storage, its UI, and lifecycle decisions, including
 when to disconnect as it backgrounds. `ClientConfig` intentionally has no

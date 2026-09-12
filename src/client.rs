@@ -36,6 +36,7 @@
 //! # }
 //! ```
 
+mod quarm;
 mod session;
 
 use crate::{
@@ -47,6 +48,7 @@ use serde::{Deserialize, Serialize};
 use std::{
     collections::HashSet,
     fmt,
+    str::FromStr,
     sync::{
         atomic::{AtomicBool, Ordering},
         mpsc::Receiver,
@@ -55,10 +57,46 @@ use std::{
     time::{Duration, Instant},
 };
 
+/// Wire protocol and client family used by a server.
+#[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ServerProtocol {
+    /// Project 1999's Titanium/P99-V62 protocol.
+    #[default]
+    #[serde(alias = "p99", alias = "project_1999")]
+    Project1999,
+    /// Project Quarm's Windows TAKP/EQMac protocol.
+    Quarm,
+}
+
+impl ServerProtocol {
+    /// Return the public login endpoint normally used by this protocol.
+    #[must_use]
+    pub const fn default_endpoint(self) -> (&'static str, u16) {
+        match self {
+            Self::Project1999 => ("login.eqemulator.net", 5998),
+            Self::Quarm => ("loginserver.takproject.net", 6000),
+        }
+    }
+}
+
+impl FromStr for ServerProtocol {
+    type Err = anyhow::Error;
+
+    fn from_str(value: &str) -> Result<Self> {
+        match value.to_ascii_lowercase().as_str() {
+            "p99" | "project1999" | "project_1999" => Ok(Self::Project1999),
+            "quarm" => Ok(Self::Quarm),
+            _ => anyhow::bail!("unknown server protocol {value:?}"),
+        }
+    }
+}
+
 /// Connection and logging preferences. Intentionally does not implement Debug
 /// or Serialize, so credentials are not included in diagnostic output.
 #[derive(Clone)]
 pub struct ClientConfig {
+    pub protocol: ServerProtocol,
     pub host: String,
     pub port: u16,
     pub user: String,
@@ -79,9 +117,22 @@ impl ClientConfig {
         server: impl Into<String>,
         character: impl Into<String>,
     ) -> Self {
+        Self::for_protocol(ServerProtocol::Project1999, user, pass, server, character)
+    }
+
+    /// Configure a character with a protocol's normal login endpoint.
+    pub fn for_protocol(
+        protocol: ServerProtocol,
+        user: impl Into<String>,
+        pass: impl Into<String>,
+        server: impl Into<String>,
+        character: impl Into<String>,
+    ) -> Self {
+        let (host, port) = protocol.default_endpoint();
         Self {
-            host: "login.eqemulator.net".into(),
-            port: 5998,
+            protocol,
+            host: host.into(),
+            port,
             user: user.into(),
             pass: pass.into(),
             server: server.into(),
@@ -106,6 +157,12 @@ impl ClientConfig {
             );
         }
         ensure!(self.port != 0, "login port must be nonzero");
+        if self.protocol == ServerProtocol::Quarm {
+            ensure!(
+                self.user.len() < 20 && self.pass.len() < 20,
+                "Quarm login fields must fit in 19 bytes"
+            );
+        }
         ensure!(
             self.character.len() < 64,
             "character name exceeds protocol field size"
@@ -488,6 +545,24 @@ impl<'a> Events<'a> {
 mod tests {
     use super::*;
     use crate::chat;
+
+    #[test]
+    fn protocol_names_are_stable_and_p99_aliases_remain_readable() {
+        assert_eq!(
+            serde_json::to_string(&ServerProtocol::Project1999).unwrap(),
+            r#""project1999""#
+        );
+        for name in [r#""project1999""#, r#""p99""#, r#""project_1999""#] {
+            assert_eq!(
+                serde_json::from_str::<ServerProtocol>(name).unwrap(),
+                ServerProtocol::Project1999
+            );
+        }
+        assert_eq!(
+            "QUARM".parse::<ServerProtocol>().unwrap(),
+            ServerProtocol::Quarm
+        );
+    }
 
     fn chat(channel: u32) -> ChatEvent {
         let mut packet = vec![0; 148];
