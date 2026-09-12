@@ -269,7 +269,9 @@ fn world(
 fn character_exists(body: &[u8], character: &str) -> Result<bool> {
     ensure!(body.len() >= 640, "truncated EQMac character list");
     Ok(body[..640]
-        .chunks_exact(64)
+        .as_chunks::<64>()
+        .0
+        .iter()
         .any(|name| cstr(name).eq_ignore_ascii_case(character.as_bytes())))
 }
 
