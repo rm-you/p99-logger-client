@@ -9,7 +9,8 @@ The implementation was derived from the Project Quarm server fork at commit
 [`4a6018e`](https://github.com/SecretsOTheP/EQMacEmu/tree/4a6018e4acd1b26b62c05482df6044e79f3dcb63).
 It has unit and synthetic UDP coverage. The Android consumer has exercised live
 login, character selection, zone entry, received chat, and outbound tells. The
-DLL version announcement described below awaits a live retest.
+DLL version announcement described below was also confirmed in a live retest: the
+outdated-client warning no longer appears.
 
 ## Configuration
 
@@ -127,7 +128,8 @@ used by these tests.
 ## Validation limits
 
 The version announcement is verified against the published DLL and a synthetic
-zone peer; disappearance of the live server warning still needs confirmation.
+zone peer, and a live Android retest confirmed the outdated-client warning
+no longer appears.
 The production `WarnDllVersionBelow` value has not been queried. Existing live
 coverage does not establish every channel, long-duration idle behavior, or
 optional gameplay feature compatibility. The client still sends the existing

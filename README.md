@@ -9,8 +9,8 @@ The client supports the Titanium/P99 V62 protocol and Project Quarm's
 Windows TAKP/EQMac protocol. P99
 Green has live coverage for auction and OOC messages, including complete item
 links. Quarm login, zone entry, received chat, and outbound tells have been
-exercised through the Android client. The DLL version announcement has synthetic
-UDP coverage and awaits a live retest. See
+exercised through the Android client. A live retest also confirmed that the DLL
+version announcement removes the outdated-client warning. See
 [the Quarm protocol notes](docs/quarm-protocol.md) for the packet flow and
 validation limits.
 
@@ -27,7 +27,7 @@ omitted for existing P99 configurations.
 | `protocol` | Default login endpoint | Status |
 | --- | --- | --- |
 | `project1999` | `login.eqemulator.net:5998` | Live tested |
-| `quarm` | `loginserver.takproject.net:6000` | Live login and chat; version announcement retest pending |
+| `quarm` | `loginserver.takproject.net:6000` | Live login, chat, and version announcement |
 
 The public P99 server-list names are:
 
