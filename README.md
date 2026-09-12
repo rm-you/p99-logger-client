@@ -280,3 +280,7 @@ reconnection enabled. Correct the credentials before starting another session.
 Transient connection failures retain the normal retry behavior. Native callers
 can downcast the error from `Client::run` to `client::LoginError::InvalidCredentials`;
 this uses the bad-password response detector in the shared SSO login crate.
+
+## License
+
+Licensed under the [MIT License](LICENSE).

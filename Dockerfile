@@ -20,7 +20,8 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 FROM scratch
 ARG VCS_REF
 LABEL org.opencontainers.image.source="https://github.com/rm-you/p99-logger-client" \
-      org.opencontainers.image.description="Headless Project 1999 chat logger" \
+      org.opencontainers.image.description="Headless Project 1999 and Project Quarm chat logger" \
+      org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.revision="$VCS_REF"
 COPY --from=build /build/target/release/p99-logger-client /p99-logger-client
 USER 65534:65534

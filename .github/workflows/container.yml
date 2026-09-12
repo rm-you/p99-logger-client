@@ -38,6 +38,9 @@ jobs:
         uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.description=Headless Project 1999 and Project Quarm chat logger
+            org.opencontainers.image.licenses=MIT
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=tag
