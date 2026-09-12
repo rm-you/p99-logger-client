@@ -50,7 +50,9 @@ World selection opens port 9000 on the chosen address, sends the 200-byte
 Windows form of `OP_SendLoginInfo` (`0x5818`) containing the `LS#` identifier and
 session key, verifies the configured character in `OP_SendCharInfo` (`0x4740`),
 sends the 64-byte `OP_EnterWorld` (`0x0180`), and follows the host/port in
-`OP_ZoneServerInfo` (`0x0480`). The server source treats the world approval and
+`OP_ZoneServerInfo` (`0x0480`). Its two-byte port is in network byte order
+(big-endian), as written by `Client::Clearance` in the server source; it differs
+from the Titanium handoff. The server source treats the world approval and
 checksum packets as optional client input, so this client does not invent
 checksum payloads.
 
@@ -85,7 +87,7 @@ Tests cover:
   server-style stream startup, and out-of-order delivery;
 - the Verant login cipher and fixed credential fields using fictional values;
 - old-format server-list parsing, the 200-byte Windows world login, the
-  character-list layout, and the 17-word server filter;
+  character-list layout, the network-order zone port, and the 17-word server filter;
 - EQMac inbound and outbound channel headers, unescaped percent text, item-link
   bodies, and protocol-specific system-message offsets;
 - the existing P99 client API and transport, ensuring the default protocol and

@@ -254,10 +254,7 @@ fn world(
                 log.send(ClientEvent::Progress(ConnectionStage::ConnectingZone))?;
             }
             WORLD_ZONE_SERVER if entered => {
-                ensure!(packet.body.len() >= 130, "truncated EQMac zone handoff");
-                let host = std::str::from_utf8(cstr(&packet.body[..128]))?.to_owned();
-                let port = u16::from_le_bytes(packet.body[128..130].try_into().unwrap());
-                ensure!(port != 0, "invalid EQMac zone port");
+                let (host, port) = zone_destination(&packet.body)?;
                 session.close()?;
                 return zone(config, stop, options, commands, log, &host, port);
             }
@@ -285,6 +282,16 @@ fn world_login(credentials: &Credentials) -> Result<[u8; 200]> {
     );
     body[key_start..key_start + credentials.key.len()].copy_from_slice(&credentials.key);
     Ok(body)
+}
+
+/// Read the world-to-zone endpoint advertised by an EQMac world server.
+fn zone_destination(body: &[u8]) -> Result<(String, u16)> {
+    ensure!(body.len() >= 130, "truncated EQMac zone handoff");
+    let host = std::str::from_utf8(cstr(&body[..128]))?.to_owned();
+    // Unlike the Titanium handoff, EQMac carries this port in network byte order.
+    let port = u16::from_be_bytes(body[128..130].try_into().unwrap());
+    ensure!(!host.is_empty() && port != 0, "invalid EQMac zone endpoint");
+    Ok((host, port))
 }
 
 /// Complete the EQMac zone admission sequence and collect communications.
@@ -482,6 +489,21 @@ mod tests {
             "The Project Quarm Server",
             "ExampleCharacter",
         )
+    }
+
+    #[test]
+    fn zone_handoff_uses_network_byte_order_for_the_port() {
+        // EQMacEmu world/client.cpp serializes ntohs(GetCPort()) in this field.
+        let mut body = [0; 130];
+        put_string(&mut body[..128], "203.0.113.20").unwrap();
+        body[128..].copy_from_slice(&7000u16.to_be_bytes());
+        assert_eq!(
+            zone_destination(&body).unwrap(),
+            ("203.0.113.20".into(), 7000)
+        );
+        assert!(zone_destination(&body[..129]).is_err());
+        body[128..].fill(0);
+        assert!(zone_destination(&body).is_err());
     }
 
     #[test]
