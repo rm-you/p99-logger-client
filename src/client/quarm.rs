@@ -41,8 +41,15 @@ const ZONE_AVATAR_READY: u16 = 0x6f40;
 const ZONE_SERVER_FILTER: u16 = 0xff41;
 const ZONE_CLIENT_UPDATE: u16 = 0xf340;
 const ZONE_CHANNEL_MESSAGE: u16 = 0x0741;
+const ZONE_SPAWN_APPEARANCE: u16 = 0xf540;
 const ZONE_LOGOUT: u16 = 0x5041;
 const ZONE_CHANGE_REQUEST: u16 = 0x4d41;
+
+// akplus-dll af2bd327, eqgame.cpp: DLL_VERSION and DLL_VERSION_MESSAGE_ID.
+// This announcement is independent of the optional gameplay feature handshakes.
+const DLL_VERSION: u16 = 7;
+const DLL_MESSAGE_TYPE: u16 = 256;
+const DLL_VERSION_FEATURE: u16 = 4;
 
 struct Credentials {
     account: String,
@@ -404,6 +411,8 @@ fn zone(
             ZONE_AVATAR_READY if replied_experience && !sent_ready => {
                 ensure!(saw_profile, "zone became ready before player profile");
                 session.send(ZONE_SERVER_FILTER, &server_filters())?;
+                // ClientUpdate completes admission and triggers the server's version check.
+                session.send(ZONE_SPAWN_APPEARANCE, &dll_version_message(false))?;
                 session.send(ZONE_CLIENT_UPDATE, &[0; 15])?;
                 sent_ready = true;
                 ready = true;
@@ -418,12 +427,41 @@ fn zone(
                     "Quarm zone login sequence complete for {zone_name}; waiting for ongoing server traffic"
                 ))?;
             }
+            ZONE_SPAWN_APPEARANCE => {
+                if let Some(response) = dll_version_reply(&packet.body) {
+                    session.send(ZONE_SPAWN_APPEARANCE, &response)?;
+                }
+            }
             ZONE_LOGOUT => bail!("server logged the character out"),
             ZONE_CHANGE_REQUEST => bail!("server requested a new zone; reconnecting through world"),
             _ => (),
         }
         record_chat(config, &zone_name, &packet, log)?;
     }
+}
+
+/// Encode the DLL version announcement, or a reply with the response bit set.
+fn dll_version_message(response: bool) -> [u8; 8] {
+    let mut body = [0; 8]; // Custom DLL messages use spawn ID zero.
+    body[2..4].copy_from_slice(&DLL_MESSAGE_TYPE.to_le_bytes());
+    let parameter = (u32::from(response) << 31)
+        | (u32::from(DLL_VERSION_FEATURE) << 16)
+        | u32::from(DLL_VERSION);
+    body[4..].copy_from_slice(&parameter.to_le_bytes());
+    body
+}
+
+/// Answer only well-formed DLL version requests, during admission or normal play.
+fn dll_version_reply(body: &[u8]) -> Option<[u8; 8]> {
+    let body: &[u8; 8] = body.try_into().ok()?;
+    let spawn_id = u16::from_le_bytes(body[..2].try_into().unwrap());
+    let appearance = u16::from_le_bytes(body[2..4].try_into().unwrap());
+    let parameter = u32::from_le_bytes(body[4..].try_into().unwrap());
+    // Comparing the full high word also excludes responses (bit 31), preventing loops.
+    (spawn_id == 0
+        && appearance == DLL_MESSAGE_TYPE
+        && parameter >> 16 == u32::from(DLL_VERSION_FEATURE))
+    .then(|| dll_version_message(true))
 }
 
 fn record_chat(
@@ -477,11 +515,14 @@ fn cstr(bytes: &[u8]) -> &[u8] {
 }
 
 #[cfg(test)]
+mod zone_tests;
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use eq_login_protocol::crypto::des_decrypt;
 
-    fn config() -> ClientConfig {
+    pub(super) fn config() -> ClientConfig {
         ClientConfig::for_protocol(
             super::super::ServerProtocol::Quarm,
             "EXAMPLE_ACCOUNT",
@@ -489,6 +530,38 @@ mod tests {
             "The Project Quarm Server",
             "ExampleCharacter",
         )
+    }
+
+    #[test]
+    fn dll_version_ignores_other_features_responses_and_malformed_messages() {
+        let request = [0, 0, 0, 1, 0, 0, 4, 0];
+        for length in 0..8 {
+            assert!(dll_version_reply(&request[..length]).is_none());
+        }
+        let mut oversized = request.to_vec();
+        oversized.push(0);
+        assert!(dll_version_reply(&oversized).is_none());
+        for (offset, value) in [
+            (0, 1),
+            (2, 1),
+            (3, 0),
+            (6, 2),
+            (6, 3),
+            (6, 5),
+            (6, 7),
+            (6, 255),
+            (7, 128),
+        ] {
+            let mut other = request;
+            other[offset] = value;
+            assert!(dll_version_reply(&other).is_none());
+        }
+        let mut arbitrary_value = request;
+        arbitrary_value[4..6].fill(255);
+        assert_eq!(
+            dll_version_reply(&arbitrary_value),
+            Some([0, 0, 0, 1, 7, 0, 4, 128])
+        );
     }
 
     #[test]

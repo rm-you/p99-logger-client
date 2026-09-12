@@ -5,13 +5,14 @@ character, keeps the character at its saved position, and writes received
 communications as JSONL. It runs headlessly without Wine or the EverQuest
 executable.
 
-The client supports the Titanium/P99 V62 protocol and has source-derived,
-offline-tested support for Project Quarm's Windows TAKP/EQMac protocol. P99
+The client supports the Titanium/P99 V62 protocol and Project Quarm's
+Windows TAKP/EQMac protocol. P99
 Green has live coverage for auction and OOC messages, including complete item
-links. Quarm support has not connected to a live server; its first live test is
-intentionally waiting for approval from the Quarm team. See
-[the Quarm protocol plan](docs/quarm-protocol.md) for the packet flow, evidence,
-and approval checklist.
+links. Quarm login, zone entry, received chat, and outbound tells have been
+exercised through the Android client. The DLL version announcement has synthetic
+UDP coverage and awaits a live retest. See
+[the Quarm protocol notes](docs/quarm-protocol.md) for the packet flow and
+validation limits.
 
 ## Configuration
 
@@ -26,7 +27,7 @@ omitted for existing P99 configurations.
 | `protocol` | Default login endpoint | Status |
 | --- | --- | --- |
 | `project1999` | `login.eqemulator.net:5998` | Live tested |
-| `quarm` | `loginserver.takproject.net:6000` | Offline tested; live approval pending |
+| `quarm` | `loginserver.takproject.net:6000` | Live login and chat; version announcement retest pending |
 
 The public P99 server-list names are:
 
@@ -58,14 +59,13 @@ A fictional Quarm configuration is:
   "protocol": "quarm",
   "user": "EXAMPLE_TAKP_LOGIN_ACCOUNT",
   "pass": "EXAMPLE_PASSWORD",
-  "server": "The Project Quarm Server",
+  "server": "The Project Quarm Server Server",
   "character": "ExampleCharacter"
 }
 ```
 
-The Quarm server name above comes from the EQEmulator registration and the
-TAKP login server appends ` Server` to registered world names. Confirm it from
-the returned server list before the first approved live test.
+The repeated `Server` in Quarm's name is intentional: the TAKP login service
+appends ` Server` to the registered world name. Use the complete server-list name.
 
 The optional fields are `protocol` (default `project1999`), `host`, `port`,
 `assets`, `output`, `health`, `channels`, `include_raw` (default `false`), and
@@ -177,7 +177,8 @@ On P99, auction and OOC have live native coverage. Guild, group, shout, tell, sa
 raid, broadcast, GM-say, emote, and unknown channel IDs share the tested
 channel decoder but have not all been exercised live. Quarm channel, MOTD,
 guild-MOTD, emote, special-message, and formatted-message layouts have offline
-tests against structures from the Quarm server source; none has live coverage.
+tests against structures from the Quarm server source. Live Quarm testing has
+exercised chat, tells, and system messages, but not every communication category.
 
 ### Item-link positions
 
@@ -246,8 +247,8 @@ the engine builds the selected family's packet and sends it through the active
 reliable zone session. Commands wait in the host queue until zone admission,
 including during reconnects, so callers should enqueue only while their latest
 state is connected. Invalid text or tell recipients produce a diagnostic and
-do not disconnect the character. Quarm outbound chat is offline-tested only and
-should be included in the team's approval before live use.
+do not disconnect the character. Quarm outbound tells have been exercised live;
+the other outbound variants have synthetic layout coverage.
 
 The phone app owns credential storage, its UI, and lifecycle decisions, including
 when to disconnect as it backgrounds. `ClientConfig` intentionally has no
