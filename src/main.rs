@@ -4,7 +4,7 @@ use p99_logger_client::{
     chat,
     client::{
         CancellationToken, Client, ClientConfig, ClientEvent, ClientIdentity, ConnectionState,
-        Record, RunOptions, SessionStatus,
+        Record, RunOptions, ServerProtocol, SessionStatus,
     },
 };
 use serde::{Deserialize, Serialize};
@@ -21,10 +21,12 @@ use std::{
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Config {
-    #[serde(default = "default_host")]
-    host: String,
-    #[serde(default = "default_port")]
-    port: u16,
+    #[serde(default)]
+    protocol: ServerProtocol,
+    #[serde(default)]
+    host: Option<String>,
+    #[serde(default)]
+    port: Option<u16>,
     user: String,
     pass: String,
     server: String,
@@ -46,25 +48,24 @@ struct Config {
 impl Config {
     /// Translate the existing flat JSON settings into the embeddable engine config.
     fn client_config(&self) -> ClientConfig {
-        ClientConfig {
-            host: self.host.clone(),
-            port: self.port,
-            user: self.user.clone(),
-            pass: self.pass.clone(),
-            server: self.server.clone(),
-            character: self.character.clone(),
-            include_raw: self.include_raw,
-            channels: self.channels.clone(),
-            reconnect_delay: Duration::from_secs(self.reconnect_seconds),
+        let mut config = ClientConfig::for_protocol(
+            self.protocol,
+            &self.user,
+            &self.pass,
+            &self.server,
+            &self.character,
+        );
+        if let Some(host) = &self.host {
+            config.host.clone_from(host);
         }
+        if let Some(port) = self.port {
+            config.port = port;
+        }
+        config.include_raw = self.include_raw;
+        config.channels.clone_from(&self.channels);
+        config.reconnect_delay = Duration::from_secs(self.reconnect_seconds);
+        config
     }
-}
-
-fn default_host() -> String {
-    "login.eqemulator.net".into()
-}
-const fn default_port() -> u16 {
-    5998
 }
 const fn default_reconnect() -> u64 {
     30
@@ -95,14 +96,33 @@ mod config_tests {
         )
         .unwrap();
 
-        assert_eq!(config.host, "login.eqemulator.net");
-        assert_eq!(config.port, 5998);
+        assert_eq!(config.protocol, ServerProtocol::Project1999);
+        assert_eq!(config.client_config().host, "login.eqemulator.net");
+        assert_eq!(config.client_config().port, 5998);
         assert_eq!(config.assets, None);
         assert_eq!(config.reconnect_seconds, 30);
         assert_eq!(config.output, None);
         assert_eq!(config.health, None);
         assert!(!config.include_raw);
         assert_eq!(config.channels, None);
+    }
+
+    #[test]
+    fn quarm_selects_the_takp_login_endpoint_unless_overridden() {
+        let config: Config = serde_json::from_str(
+            r#"{
+                "protocol": "quarm",
+                "user": "EXAMPLE_LOGIN_ACCOUNT",
+                "pass": "EXAMPLE_PASSWORD",
+                "server": "The Project Quarm Server",
+                "character": "ExampleCharacter"
+            }"#,
+        )
+        .unwrap();
+        let client = config.client_config();
+        assert_eq!(client.protocol, ServerProtocol::Quarm);
+        assert_eq!(client.host, "loginserver.takproject.net");
+        assert_eq!(client.port, 6000);
     }
 
     #[test]
@@ -284,9 +304,14 @@ fn main() -> Result<()> {
         }
         Some("decode-events") => {
             ensure!(
-                args.len() == 3,
-                "usage: decode-events APPLICATION_PACKETS_JSON"
+                args.len() == 3 || args.len() == 4,
+                "usage: decode-events APPLICATION_PACKETS_JSON [p99|quarm]"
             );
+            let protocol = args
+                .get(3)
+                .map(|value| value.parse())
+                .transpose()?
+                .unwrap_or_default();
             let records: Vec<CapturedPacket> = serde_json::from_slice(&fs::read(&args[2])?)?;
             let mut output = io::BufWriter::new(io::stdout().lock());
             for record in records {
@@ -294,7 +319,7 @@ fn main() -> Result<()> {
                     continue;
                 }
                 let body = hex::decode(&record.payload_hex)?;
-                if let Some(event) = chat::parse(record.opcode, &body, true)? {
+                if let Some(event) = chat::parse_for(protocol, record.opcode, &body, true)? {
                     serde_json::to_writer(
                         &mut output,
                         &TimestampedEvent {

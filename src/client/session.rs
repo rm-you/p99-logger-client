@@ -1,6 +1,6 @@
 use super::{
     CancellationToken, ClientCommand, ClientConfig, ClientEvent, ClientIdentity, ConnectionStage,
-    ConnectionState, DecodeError, Events, LoginError, RecordEvent, RunOptions,
+    ConnectionState, DecodeError, Events, LoginError, RecordEvent, RunOptions, ServerProtocol,
 };
 use crate::{
     assets::Assets,
@@ -27,6 +27,23 @@ struct Credentials {
 
 /// Run one complete login/world/zone attempt with fresh session credentials.
 pub(super) fn run(
+    config: &ClientConfig,
+    identity: &ClientIdentity,
+    assets: &Assets,
+    stop: &CancellationToken,
+    options: &RunOptions,
+    commands: Option<&Receiver<ClientCommand>>,
+    log: &mut Events<'_>,
+) -> Result<()> {
+    match config.protocol {
+        ServerProtocol::Project1999 => {
+            run_p99(config, identity, assets, stop, options, commands, log)
+        }
+        ServerProtocol::Quarm => super::quarm::run(config, stop, options, commands, log),
+    }
+}
+
+fn run_p99(
     config: &ClientConfig,
     identity: &ClientIdentity,
     assets: &Assets,

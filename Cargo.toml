@@ -2,8 +2,9 @@
 name = "p99-logger-client"
 version = "0.1.0"
 edition = "2021"
-description = "Headless Project 1999 chat logger"
+description = "Headless Project 1999 and Project Quarm chat logger"
 repository = "https://github.com/rm-you/p99-logger-client"
+license = "MIT"
 
 [features]
 default = ["cli"]

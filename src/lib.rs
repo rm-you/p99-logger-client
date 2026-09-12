@@ -6,5 +6,6 @@
 pub mod assets;
 pub mod chat;
 pub mod client;
+mod old_transport;
 pub mod p99;
 pub mod transport;
