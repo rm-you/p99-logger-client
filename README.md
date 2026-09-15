@@ -193,66 +193,19 @@ including link metadata and delimiters. Use the new fields to display inline
 links; do not apply wire offsets to decoded text. All item-link fields remain
 available when raw packet logging is disabled.
 
-## Embed in a native application
+## Shared networking library
 
-The same crate exposes the complete login/world/zone session engine through
-`p99_logger_client::client`. The CLI is an adapter for JSON configuration,
-JSONL files, process signals, and health files; the library does not read those
-files, install signal handlers, or print to stdout/stderr.
+The login, world, zone, transport, chat, command, and validation code lives in
+[`eq-network`](https://github.com/eq-p99-tools/eq-network). This repository is a
+thin application adapter for JSON configuration, JSONL output, process signals,
+health files, and the container image.
 
-For a sibling phone UI repository, add:
-
-```toml
-[dependencies]
-p99-logger-client = { path = "../p99-logger-client", default-features = false }
-```
-
-After the API is released, replace `path` with this repository's `git` URL and
-the release `tag`. Disabling default features removes the CLI and its signal
-dependency. The network engine and bundled asset inventory remain available.
-
-Create a `client::ClientConfig` from the app's configuration screen, then
-construct `Client::new(config, identity)`. `ClientConfig::new` selects P99;
-`ClientConfig::for_protocol` selects a specific family. `ClientIdentity`
-contains the short hostname and username metadata used in P99 V62 validation
-(1–15 UTF-8 bytes each; hostname is uppercased). Quarm does not transmit these
-fields, although callers still supply valid values to the shared API. These are
-host metadata, separate from login credentials. The host app supplies them;
-the library has no Linux filesystem or environment-variable dependency. Use
-`Client::with_assets` to override the bundled P99 checksums when needed.
-
-Run `Client::run` on a dedicated worker thread with a `CancellationToken` and
-`RunOptions`. It emits owned `ClientEvent` values for status, communication
-records, connection milestones, diagnostics, and reconnect attempts.
-`ClientEvent::Progress` carries an ordered `ConnectionStage`, starting at
-`ConnectingLogin` for every attempt and ending at `Ready` after zone admission.
-Hosts can use these milestones for step-based progress without parsing diagnostics.
-`RecordEvent` distinguishes
-decoded chat from decode errors; chat contains typed channels and item links.
-Serializing a `Record` produces the same flat schema as the CLI's JSONL.
-
-Keep the event handler quick: enqueue events for the UI thread, and explicitly
-handle a full queue. Returning an error stops the client and closes its session
-without retrying or invoking that handler again. Calling `cancel()` interrupts
-network waits and reconnect delays; platform DNS resolution can still block.
-Wait for the worker to finish before starting another connection. A cancelled
-token stays cancelled, so create a new token for the next run. The module's
-Rustdoc includes a compiling worker/queue example.
-
-For two-way clients, call `Client::run_with_commands` with the receiving side of
-a bounded `std::sync::mpsc` queue. After `ConnectionStage::Ready`, enqueue
-`ClientCommand::SendChat` with a typed `chat::OutboundChat` variant. Standard
-guild, group, shout, auction, OOC, tell, say, and raid messages are supported;
-the engine builds the selected family's packet and sends it through the active
-reliable zone session. Commands wait in the host queue until zone admission,
-including during reconnects, so callers should enqueue only while their latest
-state is connected. Invalid text or tell recipients produce a diagnostic and
-do not disconnect the character. Quarm outbound tells have been exercised live;
-the other outbound variants have synthetic layout coverage.
-
-The phone app owns credential storage, its UI, and lifecycle decisions, including
-when to disconnect as it backgrounds. `ClientConfig` intentionally has no
-`Debug` or `Serialize` implementation.
+Native applications should depend on `eq-network` directly. Its public API
+provides `Client`, `ClientConfig`, typed events and commands, structured chat and
+item links, cooperative cancellation, and the bundled P99 checksum inventory.
+Protocol tools can depend on its smaller transport, login, or game-codec crates.
+The shared repository documents how movement, zoning, and later client actions
+fit into the command and session architecture.
 
 ## Build and release
 
@@ -260,19 +213,16 @@ when to disconnect as it backgrounds. `ClientConfig` intentionally has no
 docker build -t p99-logger-client .
 ```
 
-The Docker build checks formatting, runs Rust tests and Clippy with and without
-the CLI feature, and creates a stripped static binary in a `scratch` image.
-The mobile-library workflow checks compilation for Android and iOS on ARM64;
-device packaging and lifecycle behavior are the phone UI repository's job.
+The Docker build checks formatting, runs Rust tests and Clippy, and creates a
+stripped static binary in a `scratch` image.
 The GitHub Actions workflow builds `linux/amd64`. Pull requests build without
 publishing. Merges to `main`, version tags, and manual runs publish
 provenance/SBOM-enabled images to
 `ghcr.io/rm-you/p99-logger-client`, tagged by commit; the default branch also
 publishes `latest`.
 
-The login crypto and server-list parser are pinned to the proven Rust
-implementation in
-[p99-login-proxy](https://github.com/eq-p99-tools/p99-login-proxy).
+The application pins the reviewed `eq-network` commit until the initial crates.io
+release is published.
 
 ### Login failures
 

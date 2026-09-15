@@ -126,21 +126,61 @@ dependencies = [
 ]
 
 [[package]]
-name = "p99-logger-client"
+name = "eq-network"
 version = "0.1.0"
+source = "git+https://github.com/eq-p99-tools/eq-network?branch=main#da7bbd01a1a6fb8f472929b90db92b689494ee92"
 dependencies = [
  "anyhow",
  "chrono",
  "crc32fast",
+ "eq-network-game",
+ "eq-network-login",
+ "eq-network-transport",
  "hex",
  "md5",
- "miniz_oxide",
- "num-bigint",
- "protocol",
  "rand",
  "serde",
  "serde_json",
- "signal-hook",
+ "zeroize",
+]
+
+[[package]]
+name = "eq-network-game"
+version = "0.1.0"
+source = "git+https://github.com/eq-p99-tools/eq-network?branch=main#da7bbd01a1a6fb8f472929b90db92b689494ee92"
+dependencies = [
+ "anyhow",
+ "hex",
+ "md5",
+ "num-bigint",
+ "rand",
+ "serde",
+ "zeroize",
+]
+
+[[package]]
+name = "eq-network-login"
+version = "0.1.0"
+source = "git+https://github.com/eq-p99-tools/eq-network?branch=main#da7bbd01a1a6fb8f472929b90db92b689494ee92"
+dependencies = [
+ "cbc",
+ "cipher",
+ "des",
+ "eq-network-transport",
+ "thiserror",
+ "zeroize",
+]
+
+[[package]]
+name = "eq-network-transport"
+version = "0.1.0"
+source = "git+https://github.com/eq-p99-tools/eq-network?branch=main#da7bbd01a1a6fb8f472929b90db92b689494ee92"
+dependencies = [
+ "anyhow",
+ "crc32fast",
+ "miniz_oxide",
+ "rand",
+ "thiserror",
 ]
 
 [[package]]
@@ -329,6 +369,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
+name = "p99-logger-client"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "eq-network",
+ "hex",
+ "serde",
+ "serde_json",
+ "signal-hook",
+ "zeroize",
+]
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -350,19 +404,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "protocol"
-version = "2.0.0"
-source = "git+https://github.com/eq-p99-tools/p99-login-proxy?tag=v2.0.0-rc9#ebafb73d16463b39e7f0165c28f49e1d60ff4541"
-dependencies = [
- "cbc",
- "cipher",
- "des",
- "serde",
- "serde_json",
- "thiserror",
 ]
 
 [[package]]
@@ -678,6 +719,27 @@ name = "zerocopy-derive"
 version = "0.8.56"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2ab42fc20575779bd240faa45f94a74256f755c0fa9e89f0ede20d91d0cdfc1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "zeroize"
+version = "1.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e13c156562582aa81c60cb29407084cdb54c4164760106ab78e6c5b0858cf64e"
+dependencies = [
+ "serde",
+ "zeroize_derive",
+]
+
+[[package]]
+name = "zeroize_derive"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c50655cbb0fe3fc43170059e702f1ce5e19b84cec58dc87b037a09935c2f328"
 dependencies = [
  "proc-macro2",
  "quote",
