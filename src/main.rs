@@ -1,5 +1,5 @@
 use anyhow::{ensure, Context, Result};
-use p99_logger_client::{
+use eq_network::{
     assets::Assets,
     chat,
     client::{
@@ -17,6 +17,7 @@ use std::{
     sync::{atomic::AtomicBool, Arc},
     time::Duration,
 };
+use zeroize::Zeroizing;
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -27,8 +28,8 @@ struct Config {
     host: Option<String>,
     #[serde(default)]
     port: Option<u16>,
-    user: String,
-    pass: String,
+    user: Zeroizing<String>,
+    pass: Zeroizing<String>,
     server: String,
     character: String,
     #[serde(default)]
@@ -50,8 +51,8 @@ impl Config {
     fn client_config(&self) -> ClientConfig {
         let mut config = ClientConfig::for_protocol(
             self.protocol,
-            &self.user,
-            &self.pass,
+            self.user.as_str(),
+            self.pass.as_str(),
             &self.server,
             &self.character,
         );
@@ -307,7 +308,7 @@ fn main() -> Result<()> {
                 args.len() == 3 || args.len() == 4,
                 "usage: decode-events APPLICATION_PACKETS_JSON [p99|quarm]"
             );
-            let protocol = args
+            let protocol: ServerProtocol = args
                 .get(3)
                 .map(|value| value.parse())
                 .transpose()?
@@ -319,7 +320,7 @@ fn main() -> Result<()> {
                     continue;
                 }
                 let body = hex::decode(&record.payload_hex)?;
-                if let Some(event) = chat::parse_for(protocol, record.opcode, &body, true)? {
+                if let Some(event) = chat::parse_for(protocol.into(), record.opcode, &body, true)? {
                     serde_json::to_writer(
                         &mut output,
                         &TimestampedEvent {
@@ -339,13 +340,13 @@ fn main() -> Result<()> {
         "usage: p99-logger-client CONFIG [--world-only]"
     );
     let config: Config = serde_json::from_slice(&fs::read(&args[1])?)?;
-    let identity = ClientIdentity {
-        hostname: fs::read_to_string("/etc/hostname")
+    let identity = ClientIdentity::new(
+        fs::read_to_string("/etc/hostname")
             .context("read container hostname")?
             .trim()
             .to_owned(),
-        username: std::env::var("USER").unwrap_or_else(|_| "nobody".into()),
-    };
+        std::env::var("USER").unwrap_or_else(|_| "nobody".into()),
+    );
     let mut client = Client::new(config.client_config(), identity)?;
     if config.assets.is_some() {
         client = client.with_assets(load_assets(config.assets.as_deref())?)?;
@@ -361,11 +362,10 @@ fn main() -> Result<()> {
         .filter(|seconds| *seconds > 0)
         .map(Duration::from_secs);
     let world_only = args.iter().any(|arg| arg == "--world-only");
-    let options = RunOptions {
-        reconnect: zone_duration.is_none() && !world_only,
-        world_only,
-        zone_duration,
-    };
+    let mut options = RunOptions::default();
+    options.reconnect = zone_duration.is_none() && !world_only;
+    options.world_only = world_only;
+    options.zone_duration = zone_duration;
     let mut log = ChatLog::new(&config)?;
     client.run(
         &CancellationToken::from(stop),
@@ -390,6 +390,7 @@ fn main() -> Result<()> {
                 eprintln!("Connection ended: {error}. Reconnecting in {delay_seconds} seconds");
                 Ok(())
             }
+            _ => Ok(()),
         },
     )
 }
